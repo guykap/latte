@@ -43,6 +43,7 @@ public class Job {
 	int grade;
 	String message;
 	boolean decisionSubmit;
+	boolean offerHasBeenSubmitted;
 
 	public Job() {
 		message = new String("I would like to be considered for this production.  \n Thank you, \n Guy Kapulnik");
@@ -129,6 +130,9 @@ public class Job {
 	
 	public boolean getDecisionSubmit(){return decisionSubmit;};
 	public void setDecisionSubmit(boolean newBit){decisionSubmit = newBit;};
+	
+	public boolean getHasBeenSubmitted(){return offerHasBeenSubmitted;};
+	public void setHasBeenSubmitted(boolean newBit){offerHasBeenSubmitted = newBit;};
 	
 	public void readNotice(){
 		//this reads the notice and sets all the Job params accordingly.

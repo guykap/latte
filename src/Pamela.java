@@ -87,23 +87,36 @@ public class Pamela {
     offer.readNotice();
     offer.makeDecision();
     Jobs.add(offer);   
-    if(offer.getDecisionSubmit())
+    if((offer.getDecisionSubmit())&&(!offer.getHasBeenSubmitted()))
     {
     System.out.println("Begin submittion for this offer");	
     	    //submitting to this offer
     TimeUnit.SECONDS.sleep(2);
-    	
+    
+    //click on top offer
     driver.findElement(By.xpath("//tr[3]/td/a")).click();
     // ERROR: Caught exception [ERROR: Unsupported command [waitForPopUp | ProjWin | 30000]]
     // ERROR: Caught exception [ERROR: Unsupported command [selectWindow | name=ProjWin | ]]
 //    driver.findElement(By.linkText("submit")).click();
   
-    driver.findElement(By.xpath("//table[6]/tbody/tr/td/table/tbody/tr/td")).click();
+    driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table[3]/tbody/tr[3]/td/a")).click();
+    
+    //make sure the windows openned:
+    String navigatorTest = new String (driver.findElement(By.xpath("//tr[3]/td/a")).getText());
+    if(!navigatorTest.contains("Customize your submission")){
+    	//error oppenning the window
+    	  System.out.println("Error openning the window");	
+    	  return;
+    }
+    //add the choose the photo
+    
+    System.out.println("Openned window to choose phone and fill talent notes.");	
     driver.findElement(By.id("TALENTNOTE")).clear();
     driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
     driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
     driver.findElement(By.cssSelector("td.dotbottom > img")).click();
     System.out.println("Succ submitting");
+    offer.setHasBeenSubmitted(true);
     }else{
     	//do not submit
     }
