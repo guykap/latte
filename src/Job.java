@@ -204,9 +204,9 @@ public class Job {
 	
 	public void makeDecision(){
 		//if ((isSag)&&(isAge)&&(isMale)&&(!isCar)&&(isPayingEnough)){
-		if ((isAge)&&(isMale)&&(!isCar)&&(isPayingEnough)){
+		//if ((isAge)&&(isMale)&&(!isCar)&&(isPayingEnough)){
 			this.setDecisionSubmit(true);
-		}
+		//}
 		
 		//DO NOT SUBMIT
 		
@@ -244,7 +244,7 @@ public class Job {
 	public void improveMessage(){
 		//checks the length and if empty - then add the basic message
 		if (getMessage().length()<5){
-			setMessage("I would like to be considered for this production.\nThank you,\nGuy Kapulnik")
+			setMessage("I would like to be considered for this production.\nThank you,\nGuy Kapulnik");
 		}
 		//add the Thanks! Guy ending
 		if(!(getMessage().contains("Guy"))){

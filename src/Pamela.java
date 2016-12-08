@@ -91,7 +91,7 @@ public class Pamela {
     {
     System.out.println("Begin submittion for this offer");	
     	    //submitting to this offer
-    TimeUnit.SECONDS.sleep(randInt(1,2));
+    TimeUnit.SECONDS.sleep(2);
     	
     driver.findElement(By.xpath("//tr[3]/td/a")).click();
     // ERROR: Caught exception [ERROR: Unsupported command [waitForPopUp | ProjWin | 30000]]
