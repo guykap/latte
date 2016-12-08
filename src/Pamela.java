@@ -97,11 +97,13 @@ public class Pamela {
     driver.findElement(By.xpath("//tr[3]/td/a")).click();
     // ERROR: Caught exception [ERROR: Unsupported command [waitForPopUp | ProjWin | 30000]]
     // ERROR: Caught exception [ERROR: Unsupported command [selectWindow | name=ProjWin | ]]
-//    driver.findElement(By.linkText("submit")).click();
+     driver.findElement(By.linkText("submit")).click();
   
-    driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table[3]/tbody/tr[3]/td/a")).click();
+   // driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table[3]/tbody/tr[3]/td/a")).click();
     
-    //make sure the windows openned:
+    //make sure the windows opened:
+    String a =  new String (driver.findElement(By.xpath("//table/tbody/tr/td/span")).getText());
+    String b = new String (driver.findElement(By.xpath("//table/tbody/tr/td/a")).getText());   
     String navigatorTest = new String (driver.findElement(By.xpath("//tr[3]/td/a")).getText());
     if(!navigatorTest.contains("Customize your submission")){
     	//error oppenning the window
