@@ -30,4 +30,18 @@ listing:
 //table/tbody/tr/td/span/text()
 //form[@id='DISPLAY1']/table[12]
 
+
+AFTERLOGIN
+-----------
+//div[2]/div/div/div/ul/li[3]/a
+id=_ctl0_cphBody_lnkExtrasRoles
+//a[contains(text(),'21 new Extras roles')]
+//li[@id='_ctl0_cphBody_liDirectCastExtras']/a
+
+
+IN OFFERS TABLE
+//div[@id='DirectCastMainDiv']/table[3]/tbody/tr[9]/td/a
+//div[@id='DirectCastMainDiv']/table[3]/tbody/tr[12]/td/a
 //div[@id='DirectCastMainDiv']/table[3]/tbody/tr[15]/td/a
+//div[@id='DirectCastMainDiv']/table[3]/tbody/tr[18]/td/a
+
