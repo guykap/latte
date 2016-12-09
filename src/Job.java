@@ -47,14 +47,14 @@ public class Job {
 	boolean offerHasBeenSubmitted;
 
 	public Job() {
-		message = new String("I would like to be considered for this production.  \n Thank you, \n Guy Kapulnik");
+		message = new String("I would like to be considered for this production.  \nThank you, \nGuy Kapulnik");
 		// this age temp for this test version 
 		isAge = true;
 	}
 	
 	public Job(String newNotice){
 		notice = new String (newNotice);
-		message = new String("I would like to be considered for this production.  \n Thank you, \n Guy Kapulnik");
+		message = new String("I would like to be considered for this production.  \nThank you, \nGuy Kapulnik");
 		// this age temp for this test version 
 		isAge = true;
 	}
@@ -176,9 +176,8 @@ public class Job {
 		//setIsMaleName(true);
 				 
 		//ETHNICITY
-		if((noticeLowerCase.contains("all ethnicities"))
-				||(noticeLowerCase.contains("caucasian"))
-				||(noticeLowerCase.startsWith("caucasian")))
+		if((offerListingEthnicity.contains("all ethnicities"))
+				||(offerListingEthnicity.contains("caucasian")))
 				{
 					setIsEthnicity(true);
 				}
@@ -227,7 +226,7 @@ public void calcAgeRange(String ageData){
 			||(ageData.contains("20s to 30s"))
 			||(ageData.contains("20s-30s"))
 			||(ageData.contains("early 30s"))
-			||(ageData.contains("30 something "))
+			||(ageData.contains("30 something ")))
 			{
 				setIsAge(true);
 			}

@@ -1,0 +1,33 @@
+//tr[3]/td/a
+
+Role:
+//tr[3]/td/a
+
+Project Name:
+//tr[3]/td[2]/a
+
+Shoot Date:
+//tr[3]/td[3]/a
+
+Rate:
+//tr[3]/td[4]/a
+
+Paying:
+//tr[3]/td[5]/a
+
+Union:
+//tr[3]/td[6]/a
+
+Posted:
+//tr[3]/td[7]/a
+
+listing:
+//tr[5]/td/strong
+//tr[5]/td/ 
+
+
+
+//table/tbody/tr/td/span/text()
+//form[@id='DISPLAY1']/table[12]
+
+//div[@id='DirectCastMainDiv']/table[3]/tbody/tr[15]/td/a
