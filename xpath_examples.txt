@@ -1,3 +1,7 @@
+
+
+
+
 //tr[3]/td/a
 
 Role:
@@ -29,6 +33,13 @@ listing:
 
 //table/tbody/tr/td/span/text()
 //form[@id='DISPLAY1']/table[12]
+
+
+SHOOT DATE:
+ 
+//div[@id='DirectCastMainDiv']/table[3]/tbody/tr[3]/td[3]/a
+//tr[3]/td[3]/a
+
 
 
 AFTER LOGIN

@@ -1,0 +1,23 @@
+Design:
+----------
+
+
+Option 1:
+------------
+second tread - Updating the SQL on Cloud from the memory Jobs List
+
+
+Option 2:
+---------
+not having any List of Jobs - only using the Cloud SQL
+
+
+Toughts on design
+
+String whyDecision - explains why the decisiion was made
+-emailing the updates of the Submitted jobs only. So when CD calls me on the phone i know what to say
+Aklways know which page we are on.
+And if one type of click dooesn't-
+
+add shootdate to decision making in the event i;m' already booked on a certain date.
+

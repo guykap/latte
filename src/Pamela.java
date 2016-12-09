@@ -34,7 +34,8 @@ public class Pamela {
 
   @Test
   public void testPamela() throws Exception {
-	System.out.println(" start test Pamela");	  
+	  while(true){  
+	System.out.println("Start Login");	  
     driver.get(baseUrl + "/");
     TimeUnit.SECONDS.sleep(4);
     driver.findElement(By.id("login")).click();
@@ -45,14 +46,26 @@ public class Pamela {
     driver.findElement(By.xpath("//input[@id='submit']")).click();
     TimeUnit.SECONDS.sleep(4);
     driver.findElement(By.id("_ctl0_cphBody_rptProfiles__ctl1_lnkViewProfile2")).click();
+    //check for welcome window:
+    String locationTest1 = new String (driver.findElement(By.xpath("  //div[@id='maininfo']/h2")).getText());
+    if(!(locationTest1.contains("Welcome"))){
+    	 //go back to login page
+    	 System.out.println("Error logging in.");
+    	 continue;
+    }
+    
     System.out.println("Succ logging in");
     TimeUnit.SECONDS.sleep(4);
-   // driver.findElement(By.id("_ctl0_lnkDirectCast")).click();
+    
     try{
     	driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
-    }catch(Exception e){System.out.println("Didn't work"); }
- 
-
+    }catch(Exception e){
+    	System.out.println("Didn't work"); 
+    	 //go back to login page
+    	continue;
+    	}
+    
+//Choose from drop down list 'all roles':
 
     	driver.findElement(By.cssSelector("td > table > tbody > tr > td > a")).click();
     new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
@@ -126,7 +139,7 @@ public class Pamela {
     }
     System.out.println(" Decision : " + offer.getDecisionSubmit() + " SAG:" + offer.getIsSag() + " Male:"+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ " + offer.getNotice());
     
-
+	  }
   }
 
   @After
