@@ -46,8 +46,9 @@ public class Pamela {
     TimeUnit.SECONDS.sleep(4);
     driver.findElement(By.id("_ctl0_cphBody_rptProfiles__ctl1_lnkViewProfile2")).click();
     System.out.println("Succ logging in");
+    TimeUnit.SECONDS.sleep(4);
    // driver.findElement(By.id("_ctl0_lnkDirectCast")).click();
-    driver.findElement(By.id("id=_ctl0_cphBody_lnkExtrasRoles")).click();
+    driver.findElement(By.id("//div[2]/div/div/div/ul/li[3]/a")).click();
     driver.findElement(By.cssSelector("td > table > tbody > tr > td > a")).click();
     new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
    // driver.findElement(By.id("_ctl0_lnkExtrasRoles")).click();
