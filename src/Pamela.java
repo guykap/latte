@@ -49,11 +49,11 @@ public class Pamela {
     TimeUnit.SECONDS.sleep(4);
    // driver.findElement(By.id("_ctl0_lnkDirectCast")).click();
     try{
-    	//driver.findElement(By.id("//li[@id='_ctl0_cphBody_liDirectCastExtras']/a")).click();
-    	driver.findElement(By.id("//a[contains(text(),'Casting Billboard')]")).click();
-    }catch(Exception e){
-    	 System.out.println("Didn't work");
-    }
+    	driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
+    }catch(Exception e){System.out.println("Didn't work"); }
+ 
+
+
     	driver.findElement(By.cssSelector("td > table > tbody > tr > td > a")).click();
     new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
    // driver.findElement(By.id("_ctl0_lnkExtrasRoles")).click();
@@ -114,7 +114,7 @@ public class Pamela {
     }
     //add the choose the photo
     
-    System.out.println("Openned window to choose phone and fill talent notes.");	
+    System.out.println("Openned window to choose photo and fill talent notes.");	
     driver.findElement(By.id("TALENTNOTE")).clear();
     driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
     driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
