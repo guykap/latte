@@ -31,8 +31,9 @@ listing:
 //form[@id='DISPLAY1']/table[12]
 
 
-AFTERLOGIN
+AFTER LOGIN
 -----------
+driver.findElement(By.id("_ctl0_lnkExtrasRoles")).click();
 _ctl0_lnkDirectCast
 id=_ctl0_cphBody_lnkExtrasRoles
 
@@ -40,7 +41,7 @@ id=_ctl0_cphBody_lnkExtrasRoles
 
 //a[contains(text(),'new Extras roles')]
 //li[@id='_ctl0_cphBody_liDirectCastExtras']/a
-
+ 
 
 IN OFFERS TABLE
 //div[@id='DirectCastMainDiv']/table[3]/tbody/tr[9]/td/a
