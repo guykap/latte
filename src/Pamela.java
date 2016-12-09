@@ -48,16 +48,15 @@ public class Pamela {
     System.out.println("Succ logging in");
     TimeUnit.SECONDS.sleep(4);
    // driver.findElement(By.id("_ctl0_lnkDirectCast")).click();
-    driver.findElement(By.id("//li[@id='_ctl0_cphBody_liDirectCastExtras']/a")).click();
-    driver.findElement(By.cssSelector("td > table > tbody > tr > td > a")).click();
+    try{
+    	driver.findElement(By.id("//li[@id='_ctl0_cphBody_liDirectCastExtras']/a")).click();
+    }catch(Exception e){
+    	 System.out.println("Didn't work");
+    }
+    	driver.findElement(By.cssSelector("td > table > tbody > tr > td > a")).click();
     new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
    // driver.findElement(By.id("_ctl0_lnkExtrasRoles")).click();
-    
-    //check that the first three options don't say 'remove' link on the left. 
-    //if it has remove - log it in the DB as 'submitted' and end 
-    //enter the offer into the db, and make decision.
-    //if decision is SUBMIT perform:
-    
+
 
     String currentOffer = new String (driver.findElement(By.xpath("//tr[3]/td/a")).getText());
     String currentOfferRole =  new String (driver.findElement(By.xpath("//tr[3]/td/a")).getText());
