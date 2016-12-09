@@ -11,6 +11,7 @@ public class Job {
 
 	static String filename = "C:\\temp\\code\\castingNetworks\\test_file1.txt";
 	static int dailyMinPay = 30;
+	static int avgCharacterAge = 30;
 	
 	//PRIVATE:
 	String notice;
@@ -90,13 +91,13 @@ public class Job {
 		 
 		String delims = "[/,\n]";
 		String[] tokens= newData.split(delims);			
-			offerListingFirst = tokens[0];
-			offerListingSex =  tokens[1];
-			offerListingEthnicity =  tokens[2];			
-			offerListingAgesHint=tokens[3];
+			offerListingFirst = new String(tokens[0]);
+			offerListingSex = new String(tokens[1]);
+			offerListingEthnicity = new String(tokens[2]);			
+			offerListingAgesHint= new String(tokens[3]);
 			for(int i=4; i < tokens.length;i++)
 			{
-				offerListingNotes += tokens[i];
+				offerListingNotes += new String(tokens[i]);
 			}
 	};
 	
@@ -196,15 +197,73 @@ public class Job {
 					setIsCar(true);
 				}
 		
-		// read the AGE
+		//AGE
 		
-		// option one:   20 - 30
-		// option two:   20s to 30s
-		// option three: early 30s
-		//option four: 30 something
+		calcAgeRange(offerListingAgesHint);
 		
-		
+		}
+	 
+public void calcAgeRange(String ageData){
+	// read the AGE from data
+	if(ageData.length()<1)
+	{
+		//no age info here
+		setIsAge(true);
 	}
+	
+	
+	///19 - 65
+			// 
+			// option two:   20s to 30s
+			// option three: early 30s
+			//option four: 30 something
+
+	//case the data is simple to read
+	
+	if((ageData.contains("20 - 30"))
+			||(ageData.contains("20-30"))
+			||(ageData.contains("20 - 40"))
+			||(ageData.contains("20-40"))
+			||(ageData.contains("20s to 30s"))
+			||(ageData.contains("20s-30s"))
+			||(ageData.contains("early 30s"))
+			||(ageData.contains("30 something "))
+			{
+				setIsAge(true);
+			}
+		
+	//case the data has the format :   " 20 - 30"
+	String ageMin;
+	String ageMax;
+	String ageAverage;
+	
+	String delims = "[-,'to']";
+	String[] tokens= offerListingAgesHint.split(delims);	
+	
+	try{
+	ageMin = new String (tokens[0]);
+	ageMax = new String (tokens[1]);
+	
+	Double maybeAgeMin = new Double(Double.parseDouble(ageMin.trim()));
+	Double maybeAgeMax = new Double(Double.parseDouble(ageMax.trim()));
+	Double maybeAgeAverageTwice = new Double(maybeAgeMin + maybeAgeMax);
+	Double avgCharacterAgeTwice = new Double( avgCharacterAge * 2);
+	Double ageRange = new Double(10);
+	
+	//check if actor's age is near the average
+	if((maybeAgeAverageTwice  - avgCharacterAgeTwice ) <= ageRange ){
+		//the actor is in the age range
+		setIsAge(true);
+	}else{
+		//age of actor out of range
+		setIsAge(false);
+	}
+			
+	}catch(Exception e){
+	    System.err.format("Age range - faliure in reading or calculating age");
+	    setIsAge(false);
+	}
+}
 	
 	public void makeDecision(){
 		//if ((isSag)&&(isAge)&&(isMale)&&(!isCar)&&(isPayingEnough)){
