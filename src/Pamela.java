@@ -49,7 +49,8 @@ public class Pamela {
     TimeUnit.SECONDS.sleep(4);
    // driver.findElement(By.id("_ctl0_lnkDirectCast")).click();
     try{
-    	driver.findElement(By.id("//li[@id='_ctl0_cphBody_liDirectCastExtras']/a")).click();
+    	//driver.findElement(By.id("//li[@id='_ctl0_cphBody_liDirectCastExtras']/a")).click();
+    	driver.findElement(By.id("//a[contains(text(),'Casting Billboard')]")).click();
     }catch(Exception e){
     	 System.out.println("Didn't work");
     }
