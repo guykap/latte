@@ -21,7 +21,7 @@ public class Pamela {
 	static private List<Job> Jobs = new ArrayList<Job>();
 	static Iterator<Job> jobIterator = Jobs.iterator();
 	private Job offer;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.gecko.driver", "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
@@ -54,6 +54,8 @@ public class Pamela {
 
 			System.out.println("Succ logging in");
 			TimeUnit.SECONDS.sleep(4);
+			
+			//WORK ONLY ON BACKGROUND WORK $$$ NOW
 
 			try {
 				driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
@@ -63,24 +65,32 @@ public class Pamela {
 					// go back to login page
 					System.out.println("Error pressing Casting Billboard.");
 					continue;
-				}
+				}	
+					//choose BACKGROUND filter
+				driver.findElement(By.xpath("//a[contains(text(),'Click here to view  Extras Roles')]")).click();
+				String locationTest3 = new String(
+						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3")).getText());	
+				if (!(locationTest3.contains("Extras"))) {
+					// go back to login page
+					System.out.println("Error pressing Extras link.");
+					continue;
+				}	
+				
 			} catch (Exception e) {
 				System.out.println("Didn't work");
 				// go back to login page
 				continue;
 			}
-				
-			System.out.println("Succ opening Casing Billboards");
-			
-			//FOCUS ON PRINCIPLE ROLES
-			
-			//FOCUS ON EXTRA WORK$$$
-			
+
+			System.out.println("Succ opening Casing Billboards and Extras link");
+
+			 
+
 			// Choose from drop down list 'all roles':
 			try {
-
-				driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/a"))
-						.click();
+				 
+				 offer.setIsBackgroundWork(true);
+				//driver.findElement(By.xpath("//td/table/tbody/tr/td/a")).click();
 			} catch (Exception e) {
 				System.out.println("Didn't work");
 				// go back to login page
@@ -89,10 +99,9 @@ public class Pamela {
 
 			new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
 			// driver.findElement(By.id("_ctl0_lnkExtrasRoles")).click();
-
 			Job offer = new Job("tst");
-			handlePrincipleOffer(false);
-			// handleExtraOffer();
+			handlePrincipleOffer(true);
+			 
 			offer.readNotice();
 			offer.makeDecision();
 			Jobs.add(offer);
@@ -148,12 +157,10 @@ public class Pamela {
 		}
 	}
 
-	
+	private void handlePrincipleOffer(boolean isBackgroundWork) {
 
-	private void handlePrincipleOffer(boolean backgroundWork) {
-
-		try {
-
+		
+			offer.setIsBackgroundWork(isBackgroundWork);
 			// the EXTRA table has the shooting date .
 			// the PRINCIPLE table does not
 
@@ -167,26 +174,34 @@ public class Pamela {
 			String currentOfferPostedDate;
 			String currentOfferListing;
 			
-			if (!backgroundWork){
-				//PRINCIPLE WORK
-			//String line = new String(driver.findElement(By.xpath("//tr[3]/td")).getText());
-			currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
-			currentOfferRole = new String(currentOffer);
-			  currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
-			  currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
-			  currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
-			  currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());
-			  currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());
-			  currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());
-			  currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());
-			}else{
-				//BACKGROUND WORK
+			try {
+			if (isBackgroundWork) {
+				// BACKGROUND WORK
+
+				currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
+				currentOfferRole = new String(currentOffer);
+				currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
+				currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
+				currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
+				currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());
+				currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());
+				currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());
+				currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());
+			} else {
+				//  PRINCIPLE WORK
+				currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
+				currentOfferRole = new String(currentOffer);
+				currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
 				
-				
+				currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
+				currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
+				currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());
+				currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());
+				currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());
+				currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());
 			}
 			// enter into JOB class
 
-			offer.setIsBackgroundWork(false);
 			offer.setOfferRole(currentOffer);
 			offer.setOfferRole(currentOfferRole);
 			offer.setOfferProjectName(currentOfferProjectName);
@@ -197,22 +212,18 @@ public class Pamela {
 			offer.setOfferPostedDate(currentOfferPostedDate);
 			offer.setOfferListing(currentOfferListing);
 			System.out.println("Succ adding offer to Jobs list");
-			
-			 
+
 			return;
-			
-			
+
 		} catch (Exception e) {
 			System.out.println("Error grabbing the current Offer data into the Strings");
 			// go back to login page
-			 
+
 		}
 
 		// enter into MySQL
 
 	}
-
-	
 
 	@After
 	public void tearDown() throws Exception {

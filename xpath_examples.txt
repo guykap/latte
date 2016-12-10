@@ -1,5 +1,15 @@
+VAFIRICATIONS:
+==============
+Welcome Window:
+//div[@id='maininfo']/h2
+div/div/div/h2.text()='Welcome'
 
 
+
+
+
+//div[@id='DirectCastMainDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/a
+//td/table/tbody/tr/td/a
 
 
 //tr[3]/td/a
