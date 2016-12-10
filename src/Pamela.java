@@ -54,8 +54,8 @@ public class Pamela {
 
 			System.out.println("Succ logging in");
 			TimeUnit.SECONDS.sleep(4);
-			
-			//WORK ONLY ON BACKGROUND WORK $$$ NOW
+
+			// WORK ONLY ON BACKGROUND WORK $$$ NOW
 
 			try {
 				driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
@@ -65,17 +65,18 @@ public class Pamela {
 					// go back to login page
 					System.out.println("Error pressing Casting Billboard.");
 					continue;
-				}	
-					//choose BACKGROUND filter
-				driver.findElement(By.xpath("//a[contains(text(),'Click here to view  Extras Roles')]")).click();
+				}
+				// choose BACKGROUND filter
+				driver.findElement(By.xpath("//a[contains(text(),'Extras Roles')]")).click();
+			//	TimeUnit.SECONDS.sleep(3);
 				String locationTest3 = new String(
-						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3")).getText());	
+						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3")).getText());
 				if (!(locationTest3.contains("Extras"))) {
 					// go back to login page
 					System.out.println("Error pressing Extras link.");
 					continue;
-				}	
-				
+				}
+
 			} catch (Exception e) {
 				System.out.println("Didn't work");
 				// go back to login page
@@ -84,13 +85,11 @@ public class Pamela {
 
 			System.out.println("Succ opening Casing Billboards and Extras link");
 
-			 
-
 			// Choose from drop down list 'all roles':
 			try {
-				 
-				 offer.setIsBackgroundWork(true);
-				//driver.findElement(By.xpath("//td/table/tbody/tr/td/a")).click();
+				offer = new Job();
+				offer.setIsBackgroundWork(true);
+				// driver.findElement(By.xpath("//td/table/tbody/tr/td/a")).click();
 			} catch (Exception e) {
 				System.out.println("Didn't work");
 				// go back to login page
@@ -99,9 +98,8 @@ public class Pamela {
 
 			new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
 			// driver.findElement(By.id("_ctl0_lnkExtrasRoles")).click();
-			Job offer = new Job("tst");
-			handlePrincipleOffer(true);
-			 
+			handleBackgroundWorkOffer(true);
+
 			offer.readNotice();
 			offer.makeDecision();
 			Jobs.add(offer);
@@ -157,24 +155,23 @@ public class Pamela {
 		}
 	}
 
-	private void handlePrincipleOffer(boolean isBackgroundWork) {
+	private void handleBackgroundWorkOffer(boolean isBackgroundWork) {
 
-		
-			offer.setIsBackgroundWork(isBackgroundWork);
-			// the EXTRA table has the shooting date .
-			// the PRINCIPLE table does not
+		offer.setIsBackgroundWork(isBackgroundWork);
+		// the EXTRA table has the shooting date .
+		// the PRINCIPLE table does not
 
-			String currentOffer;
-			String currentOfferRole;
-			String currentOfferProjectName;
-			String currentOfferTypeProject;
-			String currentOffertRate;
-			String currentOfferPaying;
-			String currentOfferUnionStatus;
-			String currentOfferPostedDate;
-			String currentOfferListing;
-			
-			try {
+		String currentOffer;
+		String currentOfferRole;
+		String currentOfferProjectName;
+		String currentOfferTypeProject;
+		String currentOffertRate;
+		String currentOfferPaying;
+		String currentOfferUnionStatus;
+		String currentOfferPostedDate;
+		String currentOfferListing;
+
+		try {
 			if (isBackgroundWork) {
 				// BACKGROUND WORK
 
@@ -188,11 +185,11 @@ public class Pamela {
 				currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());
 				currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());
 			} else {
-				//  PRINCIPLE WORK
+				// PRINCIPLE WORK
 				currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
 				currentOfferRole = new String(currentOffer);
 				currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
-				
+
 				currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
 				currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
 				currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());

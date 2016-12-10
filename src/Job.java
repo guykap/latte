@@ -52,7 +52,9 @@ public class Job {
 
 	public Job() {
 	//	String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
-	//	this.offerId = new String (Timestamp(System.currentTimeMillis())); 
+	//	this.offerId = new String (Timestamp(System.currentTimeMillis()));
+		Long temp = System.currentTimeMillis();
+		this.offerId = new String ((new Long(System.currentTimeMillis())).toString());
 	}
 	
 	public Job(String newNotice){
