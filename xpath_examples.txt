@@ -87,3 +87,34 @@ IN OFFERS TABLE
 //div[@id='DirectCastMainDiv']/table[3]/tbody/tr[15]/td/a
 //div[@id='DirectCastMainDiv']/table[3]/tbody/tr[18]/td/a
 
+
+
+SUBMIT PAGE OPTIONS:
+**********************
+link=submit
+//a[contains(text(),'submit')]
+//a[contains(@href, "javascript:try { createCookie('checkoutcookie','CheckoutOK',.0070);eraseCookie('confirmationcookie');window.location%20=%20'https://talent.castingnetworks.com/DirectCast/SubmitToRole.aspx?crypt=ekiinlfnihjidefajeljdmepmekkgjpconafjfaekgjphkkeenknjhglfipbjcfmjakdilpdbejhhdmkclbbecagmllpibmmhphhdjhmdgpaaokiacgddnmkamloajgaocpjnpidlmfjmobcldhimabplaikcgojkdjkeijhao&redirect=gkpolhaoieonoccmhjplmpnbpecikiddke' } finally { window._executingJavascriptHref = undefined; }")]
+//a
+
+
+RECOGNIZE SUBMIT PAGE1
+-----------------
+ 
+<td class="sectionheadingAlt" bgcolor="#548DD6">Role</td>
+<td class="formlabel" valign="TOP" align="RIGHT">
+
+				Posted:&nbsp;10/18/2016
+				</td>
+ 
+
+//table[4]/tbody/tr/td    has text Role
+
+CHART OF EXTRAS LOCATION TABS
+---------------------
+2 NAme
+3 shootDate
+4 TypeProject
+5 Rate
+6 PayingJob
+7 Union
+8Posted date

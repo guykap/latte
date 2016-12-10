@@ -143,34 +143,37 @@ public class Pamela {
 
 			new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
 			// driver.findElement(By.id("_ctl0_lnkExtrasRoles")).click();
-			handleBackgroundWorkOffer(true);
 
-			offer.readNotice();
+			handleBackgroundWorkOffer(true);
+			//offer.readNotice();
 			offer.makeDecision();
-			Jobs.add(offer);
+			
 			if ((offer.getDecisionSubmit()) && (!offer.getHasBeenSubmitted())) {
 				System.out.println("Begin submittion for this offer");
 				// submitting to this offer
 				TimeUnit.SECONDS.sleep(2);
 				try {
-					// click on top offer
+						//submitting to top offer
 					driver.findElement(By.xpath("//tr[3]/td/a")).click();
-					String locationTest2 = new String(driver
-							.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
-					if (!(locationTest2.contains("Casting Billboard"))) {
+					 //checking that we are in submittion Page 1 - ADD THIS IS IMPORTANT
+					
+					
+					/*String locationTest2 = new String(driver.findElement(By.xpath("//td[3]")).getText());
+					if (!(locationTest2.contains("Role"))) {
 						// go back to login page
-						System.out.println("Error pressing Casting Billboard.");
+						System.out.println("Error pressing Casting Billboard -EXTRAS.");
 						continue;
 					}
+					*/
 				} catch (Exception e) {
 					System.out.println("Didn't work");
 					// go back to login page
 					continue;
 				}
 
-				driver.findElement(By.linkText("submit")).click();
-
-				// driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table[3]/tbody/tr[3]/td/a")).click();
+			//	driver.findElement(By.linkText("submit")).click();
+				
+				 driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
 
 				// make sure the windows opened:
 				String a = new String(driver.findElement(By.xpath("//table/tbody/tr/td/span")).getText());
@@ -256,6 +259,7 @@ public class Pamela {
 			offer.setOfferUnionStatus(currentOfferUnionStatus);
 			offer.setOfferPostedDate(currentOfferPostedDate);
 			offer.setOfferListing(currentOfferListing);
+			Jobs.add(offer);
 			System.out.println("Succ adding offer to Jobs list");
 
 			return;
