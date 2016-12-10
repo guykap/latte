@@ -79,7 +79,7 @@ public class Pamela {
 
 				}
 				System.out.println("B worked on " +trielNumB); 
-			 
+				
 				/*
 				driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
 				String locationTest2 = new String(
@@ -209,6 +209,7 @@ public class Pamela {
 		String currentOffer;
 		String currentOfferRole;
 		String currentOfferProjectName;
+		String currentOfferShootDate;
 		String currentOfferTypeProject;
 		String currentOffertRate;
 		String currentOfferPaying;
@@ -223,18 +224,20 @@ public class Pamela {
 				currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
 				currentOfferRole = new String(currentOffer);
 				currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
-				currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
-				currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
-				currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());
-				currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());
-				currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());
+				currentOfferShootDate = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
+				
+				currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
+				currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());
+				currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());
+				currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());
+				currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[8]/a")).getText());			
 				currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());
 			} else {
 				// PRINCIPLE WORK
 				currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
 				currentOfferRole = new String(currentOffer);
 				currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
-
+				currentOfferShootDate = new String("");
 				currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
 				currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
 				currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());
