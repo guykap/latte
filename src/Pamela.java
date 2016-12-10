@@ -218,27 +218,35 @@ public class Pamela {
 		String currentOfferListing;
 
 		try {
+			
+			try{currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());}catch(Exception e){currentOffer = new String("");};
+			currentOfferRole = new String(currentOffer);
+			
 			if (isBackgroundWork) {
 				// BACKGROUND WORK
-
-				currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
-				currentOfferRole = new String(currentOffer);
-				currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
-				currentOfferShootDate = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
-				
-				currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
-				currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());
-				currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());
-				currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());
-				currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[8]/a")).getText());			
-				currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());
-			} else {
+	try{currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());}catch(Exception e){currentOfferProjectName = new String("");};
+				try{currentOfferShootDate = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());}catch(Exception e){currentOfferShootDate = new String("");};
+				try{currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());}catch(Exception e){currentOfferTypeProject = new String("");};
+				try{currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());}catch(Exception e){currentOffertRate = new String("");};
+				try{currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());}catch(Exception e){currentOfferPaying = new String("");};
+				try{currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());}catch(Exception e){currentOfferUnionStatus = new String("");};
+				try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[8]/a")).getText());}catch(Exception e){currentOfferPostedDate = new String("");};
+				try{currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());}catch(Exception e){currentOfferListing = new String("");};
+			 	} else {
 				// PRINCIPLE WORK
-				currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
-				currentOfferRole = new String(currentOffer);
-				currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
+			 		try{currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());}catch(Exception e){currentOfferProjectName = new String("");};
+					try{currentOfferShootDate = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());}catch(Exception e){currentOfferShootDate = new String("");};
+					try{currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());}catch(Exception e){currentOfferTypeProject = new String("");};
+					try{currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());}catch(Exception e){currentOffertRate = new String("");};
+					try{currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());}catch(Exception e){currentOfferPaying = new String("");};
+					try{currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());}catch(Exception e){currentOfferUnionStatus = new String("");};
+					try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[8]/a")).getText());}catch(Exception e){currentOfferPostedDate = new String("");};
+					try{currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());}catch(Exception e){currentOfferListing = new String("");};	
+			 	 		
+			 
+				currentOfferProjectName = new String(driver.findElement(By.xpath()).getText());
 				currentOfferShootDate = new String("");
-				currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
+				currentOfferTypeProject = new String(driver.findElement(By.xpath()).getText());
 				currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
 				currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());
 				currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());
