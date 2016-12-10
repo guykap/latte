@@ -5,11 +5,28 @@ Welcome Window:
 div/div/div/h2.text()='Welcome'
 
 
+**choose ETRA roles link right from the Home page
+id=_ctl0_lnkExtrasRoles
+link=0 new Extras roles
+css=#_ctl0_cphBody_lnkExtrasRoles
+css=#_ctl0_cphBody_lnkExtrasRoles
+//a[contains(text(),'0 new Extras roles')]
+//a[@id='_ctl0_cphBody_lnkExtrasRoles']
+//li[@id='_ctl0_cphBody_liDirectCastExtras']/a
+//a[contains(@href, '../DirectCast/Roles.aspx?rt=xc1')]
+//div[2]/div/div/div/ul/li[3]/a
+
+<a id="_ctl0_cphBody_lnkExtrasRoles" href="../DirectCast/Roles.aspx?rt=xc1">?SOME NUMBER? new Extras roles</a>
+driver.findElement(By.xpath("//div[@id='D_ctl0_cphBody_lnkExtrasRoles']/")).click());
 
 
-
+	****: choosing the  extra filter
 //div[@id='DirectCastMainDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/a
 //td/table/tbody/tr/td/a
+css=td > table > tbody > tr > td > a
+//a[contains(text(),'Click here to view  Extras Roles')]
+
+
 
 
 //tr[3]/td/a

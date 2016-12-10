@@ -21,8 +21,8 @@ public class Pamela {
 	static private List<Job> Jobs = new ArrayList<Job>();
 	static Iterator<Job> jobIterator = Jobs.iterator();
 	private Job offer;
+	int trielNumB = 0;
 	int trielNum = 0;
-
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.gecko.driver", "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
@@ -59,6 +59,28 @@ public class Pamela {
 			// WORK ONLY ON BACKGROUND WORK $$$ NOW
 
 			try {
+				
+				switch (trielNumB++) {
+				case 0:
+					driver.findElement(By.xpath("//a[contains(text(),'Extras Roles')]")).click();
+					break;
+				case 1:
+					driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/a")).click();
+					break;
+				case 2:
+					driver.findElement(By.xpath("//td/table/tbody/tr/td/a")).click();
+					break;
+				case 3:
+					driver.findElement(By.xpath("css=td > table > tbody > tr > td > a")).click();
+					break;
+				case 4:
+					driver.findElement(By.xpath("//a[contains(text(),'Click here to view  Extras Roles')]")).click();
+					break;
+
+				}
+				System.out.println("worked on " +trielNumB); 
+				<a id="_ctl0_cphBody_lnkExtrasRoles" href="../DirectCast/Roles.aspx?rt=xc1">?SOME NUMBER? new Extras roles</a>
+
 				driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
 				String locationTest2 = new String(
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
