@@ -20,7 +20,8 @@ public class Pamela {
 	private StringBuffer verificationErrors = new StringBuffer();
 	static private List<Job> Jobs = new ArrayList<Job>();
 	static Iterator<Job> jobIterator = Jobs.iterator();
-
+	private Job offer;
+	
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.gecko.driver", "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
@@ -68,8 +69,13 @@ public class Pamela {
 				// go back to login page
 				continue;
 			}
-
+				
 			System.out.println("Succ opening Casing Billboards");
+			
+			//FOCUS ON PRINCIPLE ROLES
+			
+			//FOCUS ON EXTRA WORK$$$
+			
 			// Choose from drop down list 'all roles':
 			try {
 
@@ -86,9 +92,7 @@ public class Pamela {
 
 			Job offer = new Job("tst");
 			handlePrincipleOffer();
-
 			// handleExtraOffer();
-
 			offer.readNotice();
 			offer.makeDecision();
 			Jobs.add(offer);
@@ -153,7 +157,7 @@ public class Pamela {
 			// the EXTRA table has the shooting date .
 			// the PRINCIPLE table does not
 
-			String line = new String(driver.findElement(By.xpath("//tr[3]/td")).getText());
+			//String line = new String(driver.findElement(By.xpath("//tr[3]/td")).getText());
 			String currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
 			String currentOfferRole = new String(currentOffer);
 			String currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
@@ -180,14 +184,14 @@ public class Pamela {
 		} catch (Exception e) {
 			System.out.println("Error grabbing the current Offer data into the Strings");
 			// go back to login page
-			continue;
+			 
 		}
 
 		// enter into MySQL
 
 	}
 
-	}
+	
 
 	@After
 	public void tearDown() throws Exception {

@@ -1,5 +1,7 @@
 
 import java.io.BufferedReader;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ public class Job {
 	static int avgCharacterAge = 30;
 	
 	//PRIVATE:
+	String offerId;
 	String notice;
 	String noticeLowerCase;
 	String currentOffer;
@@ -48,16 +51,13 @@ public class Job {
 	boolean offerHasBeenSubmitted;
 
 	public Job() {
-		message = new String("I would like to be considered for this production.  \nThank you, \nGuy Kapulnik");
-		// this age temp for this test version 
-		isAge = true;
+		String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+	//	this.offerId = new String (Timestamp(System.currentTimeMillis())); 
 	}
 	
 	public Job(String newNotice){
 		notice = new String (newNotice);
-		message = new String("I would like to be considered for this production.  \nThank you, \nGuy Kapulnik");
 		// this age temp for this test version 
-		isAge = true;
 	}
 	
 
