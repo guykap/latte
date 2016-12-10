@@ -91,7 +91,7 @@ public class Pamela {
 			// driver.findElement(By.id("_ctl0_lnkExtrasRoles")).click();
 
 			Job offer = new Job("tst");
-			handlePrincipleOffer();
+			handlePrincipleOffer(false);
 			// handleExtraOffer();
 			offer.readNotice();
 			offer.makeDecision();
@@ -150,26 +150,43 @@ public class Pamela {
 
 	
 
-	private void handlePrincipleOffer() {
+	private void handlePrincipleOffer(boolean backgroundWork) {
 
 		try {
 
 			// the EXTRA table has the shooting date .
 			// the PRINCIPLE table does not
 
+			String currentOffer;
+			String currentOfferRole;
+			String currentOfferProjectName;
+			String currentOfferTypeProject;
+			String currentOffertRate;
+			String currentOfferPaying;
+			String currentOfferUnionStatus;
+			String currentOfferPostedDate;
+			String currentOfferListing;
+			
+			if (!backgroundWork){
+				//PRINCIPLE WORK
 			//String line = new String(driver.findElement(By.xpath("//tr[3]/td")).getText());
-			String currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
-			String currentOfferRole = new String(currentOffer);
-			String currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
-			String currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
-			String currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
-			String currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());
-			String currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());
-			String currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());
-			String currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());
-
+			currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
+			currentOfferRole = new String(currentOffer);
+			  currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
+			  currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
+			  currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
+			  currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());
+			  currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());
+			  currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());
+			  currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());
+			}else{
+				//BACKGROUND WORK
+				
+				
+			}
 			// enter into JOB class
 
+			offer.setIsBackgroundWork(false);
 			offer.setOfferRole(currentOffer);
 			offer.setOfferRole(currentOfferRole);
 			offer.setOfferProjectName(currentOfferProjectName);
@@ -180,7 +197,11 @@ public class Pamela {
 			offer.setOfferPostedDate(currentOfferPostedDate);
 			offer.setOfferListing(currentOfferListing);
 			System.out.println("Succ adding offer to Jobs list");
-
+			
+			 
+			return;
+			
+			
 		} catch (Exception e) {
 			System.out.println("Error grabbing the current Offer data into the Strings");
 			// go back to login page

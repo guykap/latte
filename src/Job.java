@@ -51,7 +51,7 @@ public class Job {
 	boolean offerHasBeenSubmitted;
 
 	public Job() {
-		String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+	//	String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
 	//	this.offerId = new String (Timestamp(System.currentTimeMillis())); 
 	}
 	
