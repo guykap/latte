@@ -21,6 +21,7 @@ public class Pamela {
 	static private List<Job> Jobs = new ArrayList<Job>();
 	static Iterator<Job> jobIterator = Jobs.iterator();
 	private Job offer;
+	int trielNum = 0;
 
 	@Before
 	public void setUp() throws Exception {
@@ -67,8 +68,28 @@ public class Pamela {
 					continue;
 				}
 				// choose BACKGROUND filter
-				driver.findElement(By.xpath("//a[contains(text(),'Extras Roles')]")).click();
-			//	TimeUnit.SECONDS.sleep(3);
+				switch (trielNum++) {
+				case 0:
+					driver.findElement(By.xpath("//a[contains(text(),'Extras Roles')]")).click();
+					break;
+				case 1:
+					driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/a")).click();
+					break;
+				case 2:
+					driver.findElement(By.xpath("//td/table/tbody/tr/td/a")).click();
+					break;
+				case 3:
+					driver.findElement(By.xpath("css=td > table > tbody > tr > td > a")).click();
+					break;
+				case 4:
+					driver.findElement(By.xpath("//a[contains(text(),'Click here to view  Extras Roles')]")).click();
+					break;
+
+				}
+				System.out.println("worked on " +trielNum); 
+
+				 
+				// TimeUnit.SECONDS.sleep(3);
 				String locationTest3 = new String(
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3")).getText());
 				if (!(locationTest3.contains("Extras"))) {
