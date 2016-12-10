@@ -21,8 +21,8 @@ public class Pamela {
 	static private List<Job> Jobs = new ArrayList<Job>();
 	static Iterator<Job> jobIterator = Jobs.iterator();
 	private Job offer;
-	int trielNumB = 0;
-	int trielNum = 0;
+	int trielNumB = -1;
+	int trielNum = -1;
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.gecko.driver", "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
@@ -60,27 +60,26 @@ public class Pamela {
 
 			try {
 				
-				switch (trielNumB++) {
+				switch (++trielNumB) {
 				case 0:
-					driver.findElement(By.xpath("//a[contains(text(),'Extras Roles')]")).click();
+					driver.findElement(By.xpath("//a[contains(text(),' new Extras roles')]")).click();
 					break;
 				case 1:
-					driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/a")).click();
+					driver.findElement(By.xpath("//a[@id='_ctl0_cphBody_lnkExtrasRoles']")).click();
 					break;
 				case 2:
-					driver.findElement(By.xpath("//td/table/tbody/tr/td/a")).click();
+					driver.findElement(By.xpath("//li[@id='_ctl0_cphBody_liDirectCastExtras']/a")).click();
 					break;
 				case 3:
-					driver.findElement(By.xpath("css=td > table > tbody > tr > td > a")).click();
+					driver.findElement(By.xpath("//a[contains(@href, '../DirectCast/Roles.aspx?rt=xc1')]")).click();
 					break;
 				case 4:
-					driver.findElement(By.xpath("//a[contains(text(),'Click here to view  Extras Roles')]")).click();
+					driver.findElement(By.xpath("//div[2]/div/div/div/ul/li[3]/a")).click();
 					break;
 
 				}
-				System.out.println("worked on " +trielNumB); 
-				<a id="_ctl0_cphBody_lnkExtrasRoles" href="../DirectCast/Roles.aspx?rt=xc1">?SOME NUMBER? new Extras roles</a>
-
+				System.out.println("B worked on " +trielNumB); 
+			 
 				driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
 				String locationTest2 = new String(
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
@@ -90,7 +89,7 @@ public class Pamela {
 					continue;
 				}
 				// choose BACKGROUND filter
-				switch (trielNum++) {
+				switch (++trielNum) {
 				case 0:
 					driver.findElement(By.xpath("//a[contains(text(),'Extras Roles')]")).click();
 					break;
