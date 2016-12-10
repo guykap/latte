@@ -62,7 +62,7 @@ public class Pamela {
 				
 				switch (++trielNumB) {
 				case 0:
-					driver.findElement(By.xpath("//a[contains(text(),' new Extras roles')]")).click();
+					driver.findElement(By.xpath("//a[contains(text(),'new Extras roles')]")).click();
 					break;
 				case 1:
 					driver.findElement(By.xpath("//a[@id='_ctl0_cphBody_lnkExtrasRoles']")).click();
@@ -80,6 +80,7 @@ public class Pamela {
 				}
 				System.out.println("B worked on " +trielNumB); 
 			 
+				/*
 				driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
 				String locationTest2 = new String(
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
@@ -88,6 +89,8 @@ public class Pamela {
 					System.out.println("Error pressing Casting Billboard.");
 					continue;
 				}
+				*/
+				/*
 				// choose BACKGROUND filter
 				switch (++trielNum) {
 				case 0:
@@ -108,7 +111,7 @@ public class Pamela {
 
 				}
 				System.out.println("worked on " +trielNum); 
-
+*/
 				 
 				// TimeUnit.SECONDS.sleep(3);
 				String locationTest3 = new String(
