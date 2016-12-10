@@ -28,7 +28,7 @@ public class Pamela {
 	  System.setProperty("webdriver.gecko.driver",
 			  "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
     driver = new FirefoxDriver();
-    baseUrl = "http://home.castingnetworks.com//";
+    baseUrl = "http://home.castingnetworks.com";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
@@ -47,7 +47,7 @@ public class Pamela {
     TimeUnit.SECONDS.sleep(4);
     driver.findElement(By.id("_ctl0_cphBody_rptProfiles__ctl1_lnkViewProfile2")).click();
     //check for welcome window:
-    String locationTest1 = new String (driver.findElement(By.xpath("  //div[@id='maininfo']/h2")).getText());
+    String locationTest1 = new String (driver.findElement(By.xpath("//div[@id='maininfo']/h2")).getText());
     if(!(locationTest1.contains("Welcome"))){
     	 //go back to login page
     	 System.out.println("Error logging in.");
@@ -59,21 +59,41 @@ public class Pamela {
     
     try{
     	driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
+    	String locationTest2 = new String (driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
+        if(!(locationTest2.contains("Casting Billboard"))){
+        	 //go back to login page
+        	 System.out.println("Error pressing Casting Billboard.");
+        	 continue;
+        }
     }catch(Exception e){
     	System.out.println("Didn't work"); 
     	 //go back to login page
     	continue;
     	}
     
+    System.out.println("Succ opening Casing Billboards");
 //Choose from drop down list 'all roles':
-
-    	driver.findElement(By.cssSelector("td > table > tbody > tr > td > a")).click();
+    try{
+    	
+    	driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/a")).click();
+    }catch(Exception e){
+    	System.out.println("Didn't work"); 
+    	 //go back to login page
+    	continue;
+    	}
+    	
     new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
    // driver.findElement(By.id("_ctl0_lnkExtrasRoles")).click();
 
-
+    Job offer = new Job("tst");
+    try{
+    	
+    	//the EXTRA table has the shooting date .
+    	// the PRINCIPLE table does not
+    	
+    	String line = new String (driver.findElement(By.xpath("//tr[3]/td")).getText());
     String currentOffer = new String (driver.findElement(By.xpath("//tr[3]/td/a")).getText());
-    String currentOfferRole =  new String (driver.findElement(By.xpath("//tr[3]/td/a")).getText());
+    String currentOfferRole = new String(currentOffer);
     String currentOfferProjectName =  new String (driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
     String currentOfferTypeProject =  new String (driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
     String currentOffertRate =  new String (driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
@@ -81,11 +101,9 @@ public class Pamela {
     String currentOfferUnionStatus =  new String (driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());
     String currentOfferPostedDate =  new String (driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());
     String currentOfferListing =  new String (driver.findElement(By.xpath("//tr[4]/td")).getText());
-
-	
+ 
     //enter into JOB class
-     
-    Job offer = new Job(currentOffer);
+    
     offer.setOfferRole(currentOffer);
     offer.setOfferRole(currentOfferRole);
     offer.setOfferProjectName(currentOfferProjectName);
@@ -96,6 +114,17 @@ public class Pamela {
     offer.setOfferPostedDate(currentOfferPostedDate);
     offer.setOfferListing(currentOfferListing);
     System.out.println("Succ adding offer to Jobs list");
+    
+    
+    }catch(Exception e){
+	System.out.println("Error grabbing the current Offer data into the Strings"); 
+	 //go back to login page
+	continue;
+	}
+	
+    
+     
+    
     
     //enter into MySQL
     
@@ -109,10 +138,18 @@ public class Pamela {
     TimeUnit.SECONDS.sleep(2);
     
     //click on top offer
-    driver.findElement(By.xpath("//tr[3]/td/a")).click();
-    // ERROR: Caught exception [ERROR: Unsupported command [waitForPopUp | ProjWin | 30000]]
-    // ERROR: Caught exception [ERROR: Unsupported command [selectWindow | name=ProjWin | ]]
-     driver.findElement(By.linkText("submit")).click();
+     
+    try{
+    	
+	 driver.findElement(By.xpath("//tr[3]/td/a")).click();
+    }catch(Exception e){
+    	System.out.println("Didn't work"); 
+    	 //go back to login page
+    	continue;
+    	}
+    
+    
+    driver.findElement(By.linkText("submit")).click();
   
    // driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table[3]/tbody/tr[3]/td/a")).click();
     

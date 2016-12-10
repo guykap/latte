@@ -36,6 +36,7 @@ public class Job {
 	boolean isEthnicity;
 	boolean isAge;
 	boolean isMale;
+	boolean isBackgroundWork;
 	boolean isPayingEnough;
 	boolean isMaleName;
 	boolean isCar;
@@ -115,6 +116,9 @@ public class Job {
 	
 	public boolean getIsMale(){return isMale;};
 	public void setIsMale(boolean newBit){isMale = newBit;};
+	
+	public boolean getIsBackgroundWork(){return isBackgroundWork;};
+	public void setIsBackgroundWork(boolean newBit){isBackgroundWork = newBit;};
 	
 	public boolean getIsCar(){return isCar;};
 	public void setIsCar(boolean newBit){isCar = newBit;};
@@ -250,7 +254,7 @@ public void calcAgeRange(String ageData){
 	Double ageRange = new Double(10);
 	
 	//check if actor's age is near the average
-	if((maybeAgeAverageTwice  - avgCharacterAgeTwice ) <= ageRange ){
+	if(Math.abs((maybeAgeAverageTwice  - avgCharacterAgeTwice )) <= ageRange ){
 		//the actor is in the age range
 		setIsAge(true);
 	}else{
