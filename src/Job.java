@@ -23,6 +23,7 @@ public class Job {
 
     String offerRole;
     String offerProjectName;
+    String offerShootDate;
     String offerTypeProject;
     String offerRate;
     String offerPaying;
@@ -69,6 +70,9 @@ public class Job {
  
 	public String getOfferProjectName(){return offerProjectName;};
 	public void setOfferProjectName(String newData){offerProjectName =newData; };	
+	
+	public String getOfferShootDate(){return offerShootDate;};
+	public void setOfferShootDate(String newData){offerShootDate =newData; };	
 	
 	public String getOfferTypeProject(){return offerTypeProject;};
 	public void setOfferTypeProject(String newData){offerTypeProject =newData; };	

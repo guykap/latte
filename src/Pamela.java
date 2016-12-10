@@ -236,28 +236,20 @@ public class Pamela {
 				// PRINCIPLE WORK
 			 		try{currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());}catch(Exception e){currentOfferProjectName = new String("");};
 					try{currentOfferShootDate = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());}catch(Exception e){currentOfferShootDate = new String("");};
-					try{currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());}catch(Exception e){currentOfferTypeProject = new String("");};
-					try{currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());}catch(Exception e){currentOffertRate = new String("");};
-					try{currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());}catch(Exception e){currentOfferPaying = new String("");};
-					try{currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());}catch(Exception e){currentOfferUnionStatus = new String("");};
-					try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[8]/a")).getText());}catch(Exception e){currentOfferPostedDate = new String("");};
+					try{currentOfferTypeProject = new String("");}catch(Exception e){currentOfferTypeProject = new String("");};
+					try{currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());}catch(Exception e){currentOffertRate = new String("");};
+					try{currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());}catch(Exception e){currentOfferPaying = new String("");};
+					try{currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());}catch(Exception e){currentOfferUnionStatus = new String("");};
+					try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());}catch(Exception e){currentOfferPostedDate = new String("");};
 					try{currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());}catch(Exception e){currentOfferListing = new String("");};	
-			 	 		
-			 
-				currentOfferProjectName = new String(driver.findElement(By.xpath()).getText());
-				currentOfferShootDate = new String("");
-				currentOfferTypeProject = new String(driver.findElement(By.xpath()).getText());
-				currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
-				currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());
-				currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());
-				currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());
-				currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());
+		 
 			}
 			// enter into JOB class
 
 			offer.setOfferRole(currentOffer);
 			offer.setOfferRole(currentOfferRole);
 			offer.setOfferProjectName(currentOfferProjectName);
+			offer.setOfferShootDate(currentOfferShootDate);		
 			offer.setOfferTypeProject(currentOfferTypeProject);
 			offer.setOffertRate(currentOffertRate);
 			offer.setOfferPaying(currentOfferPaying);
@@ -269,7 +261,7 @@ public class Pamela {
 			return;
 
 		} catch (Exception e) {
-			System.out.println("Error grabbing the current Offer data into the Strings");
+			System.out.println("Error grabbing the current offer data into the Strings");
 			// go back to login page
 
 		}
