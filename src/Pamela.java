@@ -71,10 +71,10 @@ public class Pamela {
 
 				switch (++trielNumB) {
 				case 0:
-					driver.findElement(By.xpath("//a[contains(text(),'new Extras roles')]")).click();
+					driver.findElement(By.xpath("//a[@id='_ctl0_cphBody_lnkExtrasRoles']")).click();				
 					break;
 				case 1:
-					driver.findElement(By.xpath("//a[@id='_ctl0_cphBody_lnkExtrasRoles']")).click();
+					driver.findElement(By.xpath("//a[contains(text(),'new Extras roles')]")).click();
 					break;
 				case 2:
 					driver.findElement(By.xpath("//li[@id='_ctl0_cphBody_liDirectCastExtras']/a")).click();
@@ -89,7 +89,7 @@ public class Pamela {
 				}
 				log("B worked on " + trielNumB--);
 
-				driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
+				//driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
 				String locationTest2 = new String(
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
 				if (locationTest2.contains("Casting Billboard")) {
@@ -197,9 +197,9 @@ public class Pamela {
 					String b = new String(driver.findElement(By.xpath("//table/tbody/tr/td/a")).getText());
 					String a = new String(driver.findElement(By.xpath("//table/tbody/tr/td/span")).getText());
 					String navigatorTest = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
-					if (!navigatorTest.contains("Advanced Filters")) {
+					if (navigatorTest.contains("Advanced Filters")) {
 						// error oppenning the window
-						log("Error openning the window");
+						log("Error: You are still pointing to Casting Billboard Extras");
 						continue;
 					}
 					// add the choose the photo
