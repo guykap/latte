@@ -26,7 +26,8 @@ public class Pamela {
 	int trielNumB = -1;
 	int trielNum = -1;
 	boolean useSleep = true;
-	int leftNumOfWhileLoopsChances = 0;
+	int leftNumOfLoginWhileLoopsChances = 0;
+	int leftNumOfSubmittionWhileLoopsChances = 0;
 
 	@Before
 	public void setUp() throws Exception {
@@ -39,8 +40,8 @@ public class Pamela {
 
 	@Test
 	public void testPamela() throws Exception {
-		while ((leftNumOfWhileLoopsChances++)<10) {
-			log("Start Login num " + leftNumOfWhileLoopsChances);
+		while ((leftNumOfLoginWhileLoopsChances++)<10) {
+			log("Start Login num " + leftNumOfLoginWhileLoopsChances);
 			driver.get(baseUrl + "/");
 			if (useSleep)
 				TimeUnit.SECONDS.sleep(3);
@@ -96,23 +97,6 @@ public class Pamela {
 					log("Location->Casting Billboard");
 				}
 
-				/*
-				 * // choose BACKGROUND filter switch (++trielNum) { case 0:
-				 * driver.findElement(By.
-				 * xpath("//a[contains(text(),'Extras Roles')]")).click();
-				 * break; case 1: driver.findElement(By.xpath(
-				 * "//div[@id='DirectCastMainDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/a"
-				 * )).click(); break; case 2:
-				 * driver.findElement(By.xpath("//td/table/tbody/tr/td/a")).
-				 * click(); break; case 3: driver.findElement(By.
-				 * xpath("css=td > table > tbody > tr > td > a")).click();
-				 * break; case 4: driver.findElement(By.
-				 * xpath("//a[contains(text(),'Click here to view  Extras Roles')]"
-				 * )).click(); break;
-				 * 
-				 * } log("worked on " +trielNum);
-				 */
-
 				String locationTest3 = new String(
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3")).getText());
 				if (!(locationTest3.contains("Extras"))) {
@@ -128,6 +112,13 @@ public class Pamela {
 			}
 
 			log("Succ opening Casing Billboards and Extras link");
+			//end login while loop
+			break;
+		}
+		//START SUBMITTION WHILE LOOP
+	  
+		while (leftNumOfSubmittionWhileLoopsChances++<10){
+			log("Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
 
 			// Choose from drop down list 'all roles':
 			try {
@@ -187,8 +178,11 @@ public class Pamela {
 						break;
 					case 3:
 						driver.findElement(By.cssSelector("css=a")).click();
-						log("Last submit click option did not work.");
+						
 						break;
+					case 4:
+						log("Last submit click option did not work.");
+						return;
 					}
 					log("C worked on " + trielNumC);
 
@@ -218,6 +212,7 @@ public class Pamela {
 				} catch (Exception e) {
 					// Submiting
 					log("Clicking submit failed on trielNumC " + trielNumC);
+					
 				}
 			}
 		} // closing of while lop
