@@ -21,6 +21,7 @@ public class Pamela {
 	static private List<Job> Jobs = new ArrayList<Job>();
 	static Iterator<Job> jobIterator = Jobs.iterator();
 	private Job offer;
+	private String pamelaLog;
 	int trielNumB = -1;
 	int trielNum = -1;
 	@Before
@@ -29,12 +30,13 @@ public class Pamela {
 		driver = new FirefoxDriver();
 		baseUrl = "http://home.castingnetworks.com";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		pamelaLog =new String("");
 	}
 
 	@Test
 	public void testPamela() throws Exception {
 		while (true) {
-			System.out.println("Start Login");
+			log("Start Login");
 			driver.get(baseUrl + "/");
 			TimeUnit.SECONDS.sleep(4);
 			driver.findElement(By.id("login")).click();
@@ -49,11 +51,11 @@ public class Pamela {
 			String locationTest1 = new String(driver.findElement(By.xpath("//div[@id='maininfo']/h2")).getText());
 			if (!(locationTest1.contains("Welcome"))) {
 				// go back to login page
-				System.out.println("Error logging in.");
+				log("Error logging in.");
 				continue;
 			}
 
-			System.out.println("Succ logging in");
+			log("Succ logging in");
 			TimeUnit.SECONDS.sleep(4);
 
 			// WORK ONLY ON BACKGROUND WORK $$$ NOW
@@ -78,7 +80,7 @@ public class Pamela {
 					break;
 
 				}
-				System.out.println("B worked on " +trielNumB); 
+				log("B worked on " +trielNumB); 
 				
 				/*
 				driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
@@ -86,7 +88,7 @@ public class Pamela {
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
 				if (!(locationTest2.contains("Casting Billboard"))) {
 					// go back to login page
-					System.out.println("Error pressing Casting Billboard.");
+					log("Error pressing Casting Billboard.");
 					continue;
 				}
 				*/
@@ -110,7 +112,7 @@ public class Pamela {
 					break;
 
 				}
-				System.out.println("worked on " +trielNum); 
+				log("worked on " +trielNum); 
 */
 				 
 				// TimeUnit.SECONDS.sleep(3);
@@ -118,17 +120,17 @@ public class Pamela {
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3")).getText());
 				if (!(locationTest3.contains("Extras"))) {
 					// go back to login page
-					System.out.println("Error pressing Extras link.");
+					log("Error pressing Extras link.");
 					continue;
 				}
 
 			} catch (Exception e) {
-				System.out.println("Didn't work");
+				log("Didn't work");
 				// go back to login page
 				continue;
 			}
 
-			System.out.println("Succ opening Casing Billboards and Extras link");
+			log("Succ opening Casing Billboards and Extras link");
 
 			// Choose from drop down list 'all roles':
 			try {
@@ -136,7 +138,7 @@ public class Pamela {
 				offer.setIsBackgroundWork(true);
 				// driver.findElement(By.xpath("//td/table/tbody/tr/td/a")).click();
 			} catch (Exception e) {
-				System.out.println("Didn't work");
+				log("Didn't work");
 				// go back to login page
 				continue;
 			}
@@ -149,7 +151,7 @@ public class Pamela {
 			offer.makeDecision();
 			
 			if ((offer.getDecisionSubmit()) && (!offer.getHasBeenSubmitted())) {
-				System.out.println("Begin submittion for this offer");
+				log("Begin submittion for this offer");
 				// submitting to this offer
 				TimeUnit.SECONDS.sleep(2);
 				try {
@@ -161,12 +163,12 @@ public class Pamela {
 					/*String locationTest2 = new String(driver.findElement(By.xpath("//td[3]")).getText());
 					if (!(locationTest2.contains("Role"))) {
 						// go back to login page
-						System.out.println("Error pressing Casting Billboard -EXTRAS.");
+						log("Error pressing Casting Billboard -EXTRAS.");
 						continue;
 					}
 					*/
 				} catch (Exception e) {
-					System.out.println("Didn't work");
+					log("Didn't work");
 					// go back to login page
 					continue;
 				}
@@ -181,24 +183,25 @@ public class Pamela {
 				String navigatorTest = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
 				if (!navigatorTest.contains("Customize your submission")) {
 					// error oppenning the window
-					System.out.println("Error openning the window");
+					log("Error openning the window");
 					return;
 				}
 				// add the choose the photo
 
-				System.out.println("Openned window to choose photo and fill talent notes.");
+				log("Openned window to choose photo and fill talent notes.");
 				driver.findElement(By.id("TALENTNOTE")).clear();
 				driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
 				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
 				driver.findElement(By.cssSelector("td.dotbottom > img")).click();
-				System.out.println("Succ submitting");
+				log("Succ submitting");
 				offer.setHasBeenSubmitted(true);
 			} else {
 				// do not submit
 			}
-			System.out.println("Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
+			log("Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
 					+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
 					+ offer.getNotice());
+			offer.setLog(pamelaLog);
 
 		}
 	}
@@ -260,12 +263,12 @@ public class Pamela {
 			offer.setOfferPostedDate(currentOfferPostedDate);
 			offer.setOfferListing(currentOfferListing);
 			Jobs.add(offer);
-			System.out.println("Succ adding offer to Jobs list");
+			log("Succ adding offer to Jobs list");
 
 			return;
 
 		} catch (Exception e) {
-			System.out.println("Error grabbing the current offer data into the Strings");
+			log("Error grabbing the current offer data into the Strings");
 			// go back to login page
 
 		}
@@ -323,5 +326,14 @@ public class Pamela {
 		} finally {
 			acceptNextAlert = true;
 		}
+	}
+	
+	private void log(String newLog){
+		if (newLog.length() <1 )
+		{
+			return;
+		}
+		pamelaLog += (new String(newLog)).concat("\n");		
+		System.out.println(newLog);
 	}
 }

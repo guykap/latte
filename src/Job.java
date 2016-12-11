@@ -1,11 +1,13 @@
 
 import java.io.BufferedReader;
 import java.util.Calendar;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+ 
 
 import org.openqa.selenium.By;
 
@@ -114,7 +116,11 @@ public class Job {
 	
 	public String getLog(){return log;};
 	public void setLog(String newNotice){log = new String(newNotice); };
-	public void addToLog(String newNotice){log += new String(newNotice); };
+	public void addToLog(String newNotice){
+		//log += DateTime();
+		//log += new Date();
+		log += (new String(newNotice)).concat("\n"); 
+		};
 	
 	public boolean getIsSag(){return isSag;};
 	public void setIsSag(boolean newBit){isSag = newBit;};
