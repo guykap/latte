@@ -1,6 +1,7 @@
 
 //import java.util.regex.Pattern;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -30,7 +31,7 @@ public class Pamela {
 	int leftNumOfLoginWhileLoopsChances = 0;
 	int leftNumOfSubmittionWhileLoopsChances = 0;
 	String parentWindowHandler;
-	String subWindowHandler;
+	String newWindowHandler;
 	Iterator<String> windowHandlesIterator;
 	Set<String> handles;
 
@@ -168,8 +169,12 @@ public class Pamela {
 					 * continue; }
 					 */
 
-					if (!moveToOtherWindow())
+					if (!moveToOtherWindow()) {
+						// failed move to other window
 						continue;
+					} else {
+						// successful move to other window
+					}
 
 				} catch (Exception e) {
 					log("Didn't work");
@@ -216,18 +221,13 @@ public class Pamela {
 					driver.findElement(By.id("TALENTNOTE")).clear();
 					// driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
 					driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
-					
-					// move back to parent window
-					//kill the sub window
-					driver.close();
 
-					// Switch back to original browser (first window)
-					driver.switchTo().window(parentWindowHandler);
-					String newWindowHandler = driver.getWindowHandle();
-					log("killed window " + newWindowHandler + " and moved back to window " +parentWindowHandler );
-//					driver.findElement(By.cssSelector("td.dotbottom > img")).click();
-
-				
+					if (!killSubWindowAndMoveToParentWindow()) {
+						// failed killing child window
+						break;
+					} else {
+						// moved back to parent window
+					}
 
 					log("Succ submitting");
 					offer.setHasBeenSubmitted(true);
@@ -460,23 +460,64 @@ public class Pamela {
 	}
 
 	private boolean moveToOtherWindow() {
-		// moving to the popup window	
+		windowStatus();
 		String currentWindowHandler = driver.getWindowHandle();
-		log("Currently on window " + currentWindowHandler);
 		handles = driver.getWindowHandles(); // get all window handles
-		windowHandlesIterator = handles.iterator();
-		while (windowHandlesIterator.hasNext()) {
-			subWindowHandler = windowHandlesIterator.next();
-			//log("Moving to window handler " + subWindowHandler);
-			if (subWindowHandler == currentWindowHandler) {
-				log("No other window to move to. You are still on window " + currentWindowHandler );
-				return false;
-			}
+		if (handles.size()<2)
+		{
+			log("Error: there is only one window : " +currentWindowHandler );
+			return false;
 		}
+		windowHandlesIterator = handles.iterator();		
+		if(windowHandlesIterator.hasNext()) {
+			newWindowHandler = windowHandlesIterator.next();
+			if (!newWindowHandler.equals(currentWindowHandler)) {
+				driver.switchTo().window(newWindowHandler); // switch to popup window
+				return true;
+			}else{
+				//fell on the same window - so move again
+				if(windowHandlesIterator.hasNext()) {
+					newWindowHandler = windowHandlesIterator.next();
+					if (!newWindowHandler.equals(currentWindowHandler)){
+						driver.switchTo().window(newWindowHandler); // switch to popup window
+						return true;
+					}
+				
+					//only one window 
+					
+				}
+				 
+			}
+		}	
+		return false;
+	}
 
-		driver.switchTo().window(subWindowHandler); // switch to popup window
+	private boolean killSubWindowAndMoveToParentWindow() {
+		// returns true onlyon a succesfull kill the sub window and return back
+		// to parent window.
+
+		driver.close();
+
+		// Switch back to original browser (first window)
+		driver.switchTo().window(parentWindowHandler);
 		String newWindowHandler = driver.getWindowHandle();
-		log("Currently on window " + newWindowHandler);
+		log("killed window " + newWindowHandler + " and moved back to window " + parentWindowHandler);
 		return true;
+	}
+
+	private void windowStatus() {
+		handles = driver.getWindowHandles(); // get all window handles
+		// String allHandles = new String(Arrays.toString(handles));
+
+		StringBuilder builder = new StringBuilder();
+		for (String s : handles) {
+			builder.append(s + ",");
+		}
+		String allHandles = new String("[");
+		allHandles += new String(builder.toString());
+		allHandles += new String("] ");
+		String currentWindowHandler = driver.getWindowHandle();
+		log(allHandles + " on: " + currentWindowHandler);
+
 	}
 }
