@@ -370,11 +370,8 @@ public class Pamela {
 	}
 
 	public static int randInt(int min, int max) {
-
-		// Usually this can be a field rather than a method variable
 		Random rand = new Random();
 		int randomNum = rand.nextInt((max - min) + 1) + min;
-
 		return randomNum;
 	}
 
