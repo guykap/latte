@@ -206,7 +206,7 @@ public class Pamela {
 				log("Clicking submit failed on trielNumC " + trielNumC);
 			}
 		}
-		log("O: Stopping");
+		log("Z: Stopping");
 		return;
 	}
 
