@@ -126,122 +126,82 @@ public class Pamela {
 			// end login while loop
 			break;
 		}
-		// START SUBMITTION WHILE LOOP
-
 		while (leftNumOfSubmittionWhileLoopsChances++ < 10) {
 			log("Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
-
 			// Choose from drop down list 'all roles':
 			try {
 				offer = new Job();
 				offer.setIsBackgroundWork(true);
-				// driver.findElement(By.xpath("//td/table/tbody/tr/td/a")).click();
-			} catch (Exception e) {
-				log("Didn't work");
-				// go back to login page
-				continue;
-			}
+				new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
+				handleBackgroundWorkOffer(true);
+				// offer.readNotice();
+				offer.makeDecision();
 
-			new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
-			// driver.findElement(By.id("_ctl0_lnkExtrasRoles")).click();
-
-			handleBackgroundWorkOffer(true);
-			// offer.readNotice();
-			offer.makeDecision();
-
-			if ((offer.getDecisionSubmit()) && (!offer.getHasBeenSubmitted())) {
-				log("Begin submittion for this offer");
-				// submitting to this offer
-				if (useSleep)
-					TimeUnit.SECONDS.sleep(2);
-				try {
-					// submitting to top offer
-					driver.findElement(By.xpath("//tr[3]/td/a")).click();
-					// checking that we are in submittion Page 1 - ADD THIS IS
-					// IMPORTANT
-
-					/*
-					 * String locationTest2 = new
-					 * String(driver.findElement(By.xpath("//td[3]")).getText())
-					 * ; if (!(locationTest2.contains("Role"))) { // go back to
-					 * login page
-					 * log("Error pressing Casting Billboard -EXTRAS.");
-					 * continue; }
-					 */
-
-					if (!moveToOtherWindow()) {
-						// failed move to other window
-						continue;
-					} else {
-						// successful move to other window
-					}
-
-				} catch (Exception e) {
-					log("Didn't work");
-					// go back to login page
+				if ((!offer.getDecisionSubmit()) || (offer.getHasBeenSubmitted())) {
+					// DO NOT SUBMIT THIS OFFER
 					continue;
 				}
-				// tried of 4 diff options to click submit
-				try {// clicking on submit
-					log("trying an option for the submit link");
-
-					switch (++trielNumC) {
-					case 0:
-						driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
-						break;
-					case 1:
-						driver.findElement(By.linkText("submit")).click();
-						break;
-					case 2:
-						driver.findElement(By.xpath("//table[6]/tbody/tr/td/a")).click();
-						break;
-					case 3:
-						driver.findElement(By.cssSelector("css=a")).click();
-
-						break;
-					case 4:
-						log("Last submit click option did not work.");
-						return;
-					}
-					log("C worked on " + trielNumC);
-					// succece opening to photospage 2 window handles
-
-					// make sure the windows opened:
-
-					String locationTest5 = new String(
-							driver.findElement(By.xpath("//table[4]/tbody/tr/td ")).getText());
-					if (!locationTest5.contains("Main")) {
-						// error oppenning the window
-						log("Error: You are on wrong window");
-						continue;
-					}
-					// add the choose the photo
-
-					log("Succ on openning window to choose photo and fill talent notes.");
-					driver.findElement(By.id("TALENTNOTE")).clear();
-					// driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
-					driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
-
-					if (!killSubWindowAndMoveToParentWindow()) {
-						// failed killing child window
-						break;
-					} else {
-						// moved back to parent window
-					}
-
-					log("Succ submitting");
-					offer.setHasBeenSubmitted(true);
-					log("Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
-							+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
-							+ offer.getNotice());
-					offer.setLog(pamelaLog);
-				} catch (Exception e) {
-					// Submiting
-					log("Clicking submit failed on trielNumC " + trielNumC);
-
+				log("Begin submittion for top offer");
+				if (useSleep)
+					TimeUnit.SECONDS.sleep(2);
+				driver.findElement(By.xpath("//tr[3]/td/a")).click();
+				if (!moveToOtherWindow()) {
+					// restart
+					continue;
 				}
+
+			} catch (Exception e) {
+				log("Didn't work");
+				// restart
+				continue;
 			}
-		} // closing of while lop
+			try {
+				log("trying an option for the submit link");
+				switch (++trielNumC) {
+				case 0:
+					driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
+					break;
+				case 1:
+					driver.findElement(By.linkText("submit")).click();
+					break;
+				case 2:
+					driver.findElement(By.xpath("//table[6]/tbody/tr/td/a")).click();
+					break;
+				case 3:
+					driver.findElement(By.cssSelector("css=a")).click();
+
+					break;
+				case 4:
+					log("Last submit click option did not work.");
+					return;
+				}
+				log("C worked on " + trielNumC);
+				// succece opening to photos page
+
+				String locationTest5 = new String(driver.findElement(By.xpath("//table[4]/tbody/tr/td ")).getText());
+				if (!locationTest5.contains("Main")) {
+					log("Error: You are on wrong window");
+					continue;
+				}
+				// add the choose the photo here
+
+				log("Succ on openning window to choose photo and fill talent notes.");
+				driver.findElement(By.id("TALENTNOTE")).clear();
+				// driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
+				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
+				if (!killSubWindowAndMoveToParentWindow()) {
+					log("Memory leak error: failed killing child window");
+					break;
+				}
+				offer.setHasBeenSubmitted(true);
+				log("Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
+						+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
+						+ offer.getNotice());
+				offer.setLog(pamelaLog);
+			} catch (Exception e) {
+				log("Clicking submit failed on trielNumC " + trielNumC);
+			}
+		}
 	}
 
 	private void handleBackgroundWorkOffer(boolean isBackgroundWork) {
@@ -463,30 +423,32 @@ public class Pamela {
 		windowStatus();
 		String currentWindowHandler = driver.getWindowHandle();
 		handles = driver.getWindowHandles(); // get all window handles
-		if (handles.size()<2)
-		{
-			log("Error: there is only one window : " +currentWindowHandler );
+		if (handles.size() < 2) {
+			log("Error: there is only one window : " + currentWindowHandler);
 			return false;
 		}
-		windowHandlesIterator = handles.iterator();		
-		if(windowHandlesIterator.hasNext()) {
+		windowHandlesIterator = handles.iterator();
+		if (windowHandlesIterator.hasNext()) {
 			newWindowHandler = windowHandlesIterator.next();
 			if (!newWindowHandler.equals(currentWindowHandler)) {
-				driver.switchTo().window(newWindowHandler); // switch to popup window
+				driver.switchTo().window(newWindowHandler); // switch to popup
+															// window
 				windowStatus();
 				return true;
-			}else{
-				//fell on the same window - so move again
-				if(windowHandlesIterator.hasNext()) {
+			} else {
+				// fell on the same window - so move again
+				if (windowHandlesIterator.hasNext()) {
 					newWindowHandler = windowHandlesIterator.next();
-					if (!newWindowHandler.equals(currentWindowHandler)){
-						driver.switchTo().window(newWindowHandler); // switch to popup window
+					if (!newWindowHandler.equals(currentWindowHandler)) {
+						driver.switchTo().window(newWindowHandler); // switching to
+																	// popup
+																	// window
 						windowStatus();
 						return true;
-					}			
+					}
 				}
 			}
-		}	
+		}
 		return false;
 	}
 

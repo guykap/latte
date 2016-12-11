@@ -15,6 +15,8 @@ String why Decision - explains why the decisiion was made
 -emailing the updates of the Submitted jobs only. So when CD calls me on the phone i know what to say
 Aklways know which page we are on.
 And if one type of click dooesn't-
+Should not restart every failure. 
+A difference if a pop up window doesn't open or the role has been submitted for - I whould map out all the options.
 
 add shootdate to decision making in the event i;m' already booked on a certain date.
 
