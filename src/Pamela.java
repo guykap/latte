@@ -216,9 +216,18 @@ public class Pamela {
 					driver.findElement(By.id("TALENTNOTE")).clear();
 					// driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
 					driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
-					driver.findElement(By.cssSelector("td.dotbottom > img")).click();
-
+					
 					// move back to parent window
+					//kill the sub window
+					driver.close();
+
+					// Switch back to original browser (first window)
+					driver.switchTo().window(parentWindowHandler);
+					String newWindowHandler = driver.getWindowHandle();
+					log("killed window " + newWindowHandler + " and moved back to window " +parentWindowHandler );
+//					driver.findElement(By.cssSelector("td.dotbottom > img")).click();
+
+				
 
 					log("Succ submitting");
 					offer.setHasBeenSubmitted(true);
