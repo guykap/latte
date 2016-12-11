@@ -41,14 +41,16 @@ public class Pamela {
 		while (true) {
 			log("Start Login");
 			driver.get(baseUrl + "/");
-			if (useSleep)TimeUnit.SECONDS.sleep(3);
+			if (useSleep)
+				TimeUnit.SECONDS.sleep(3);
 			driver.findElement(By.id("login")).click();
 			driver.findElement(By.id("login")).clear();
 			driver.findElement(By.id("login")).sendKeys("guykapulnik");
 			driver.findElement(By.id("password")).clear();
 			driver.findElement(By.id("password")).sendKeys("cGuy1234567");
 			driver.findElement(By.xpath("//input[@id='submit']")).click();
-			if (useSleep)TimeUnit.SECONDS.sleep(3);
+			if (useSleep)
+				TimeUnit.SECONDS.sleep(3);
 			driver.findElement(By.id("_ctl0_cphBody_rptProfiles__ctl1_lnkViewProfile2")).click();
 			// check for welcome window:
 			String locationTest1 = new String(driver.findElement(By.xpath("//div[@id='maininfo']/h2")).getText());
@@ -57,9 +59,10 @@ public class Pamela {
 				log("Error logging in.");
 				continue;
 			}
-
-			log("Succ logging in");
-			if (useSleep)TimeUnit.SECONDS.sleep(3);
+			log("Location->Home Page");
+			
+			if (useSleep)
+				TimeUnit.SECONDS.sleep(3);
 
 			// WORK ONLY ON BACKGROUND WORK $$$ NOW
 
@@ -85,17 +88,13 @@ public class Pamela {
 				}
 				log("B worked on " + trielNumB--);
 
-				/*
-				 * driver.findElement(By.
-				 * xpath("//a[contains(text(),'Casting Billboard')]")).click();
-				 * String locationTest2 = new String(
-				 * driver.findElement(By.xpath(
-				 * "//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).
-				 * getText()); if
-				 * (!(locationTest2.contains("Casting Billboard"))) { // go back
-				 * to login page log("Error pressing Casting Billboard.");
-				 * continue; }
-				 */
+				driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
+				String locationTest2 = new String(
+						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
+				if (locationTest2.contains("Casting Billboard")) {
+					log("Location->Casting Billboard");
+				}
+
 				/*
 				 * // choose BACKGROUND filter switch (++trielNum) { case 0:
 				 * driver.findElement(By.
@@ -113,7 +112,6 @@ public class Pamela {
 				 * } log("worked on " +trielNum);
 				 */
 
-				 
 				String locationTest3 = new String(
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3")).getText());
 				if (!(locationTest3.contains("Extras"))) {
@@ -151,7 +149,8 @@ public class Pamela {
 			if ((offer.getDecisionSubmit()) && (!offer.getHasBeenSubmitted())) {
 				log("Begin submittion for this offer");
 				// submitting to this offer
-				if (useSleep)TimeUnit.SECONDS.sleep(2);
+				if (useSleep)
+					TimeUnit.SECONDS.sleep(2);
 				try {
 					// submitting to top offer
 					driver.findElement(By.xpath("//tr[3]/td/a")).click();
@@ -190,15 +189,12 @@ public class Pamela {
 						log("Last submit click option did not work.");
 						break;
 					}
-					log("C worked on " + trielNumB);
-
-					// driver.findElement(By.linkText("submit")).click();
-
-					// driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
+					log("C worked on " + trielNumC);
 
 					// make sure the windows opened:
-					String a = new String(driver.findElement(By.xpath("//table/tbody/tr/td/span")).getText());
+
 					String b = new String(driver.findElement(By.xpath("//table/tbody/tr/td/a")).getText());
+					String a = new String(driver.findElement(By.xpath("//table/tbody/tr/td/span")).getText());
 					String navigatorTest = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
 					if (!navigatorTest.contains("Advanced Filters")) {
 						// error oppenning the window
