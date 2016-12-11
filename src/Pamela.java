@@ -30,23 +30,26 @@ public class Pamela {
 	int leftNumOfLoginWhileLoopsChances = 0;
 	int leftNumOfSubmittionWhileLoopsChances = 0;
 	String parentWindowHandler;
-	String subWindowHandler;  
+	String subWindowHandler;
+	Iterator<String> windowHandlesIterator;
+	Set<String> handles;
 
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.gecko.driver", "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
 		driver = new FirefoxDriver();
 		baseUrl = "http://home.castingnetworks.com";
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);	
-		parentWindowHandler = driver.getWindowHandle(); // Store your parent window
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		parentWindowHandler = driver.getWindowHandle();
+
 		pamelaLog = new String("");
 
 	}
 
 	@Test
 	public void testPamela() throws Exception {
-		log("Window handle "+ parentWindowHandler);
-		while ((leftNumOfLoginWhileLoopsChances++)<10) {
+		log("Window handle Parent " + parentWindowHandler);
+		while ((leftNumOfLoginWhileLoopsChances++) < 10) {
 			log("Start Login num " + leftNumOfLoginWhileLoopsChances);
 			driver.get(baseUrl + "/");
 			if (useSleep)
@@ -68,7 +71,7 @@ public class Pamela {
 				continue;
 			}
 			log("Location->Home Page");
-			
+
 			if (useSleep)
 				TimeUnit.SECONDS.sleep(3);
 
@@ -78,7 +81,7 @@ public class Pamela {
 
 				switch (++trielNumB) {
 				case 0:
-					driver.findElement(By.xpath("//a[@id='_ctl0_cphBody_lnkExtrasRoles']")).click();				
+					driver.findElement(By.xpath("//a[@id='_ctl0_cphBody_lnkExtrasRoles']")).click();
 					break;
 				case 1:
 					driver.findElement(By.xpath("//a[contains(text(),'new Extras roles')]")).click();
@@ -96,7 +99,8 @@ public class Pamela {
 				}
 				log("B worked on " + trielNumB--);
 
-				//driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
+				// driver.findElement(By.xpath("//a[contains(text(),'Casting
+				// Billboard')]")).click();
 				String locationTest2 = new String(
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
 				if (locationTest2.contains("Casting Billboard")) {
@@ -118,12 +122,12 @@ public class Pamela {
 			}
 
 			log("Succ opening Casing Billboards and Extras link");
-			//end login while loop
+			// end login while loop
 			break;
 		}
-		//START SUBMITTION WHILE LOOP
-	  
-		while (leftNumOfSubmittionWhileLoopsChances++<10){
+		// START SUBMITTION WHILE LOOP
+
+		while (leftNumOfSubmittionWhileLoopsChances++ < 10) {
 			log("Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
 
 			// Choose from drop down list 'all roles':
@@ -163,14 +167,10 @@ public class Pamela {
 					 * log("Error pressing Casting Billboard -EXTRAS.");
 					 * continue; }
 					 */
-					//moving to the popup window
-					Set<String> handles = driver.getWindowHandles(); // get all window handles
-					Iterator<String> iterator = handles.iterator();
-					while (iterator.hasNext()){
-					    subWindowHandler = iterator.next();
-					    log("Moving to window handler " + subWindowHandler);
-					}
-					driver.switchTo().window(subWindowHandler); // switch to popup window
+
+					if (!moveToOtherWindow())
+						continue;
+
 				} catch (Exception e) {
 					log("Didn't work");
 					// go back to login page
@@ -192,29 +192,34 @@ public class Pamela {
 						break;
 					case 3:
 						driver.findElement(By.cssSelector("css=a")).click();
-						
+
 						break;
 					case 4:
 						log("Last submit click option did not work.");
 						return;
 					}
 					log("C worked on " + trielNumC);
+					// succece opening to photospage 2 window handles
 
 					// make sure the windows opened:
 
-					String locationTest4 = new String(driver.findElement(By.xpath("//table[4]/tbody/tr/td ")).getText());
-				 	if (!locationTest4.contains("Role")) {
+					String locationTest5 = new String(
+							driver.findElement(By.xpath("//table[4]/tbody/tr/td ")).getText());
+					if (!locationTest5.contains("Main")) {
 						// error oppenning the window
-						log("Error: You are still pointing to Casting Billboard Extras");
+						log("Error: You are on wrong window");
 						continue;
 					}
 					// add the choose the photo
 
 					log("Succ on openning window to choose photo and fill talent notes.");
 					driver.findElement(By.id("TALENTNOTE")).clear();
-					driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
+					// driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
 					driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
 					driver.findElement(By.cssSelector("td.dotbottom > img")).click();
+
+					// move back to parent window
+
 					log("Succ submitting");
 					offer.setHasBeenSubmitted(true);
 					log("Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
@@ -224,7 +229,7 @@ public class Pamela {
 				} catch (Exception e) {
 					// Submiting
 					log("Clicking submit failed on trielNumC " + trielNumC);
-					
+
 				}
 			}
 		} // closing of while lop
@@ -443,5 +448,26 @@ public class Pamela {
 		}
 		pamelaLog += (new String(newLog)).concat("\n");
 		System.out.println(newLog);
+	}
+
+	private boolean moveToOtherWindow() {
+		// moving to the popup window	
+		String currentWindowHandler = driver.getWindowHandle();
+		log("Currently on window " + currentWindowHandler);
+		handles = driver.getWindowHandles(); // get all window handles
+		windowHandlesIterator = handles.iterator();
+		while (windowHandlesIterator.hasNext()) {
+			subWindowHandler = windowHandlesIterator.next();
+			//log("Moving to window handler " + subWindowHandler);
+			if (subWindowHandler == currentWindowHandler) {
+				log("No other window to move to. You are still on window " + currentWindowHandler );
+				return false;
+			}
+		}
+
+		driver.switchTo().window(subWindowHandler); // switch to popup window
+		String newWindowHandler = driver.getWindowHandle();
+		log("Currently on window " + newWindowHandler);
+		return true;
 	}
 }
