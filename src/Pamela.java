@@ -171,54 +171,57 @@ public class Pamela {
 					continue;
 				}
 				// tried of 4 diff options to click submit
+				try {// clicking on submit
+					log("trying an option for the submit link");
 
-				switch (++trielNumC) {
-				case 0:
-					driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
-					break;
-				case 1:
-					driver.findElement(By.linkText("submit")).click();
-					break;
-				case 2:
-					driver.findElement(By.xpath("//table[6]/tbody/tr/td/a")).click();
-					break;
-				case 3:
-					driver.findElement(By.cssSelector("css=a")).click();
-					break;
+					switch (++trielNumC) {
+					case 0:
+						driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
+						break;
+					case 1:
+						driver.findElement(By.linkText("submit")).click();
+						break;
+					case 2:
+						driver.findElement(By.xpath("//table[6]/tbody/tr/td/a")).click();
+						break;
+					case 3:
+						driver.findElement(By.cssSelector("css=a")).click();
+						break;
+					}
+					log("C worked on " + trielNumB);
 
+					// driver.findElement(By.linkText("submit")).click();
+
+					// driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
+
+					// make sure the windows opened:
+					String a = new String(driver.findElement(By.xpath("//table/tbody/tr/td/span")).getText());
+					String b = new String(driver.findElement(By.xpath("//table/tbody/tr/td/a")).getText());
+					String navigatorTest = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
+					if (!navigatorTest.contains("Customize your submission")) {
+						// error oppenning the window
+						log("Error openning the window");
+						continue;
+					}
+					// add the choose the photo
+
+					log("Openned window to choose photo and fill talent notes.");
+					driver.findElement(By.id("TALENTNOTE")).clear();
+					driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
+					driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
+					driver.findElement(By.cssSelector("td.dotbottom > img")).click();
+					log("Succ submitting");
+					offer.setHasBeenSubmitted(true);
+					log("Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
+							+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
+							+ offer.getNotice());
+					offer.setLog(pamelaLog);
+				} catch (Exception e) {
+					// Submiting
+					log("Clicking submit failed.");
 				}
-				log("B worked on " + trielNumB);
-
-				driver.findElement(By.linkText("submit")).click();
-
-				// driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
-
-				// make sure the windows opened:
-				String a = new String(driver.findElement(By.xpath("//table/tbody/tr/td/span")).getText());
-				String b = new String(driver.findElement(By.xpath("//table/tbody/tr/td/a")).getText());
-				String navigatorTest = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
-				if (!navigatorTest.contains("Customize your submission")) {
-					// error oppenning the window
-					log("Error openning the window");
-					return;
-				}
-				// add the choose the photo
-
-				log("Openned window to choose photo and fill talent notes.");
-				driver.findElement(By.id("TALENTNOTE")).clear();
-				driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
-				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
-				driver.findElement(By.cssSelector("td.dotbottom > img")).click();
-				log("Succ submitting");
-				offer.setHasBeenSubmitted(true);
-			} else {
-				// do not submit
 			}
-			log("Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:" + offer.getIsMale()
-					+ " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ " + offer.getNotice());
-			offer.setLog(pamelaLog);
-
-		}
+		} // closing of while lop
 	}
 
 	private void handleBackgroundWorkOffer(boolean isBackgroundWork) {
