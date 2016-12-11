@@ -128,3 +128,8 @@ css=a
 //table[6]/tbody/tr/td/a
 
 				
+
+
+FINAL Close button
+----------------------
+driver.findElement(By.cssSelector("td.dotbottom > img")).click();

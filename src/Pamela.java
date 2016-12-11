@@ -473,6 +473,7 @@ public class Pamela {
 			newWindowHandler = windowHandlesIterator.next();
 			if (!newWindowHandler.equals(currentWindowHandler)) {
 				driver.switchTo().window(newWindowHandler); // switch to popup window
+				windowStatus();
 				return true;
 			}else{
 				//fell on the same window - so move again
@@ -480,13 +481,10 @@ public class Pamela {
 					newWindowHandler = windowHandlesIterator.next();
 					if (!newWindowHandler.equals(currentWindowHandler)){
 						driver.switchTo().window(newWindowHandler); // switch to popup window
+						windowStatus();
 						return true;
-					}
-				
-					//only one window 
-					
+					}			
 				}
-				 
 			}
 		}	
 		return false;
@@ -495,13 +493,12 @@ public class Pamela {
 	private boolean killSubWindowAndMoveToParentWindow() {
 		// returns true onlyon a succesfull kill the sub window and return back
 		// to parent window.
-
+		windowStatus();
 		driver.close();
-
-		// Switch back to original browser (first window)
 		driver.switchTo().window(parentWindowHandler);
 		String newWindowHandler = driver.getWindowHandle();
-		log("killed window " + newWindowHandler + " and moved back to window " + parentWindowHandler);
+		log("killed window and returned to  " + newWindowHandler);
+		windowStatus();
 		return true;
 	}
 
