@@ -26,6 +26,7 @@ public class Pamela {
 	int trielNumB = -1;
 	int trielNum = -1;
 	boolean useSleep = true;
+	int leftNumOfWhileLoopsChances = 0;
 
 	@Before
 	public void setUp() throws Exception {
@@ -38,8 +39,8 @@ public class Pamela {
 
 	@Test
 	public void testPamela() throws Exception {
-		while (true) {
-			log("Start Login");
+		while ((leftNumOfWhileLoopsChances++)<10) {
+			log("Start Login num " + leftNumOfWhileLoopsChances);
 			driver.get(baseUrl + "/");
 			if (useSleep)
 				TimeUnit.SECONDS.sleep(3);
