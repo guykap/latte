@@ -25,6 +25,7 @@ public class Pamela {
 	int trielNumC = -1;
 	int trielNumB = -1;
 	int trielNum = -1;
+	boolean useSleep = true;
 
 	@Before
 	public void setUp() throws Exception {
@@ -40,14 +41,14 @@ public class Pamela {
 		while (true) {
 			log("Start Login");
 			driver.get(baseUrl + "/");
-			TimeUnit.SECONDS.sleep(4);
+			if (useSleep)TimeUnit.SECONDS.sleep(3);
 			driver.findElement(By.id("login")).click();
 			driver.findElement(By.id("login")).clear();
 			driver.findElement(By.id("login")).sendKeys("guykapulnik");
 			driver.findElement(By.id("password")).clear();
 			driver.findElement(By.id("password")).sendKeys("cGuy1234567");
 			driver.findElement(By.xpath("//input[@id='submit']")).click();
-			TimeUnit.SECONDS.sleep(4);
+			if (useSleep)TimeUnit.SECONDS.sleep(3);
 			driver.findElement(By.id("_ctl0_cphBody_rptProfiles__ctl1_lnkViewProfile2")).click();
 			// check for welcome window:
 			String locationTest1 = new String(driver.findElement(By.xpath("//div[@id='maininfo']/h2")).getText());
@@ -58,7 +59,7 @@ public class Pamela {
 			}
 
 			log("Succ logging in");
-			TimeUnit.SECONDS.sleep(4);
+			if (useSleep)TimeUnit.SECONDS.sleep(3);
 
 			// WORK ONLY ON BACKGROUND WORK $$$ NOW
 
@@ -82,7 +83,7 @@ public class Pamela {
 					break;
 
 				}
-				log("B worked on " + trielNumB);
+				log("B worked on " + trielNumB--);
 
 				/*
 				 * driver.findElement(By.
@@ -112,7 +113,7 @@ public class Pamela {
 				 * } log("worked on " +trielNum);
 				 */
 
-				// TimeUnit.SECONDS.sleep(3);
+				 
 				String locationTest3 = new String(
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3")).getText());
 				if (!(locationTest3.contains("Extras"))) {
@@ -150,7 +151,7 @@ public class Pamela {
 			if ((offer.getDecisionSubmit()) && (!offer.getHasBeenSubmitted())) {
 				log("Begin submittion for this offer");
 				// submitting to this offer
-				TimeUnit.SECONDS.sleep(2);
+				if (useSleep)TimeUnit.SECONDS.sleep(2);
 				try {
 					// submitting to top offer
 					driver.findElement(By.xpath("//tr[3]/td/a")).click();
@@ -186,6 +187,7 @@ public class Pamela {
 						break;
 					case 3:
 						driver.findElement(By.cssSelector("css=a")).click();
+						log("Last submit click option did not work.");
 						break;
 					}
 					log("C worked on " + trielNumB);
@@ -198,14 +200,14 @@ public class Pamela {
 					String a = new String(driver.findElement(By.xpath("//table/tbody/tr/td/span")).getText());
 					String b = new String(driver.findElement(By.xpath("//table/tbody/tr/td/a")).getText());
 					String navigatorTest = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
-					if (!navigatorTest.contains("Customize your submission")) {
+					if (!navigatorTest.contains("Advanced Filters")) {
 						// error oppenning the window
 						log("Error openning the window");
 						continue;
 					}
 					// add the choose the photo
 
-					log("Openned window to choose photo and fill talent notes.");
+					log("Succ on openning window to choose photo and fill talent notes.");
 					driver.findElement(By.id("TALENTNOTE")).clear();
 					driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
 					driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
@@ -218,7 +220,7 @@ public class Pamela {
 					offer.setLog(pamelaLog);
 				} catch (Exception e) {
 					// Submiting
-					log("Clicking submit failed.");
+					log("Clicking submit failed on trielNumC " + trielNumC);
 				}
 			}
 		} // closing of while lop
