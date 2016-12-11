@@ -1,5 +1,4 @@
-package com.example.tests;
-
+  
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
@@ -9,7 +8,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class OkTestCase1 {
+public class OkTestCase1{
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -17,6 +16,8 @@ public class OkTestCase1 {
 
   @Before
   public void setUp() throws Exception {
+	  System.setProperty("webdriver.gecko.driver", "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
+		
     driver = new FirefoxDriver();
     baseUrl = "http://login.castingnetworks.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
