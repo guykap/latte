@@ -35,6 +35,7 @@ public class Job {
 	String offerListingEthnicity ="";
 	String offerListingNotes="";
 	String offerListingAgesHint="";
+	String log;   //this logs all the process of this specific offer from login
 	
 	boolean isSag;
 	boolean isEthnicity;
@@ -110,6 +111,10 @@ public class Job {
 	
 	public String getNotice(){return notice;};
 	public void setNotice(String newNotice){notice =newNotice; };
+	
+	public String getLog(){return log;};
+	public void setLog(String newNotice){log = new String(newNotice); };
+	public void addToLog(String newNotice){log += new String(newNotice); };
 	
 	public boolean getIsSag(){return isSag;};
 	public void setIsSag(boolean newBit){isSag = newBit;};

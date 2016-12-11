@@ -171,9 +171,9 @@ public class Pamela {
 					continue;
 				}
 
-			//	driver.findElement(By.linkText("submit")).click();
+				driver.findElement(By.linkText("submit")).click();
 				
-				 driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
+				// driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
 
 				// make sure the windows opened:
 				String a = new String(driver.findElement(By.xpath("//table/tbody/tr/td/span")).getText());
@@ -196,7 +196,7 @@ public class Pamela {
 			} else {
 				// do not submit
 			}
-			System.out.println(" Decision : " + offer.getDecisionSubmit() + " SAG:" + offer.getIsSag() + " Male:"
+			System.out.println("Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
 					+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
 					+ offer.getNotice());
 
