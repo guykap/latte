@@ -49,9 +49,9 @@ public class Pamela {
 
 	@Test
 	public void testPamela() throws Exception {
-		log("Window handle Parent " + parentWindowHandler);
+		log("A: Window handle Parent " + parentWindowHandler);
 		while ((leftNumOfLoginWhileLoopsChances++) < 10) {
-			log("Start Login num " + leftNumOfLoginWhileLoopsChances);
+			log("B: Start Login num " + leftNumOfLoginWhileLoopsChances);
 			driver.get(baseUrl + "/");
 			if (useSleep)
 				TimeUnit.SECONDS.sleep(3);
@@ -71,7 +71,7 @@ public class Pamela {
 				log("Error logging in.");
 				continue;
 			}
-			log("Location->Home Page");
+			log("C: Location->Home Page");
 
 			if (useSleep)
 				TimeUnit.SECONDS.sleep(3);
@@ -98,14 +98,14 @@ public class Pamela {
 					break;
 
 				}
-				log("B worked on " + trielNumB--);
+				log("D: trielNumB worked on " + trielNumB--);
 
 				// driver.findElement(By.xpath("//a[contains(text(),'Casting
 				// Billboard')]")).click();
 				String locationTest2 = new String(
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
 				if (locationTest2.contains("Casting Billboard")) {
-					log("Location->Casting Billboard");
+					log("E: Location->Casting Billboard");
 				}
 
 				String locationTest3 = new String(
@@ -122,12 +122,12 @@ public class Pamela {
 				continue;
 			}
 
-			log("Succ opening Casing Billboards and Extras link");
+			log("F: Succ opening Casing Billboards and Extras link");
 			// end login while loop
 			break;
 		}
-		while (leftNumOfSubmittionWhileLoopsChances++ < 10) {
-			log("Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
+		while (leftNumOfSubmittionWhileLoopsChances++ < 3) {
+			log("G: Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
 			// Choose from drop down list 'all roles':
 			try {
 				offer = new Job();
@@ -141,7 +141,7 @@ public class Pamela {
 					// DO NOT SUBMIT THIS OFFER
 					continue;
 				}
-				log("Begin submittion for top offer");
+				log("I: Begin submittion for top offer");
 				if (useSleep)
 					TimeUnit.SECONDS.sleep(2);
 				driver.findElement(By.xpath("//tr[3]/td/a")).click();
@@ -156,10 +156,12 @@ public class Pamela {
 				continue;
 			}
 			try {
-				log("trying an option for the submit link");
+				log("J: Trying an option for the submit link");
 				switch (++trielNumC) {
 				case 0:
 					driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
+					if (useSleep)
+						TimeUnit.SECONDS.sleep(3);
 					break;
 				case 1:
 					driver.findElement(By.linkText("submit")).click();
@@ -175,17 +177,18 @@ public class Pamela {
 					log("Last submit click option did not work.");
 					return;
 				}
-				log("C worked on " + trielNumC);
+				log("K: trielNumC worked on " + trielNumC);
 				// succece opening to photos page
 
 				String locationTest5 = new String(driver.findElement(By.xpath("//table[4]/tbody/tr/td ")).getText());
 				if (!locationTest5.contains("Main")) {
 					log("Error: You are on wrong window");
+					windowStatus();
 					continue;
 				}
 				// add the choose the photo here
 
-				log("Succ on openning window to choose photo and fill talent notes.");
+				log("L: Succ on openning window to choose photo and fill talent notes.");
 				driver.findElement(By.id("TALENTNOTE")).clear();
 				// driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
 				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
@@ -194,14 +197,17 @@ public class Pamela {
 					break;
 				}
 				offer.setHasBeenSubmitted(true);
-				log("Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
+				log("M: Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
 						+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
 						+ offer.getNotice());
 				offer.setLog(pamelaLog);
+				return;
 			} catch (Exception e) {
 				log("Clicking submit failed on trielNumC " + trielNumC);
 			}
 		}
+		log("O: Stopping");
+		return;
 	}
 
 	private void handleBackgroundWorkOffer(boolean isBackgroundWork) {
@@ -346,7 +352,7 @@ public class Pamela {
 			offer.setOfferPostedDate(currentOfferPostedDate);
 			offer.setOfferListing(currentOfferListing);
 			Jobs.add(offer);
-			log("Succ adding offer to Jobs list");
+			log("H: Succ adding offer to Jobs list");
 
 			return;
 
@@ -437,7 +443,8 @@ public class Pamela {
 				if (windowHandlesIterator.hasNext()) {
 					newWindowHandler = windowHandlesIterator.next();
 					if (!newWindowHandler.equals(currentWindowHandler)) {
-						driver.switchTo().window(newWindowHandler); // switching to
+						driver.switchTo().window(newWindowHandler); // switching
+																	// to
 																	// popup
 																	// window
 						windowStatus();
