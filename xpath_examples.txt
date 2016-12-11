@@ -106,7 +106,7 @@ RECOGNIZE SUBMIT PAGE1
 				Posted:&nbsp;10/18/2016
 				</td>
  
-
+//table[4]/tbody/tr/td
 //table[4]/tbody/tr/td    has text Role
 
 CHART OF EXTRAS LOCATION TABS
@@ -118,3 +118,13 @@ CHART OF EXTRAS LOCATION TABS
 6 PayingJob
 7 Union
 8Posted date
+
+
+click submit
+***************
+driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
+driver.findElement(By.linkText("submit")).click();
+css=a
+//table[6]/tbody/tr/td/a
+
+				

@@ -22,15 +22,17 @@ public class Pamela {
 	static Iterator<Job> jobIterator = Jobs.iterator();
 	private Job offer;
 	private String pamelaLog;
+	int trielNumC = -1;
 	int trielNumB = -1;
 	int trielNum = -1;
+
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.gecko.driver", "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
 		driver = new FirefoxDriver();
 		baseUrl = "http://home.castingnetworks.com";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		pamelaLog =new String("");
+		pamelaLog = new String("");
 	}
 
 	@Test
@@ -61,7 +63,7 @@ public class Pamela {
 			// WORK ONLY ON BACKGROUND WORK $$$ NOW
 
 			try {
-				
+
 				switch (++trielNumB) {
 				case 0:
 					driver.findElement(By.xpath("//a[contains(text(),'new Extras roles')]")).click();
@@ -80,41 +82,36 @@ public class Pamela {
 					break;
 
 				}
-				log("B worked on " +trielNumB); 
-				
-				/*
-				driver.findElement(By.xpath("//a[contains(text(),'Casting Billboard')]")).click();
-				String locationTest2 = new String(
-						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
-				if (!(locationTest2.contains("Casting Billboard"))) {
-					// go back to login page
-					log("Error pressing Casting Billboard.");
-					continue;
-				}
-				*/
-				/*
-				// choose BACKGROUND filter
-				switch (++trielNum) {
-				case 0:
-					driver.findElement(By.xpath("//a[contains(text(),'Extras Roles')]")).click();
-					break;
-				case 1:
-					driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/a")).click();
-					break;
-				case 2:
-					driver.findElement(By.xpath("//td/table/tbody/tr/td/a")).click();
-					break;
-				case 3:
-					driver.findElement(By.xpath("css=td > table > tbody > tr > td > a")).click();
-					break;
-				case 4:
-					driver.findElement(By.xpath("//a[contains(text(),'Click here to view  Extras Roles')]")).click();
-					break;
+				log("B worked on " + trielNumB);
 
-				}
-				log("worked on " +trielNum); 
-*/
-				 
+				/*
+				 * driver.findElement(By.
+				 * xpath("//a[contains(text(),'Casting Billboard')]")).click();
+				 * String locationTest2 = new String(
+				 * driver.findElement(By.xpath(
+				 * "//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).
+				 * getText()); if
+				 * (!(locationTest2.contains("Casting Billboard"))) { // go back
+				 * to login page log("Error pressing Casting Billboard.");
+				 * continue; }
+				 */
+				/*
+				 * // choose BACKGROUND filter switch (++trielNum) { case 0:
+				 * driver.findElement(By.
+				 * xpath("//a[contains(text(),'Extras Roles')]")).click();
+				 * break; case 1: driver.findElement(By.xpath(
+				 * "//div[@id='DirectCastMainDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/a"
+				 * )).click(); break; case 2:
+				 * driver.findElement(By.xpath("//td/table/tbody/tr/td/a")).
+				 * click(); break; case 3: driver.findElement(By.
+				 * xpath("css=td > table > tbody > tr > td > a")).click();
+				 * break; case 4: driver.findElement(By.
+				 * xpath("//a[contains(text(),'Click here to view  Extras Roles')]"
+				 * )).click(); break;
+				 * 
+				 * } log("worked on " +trielNum);
+				 */
+
 				// TimeUnit.SECONDS.sleep(3);
 				String locationTest3 = new String(
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3")).getText());
@@ -147,34 +144,53 @@ public class Pamela {
 			// driver.findElement(By.id("_ctl0_lnkExtrasRoles")).click();
 
 			handleBackgroundWorkOffer(true);
-			//offer.readNotice();
+			// offer.readNotice();
 			offer.makeDecision();
-			
+
 			if ((offer.getDecisionSubmit()) && (!offer.getHasBeenSubmitted())) {
 				log("Begin submittion for this offer");
 				// submitting to this offer
 				TimeUnit.SECONDS.sleep(2);
 				try {
-						//submitting to top offer
+					// submitting to top offer
 					driver.findElement(By.xpath("//tr[3]/td/a")).click();
-					 //checking that we are in submittion Page 1 - ADD THIS IS IMPORTANT
-					
-					
-					/*String locationTest2 = new String(driver.findElement(By.xpath("//td[3]")).getText());
-					if (!(locationTest2.contains("Role"))) {
-						// go back to login page
-						log("Error pressing Casting Billboard -EXTRAS.");
-						continue;
-					}
-					*/
+					// checking that we are in submittion Page 1 - ADD THIS IS
+					// IMPORTANT
+
+					/*
+					 * String locationTest2 = new
+					 * String(driver.findElement(By.xpath("//td[3]")).getText())
+					 * ; if (!(locationTest2.contains("Role"))) { // go back to
+					 * login page
+					 * log("Error pressing Casting Billboard -EXTRAS.");
+					 * continue; }
+					 */
 				} catch (Exception e) {
 					log("Didn't work");
 					// go back to login page
 					continue;
 				}
+				// tried of 4 diff options to click submit
+
+				switch (++trielNumC) {
+				case 0:
+					driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
+					break;
+				case 1:
+					driver.findElement(By.linkText("submit")).click();
+					break;
+				case 2:
+					driver.findElement(By.xpath("//table[6]/tbody/tr/td/a")).click();
+					break;
+				case 3:
+					driver.findElement(By.cssSelector("css=a")).click();
+					break;
+
+				}
+				log("B worked on " + trielNumB);
 
 				driver.findElement(By.linkText("submit")).click();
-				
+
 				// driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
 
 				// make sure the windows opened:
@@ -198,9 +214,8 @@ public class Pamela {
 			} else {
 				// do not submit
 			}
-			log("Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
-					+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
-					+ offer.getNotice());
+			log("Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:" + offer.getIsMale()
+					+ " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ " + offer.getNotice());
 			offer.setLog(pamelaLog);
 
 		}
@@ -224,38 +239,123 @@ public class Pamela {
 		String currentOfferListing;
 
 		try {
-			
-			try{currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());}catch(Exception e){currentOffer = new String("");};
+
+			try {
+				currentOffer = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
+			} catch (Exception e) {
+				currentOffer = new String("");
+			}
+			;
 			currentOfferRole = new String(currentOffer);
-			
+
 			if (isBackgroundWork) {
 				// BACKGROUND WORK
-	try{currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());}catch(Exception e){currentOfferProjectName = new String("");};
-				try{currentOfferShootDate = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());}catch(Exception e){currentOfferShootDate = new String("");};
-				try{currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());}catch(Exception e){currentOfferTypeProject = new String("");};
-				try{currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());}catch(Exception e){currentOffertRate = new String("");};
-				try{currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());}catch(Exception e){currentOfferPaying = new String("");};
-				try{currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());}catch(Exception e){currentOfferUnionStatus = new String("");};
-				try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[8]/a")).getText());}catch(Exception e){currentOfferPostedDate = new String("");};
-				try{currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());}catch(Exception e){currentOfferListing = new String("");};
-			 	} else {
+				try {
+					currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
+				} catch (Exception e) {
+					currentOfferProjectName = new String("");
+				}
+				;
+				try {
+					currentOfferShootDate = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
+				} catch (Exception e) {
+					currentOfferShootDate = new String("");
+				}
+				;
+				try {
+					currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
+				} catch (Exception e) {
+					currentOfferTypeProject = new String("");
+				}
+				;
+				try {
+					currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());
+				} catch (Exception e) {
+					currentOffertRate = new String("");
+				}
+				;
+				try {
+					currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());
+				} catch (Exception e) {
+					currentOfferPaying = new String("");
+				}
+				;
+				try {
+					currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());
+				} catch (Exception e) {
+					currentOfferUnionStatus = new String("");
+				}
+				;
+				try {
+					currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[8]/a")).getText());
+				} catch (Exception e) {
+					currentOfferPostedDate = new String("");
+				}
+				;
+				try {
+					currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());
+				} catch (Exception e) {
+					currentOfferListing = new String("");
+				}
+				;
+			} else {
 				// PRINCIPLE WORK
-			 		try{currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());}catch(Exception e){currentOfferProjectName = new String("");};
-					try{currentOfferShootDate = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());}catch(Exception e){currentOfferShootDate = new String("");};
-					try{currentOfferTypeProject = new String("");}catch(Exception e){currentOfferTypeProject = new String("");};
-					try{currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());}catch(Exception e){currentOffertRate = new String("");};
-					try{currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());}catch(Exception e){currentOfferPaying = new String("");};
-					try{currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());}catch(Exception e){currentOfferUnionStatus = new String("");};
-					try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());}catch(Exception e){currentOfferPostedDate = new String("");};
-					try{currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());}catch(Exception e){currentOfferListing = new String("");};	
-		 
+				try {
+					currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());
+				} catch (Exception e) {
+					currentOfferProjectName = new String("");
+				}
+				;
+				try {
+					currentOfferShootDate = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
+				} catch (Exception e) {
+					currentOfferShootDate = new String("");
+				}
+				;
+				try {
+					currentOfferTypeProject = new String("");
+				} catch (Exception e) {
+					currentOfferTypeProject = new String("");
+				}
+				;
+				try {
+					currentOffertRate = new String(driver.findElement(By.xpath("//tr[3]/td[4]/a")).getText());
+				} catch (Exception e) {
+					currentOffertRate = new String("");
+				}
+				;
+				try {
+					currentOfferPaying = new String(driver.findElement(By.xpath("//tr[3]/td[5]/a")).getText());
+				} catch (Exception e) {
+					currentOfferPaying = new String("");
+				}
+				;
+				try {
+					currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[6]/a")).getText());
+				} catch (Exception e) {
+					currentOfferUnionStatus = new String("");
+				}
+				;
+				try {
+					currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[7]/a")).getText());
+				} catch (Exception e) {
+					currentOfferPostedDate = new String("");
+				}
+				;
+				try {
+					currentOfferListing = new String(driver.findElement(By.xpath("//tr[4]/td")).getText());
+				} catch (Exception e) {
+					currentOfferListing = new String("");
+				}
+				;
+
 			}
 			// enter into JOB class
 
 			offer.setOfferRole(currentOffer);
 			offer.setOfferRole(currentOfferRole);
 			offer.setOfferProjectName(currentOfferProjectName);
-			offer.setOfferShootDate(currentOfferShootDate);		
+			offer.setOfferShootDate(currentOfferShootDate);
 			offer.setOfferTypeProject(currentOfferTypeProject);
 			offer.setOffertRate(currentOffertRate);
 			offer.setOfferPaying(currentOfferPaying);
@@ -327,13 +427,12 @@ public class Pamela {
 			acceptNextAlert = true;
 		}
 	}
-	
-	private void log(String newLog){
-		if (newLog.length() <1 )
-		{
+
+	private void log(String newLog) {
+		if (newLog.length() < 1) {
 			return;
 		}
-		pamelaLog += (new String(newLog)).concat("\n");		
+		pamelaLog += (new String(newLog)).concat("\n");
 		System.out.println(newLog);
 	}
 }
