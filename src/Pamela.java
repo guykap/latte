@@ -178,9 +178,10 @@ public class Pamela {
 					return;
 				}
 				log("K: trielNumC worked on " + trielNumC);
+				windowStatus();
 				// succece opening to photos page
 
-				String locationTest5 = new String(driver.findElement(By.xpath("//table[4]/tbody/tr/td ")).getText());
+				String locationTest5 = new String(driver.findElement(By.xpath("//span")).getText());
 				if (!locationTest5.contains("Main")) {
 					log("Error: You are on wrong window");
 					windowStatus();
@@ -191,7 +192,17 @@ public class Pamela {
 				log("L: Succ on openning window to choose photo and fill talent notes.");
 				driver.findElement(By.id("TALENTNOTE")).clear();
 				// driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
+				if (useSleep)
+					TimeUnit.SECONDS.sleep(4);
 				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
+				//verify that the confirmation window opened
+				String locationTest6 = new String(
+						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
+				if (!locationTest6.contains("Submission Successful")) {
+					log("Did NOT recieve final submittion successful");
+					windowStatus();
+					continue;
+				}
 				if (!killSubWindowAndMoveToParentWindow()) {
 					log("Memory leak error: failed killing child window");
 					break;
