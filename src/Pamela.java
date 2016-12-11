@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -28,18 +29,23 @@ public class Pamela {
 	boolean useSleep = true;
 	int leftNumOfLoginWhileLoopsChances = 0;
 	int leftNumOfSubmittionWhileLoopsChances = 0;
+	String parentWindowHandler;
+	String subWindowHandler;  
 
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.gecko.driver", "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
 		driver = new FirefoxDriver();
 		baseUrl = "http://home.castingnetworks.com";
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);	
+		parentWindowHandler = driver.getWindowHandle(); // Store your parent window
 		pamelaLog = new String("");
+
 	}
 
 	@Test
 	public void testPamela() throws Exception {
+		log("Window handle "+ parentWindowHandler);
 		while ((leftNumOfLoginWhileLoopsChances++)<10) {
 			log("Start Login num " + leftNumOfLoginWhileLoopsChances);
 			driver.get(baseUrl + "/");
@@ -157,6 +163,14 @@ public class Pamela {
 					 * log("Error pressing Casting Billboard -EXTRAS.");
 					 * continue; }
 					 */
+					//moving to the popup window
+					Set<String> handles = driver.getWindowHandles(); // get all window handles
+					Iterator<String> iterator = handles.iterator();
+					while (iterator.hasNext()){
+					    subWindowHandler = iterator.next();
+					    log("Moving to window handler " + subWindowHandler);
+					}
+					driver.switchTo().window(subWindowHandler); // switch to popup window
 				} catch (Exception e) {
 					log("Didn't work");
 					// go back to login page
@@ -188,10 +202,8 @@ public class Pamela {
 
 					// make sure the windows opened:
 
-					String b = new String(driver.findElement(By.xpath("//table/tbody/tr/td/a")).getText());
-					String a = new String(driver.findElement(By.xpath("//table/tbody/tr/td/span")).getText());
-					String navigatorTest = new String(driver.findElement(By.xpath("//tr[3]/td/a")).getText());
-					if (navigatorTest.contains("Advanced Filters")) {
+					String locationTest4 = new String(driver.findElement(By.xpath("//table[4]/tbody/tr/td ")).getText());
+				 	if (!locationTest4.contains("Role")) {
 						// error oppenning the window
 						log("Error: You are still pointing to Casting Billboard Extras");
 						continue;
