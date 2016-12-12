@@ -144,6 +144,8 @@ public class Pamela {
 				if (useSleep)
 					TimeUnit.SECONDS.sleep(2);
 				driver.findElement(By.xpath("//tr[3]/td/a")).click();
+				if (useSleep)
+					TimeUnit.SECONDS.sleep(2);
 				windowStatus();
 				driver.switchTo().window(getSonWindowHandler());
 				windowStatus();
@@ -199,6 +201,8 @@ public class Pamela {
 				if (useSleep)
 					TimeUnit.SECONDS.sleep(4);
 				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
+				if (useSleep)
+					TimeUnit.SECONDS.sleep(2);
 				// verify that the confirmation window opened
 				windowStatus();
 				windowStatus2();
