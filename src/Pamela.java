@@ -8,6 +8,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
+import org.junit.runner.JUnitCore;
+
 import static org.junit.Assert.*;
 //import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
@@ -35,6 +37,11 @@ public class Pamela {
 	Iterator<String> windowHandlesIterator;
 	Set<String> handles;
 
+	public static void main(String[] args) throws Exception {                    
+	       JUnitCore.main(
+	         "com.stackoverflow.MyTestSuite");            
+	}
+	
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.gecko.driver", "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
@@ -632,7 +639,7 @@ public class Pamela {
 	}
 
 	public void nap() throws InterruptedException {
-		log("Zzz");
+		log("Zzz "+leftNumOfLoginWhileLoopsChances);
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(60);
 		}
