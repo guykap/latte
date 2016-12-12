@@ -27,6 +27,9 @@ public class Pamela {
 	int trielNumC = -1;
 	int trielNumB = -1;
 	int trielNum = -1;
+	
+	int[] passedOnOptionArray = new int[] { 0, 0, 0 };
+	int[] 
 	boolean useSleep = true;
 	int leftNumOfLoginWhileLoopsChances = 0;
 	int leftNumOfSubmittionWhileLoopsChances = 0;
@@ -42,7 +45,6 @@ public class Pamela {
 		baseUrl = "http://home.castingnetworks.com";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		parentWindowHandler = driver.getWindowHandle();
-
 		pamelaLog = new String("");
 
 	}
@@ -150,6 +152,11 @@ public class Pamela {
 			}
 			try {
 				log("J: Trying an option for the submit link");
+				 
+				if (!assertiveClicking(0, {"//a[contains(text(),'submit')]","//table[6]/tbody/tr/td/a",)){
+					break;
+				} 
+				/*
 				switch (++trielNumC) {
 				case 0:
 					driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
@@ -170,6 +177,7 @@ public class Pamela {
 					log("Last submit click option did not work.");
 					return;
 				}
+				*/
 				log("K: trielNumC worked on " + trielNumC);
 				windowStatus();
 				// succece opening to photos page
@@ -557,5 +565,30 @@ public class Pamela {
 		}
 		log("Error: verify text " + verifyText + " failed.");
 		return false;
+	}
+
+	private boolean assertiveClicking(int cellInArray, String[] optionStrings) {
+		{
+			if (optionStrings.length < 1) {
+				log("No option strings");
+				return false;
+			}
+
+			if (passedOnOptionArray[cellInArray] > optionStrings.length) {
+				log("Fatal Error: Tried all the options! We might be on the wrong page");
+				windowStatus();
+				windowStatus2();
+				return false;
+			}
+
+			try {
+				driver.findElement(By.xpath(optionStrings[passedOnOptionArray[cellInArray]])).click();
+				return true;
+			} catch (Exception e) {
+				log("option " + optionStrings[cellInArray] + " didn't work. Lets try option num " + cellInArray);
+				return false;
+			}
+		}
+
 	}
 }
