@@ -65,12 +65,10 @@ public class Pamela {
 				TimeUnit.SECONDS.sleep(3);
 			driver.findElement(By.id("_ctl0_cphBody_rptProfiles__ctl1_lnkViewProfile2")).click();
 			// check for welcome window:
-			String locationTest1 = new String(driver.findElement(By.xpath("//div[@id='maininfo']/h2")).getText());
-			if (!(locationTest1.contains("Welcome"))) {
-				// go back to login page
-				log("Error logging in.");
+			if (!verifyLocation("//div[@id='maininfo']/h2", "Welcome")) {
 				continue;
 			}
+			;
 			log("C: Location->Home Page");
 
 			if (useSleep)
@@ -99,19 +97,11 @@ public class Pamela {
 				}
 				log("D: trielNumB worked on " + trielNumB--);
 
-				// driver.findElement(By.xpath("//a[contains(text(),'Casting
-				// Billboard')]")).click();
-				String locationTest2 = new String(
-						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
-				if (locationTest2.contains("Casting Billboard")) {
+				if (verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2", "Casting Billboard")) {
 					log("E: Location->Casting Billboard");
 				}
 
-				String locationTest3 = new String(
-						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3")).getText());
-				if (!(locationTest3.contains("Extras"))) {
-					// go back to login page
-					log("Error pressing Extras link.");
+				if (!verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3", "Extras")) {
 					continue;
 				}
 
@@ -150,11 +140,8 @@ public class Pamela {
 				driver.switchTo().window(getSonWindowHandler());
 				windowStatus();
 				/*
-				if (!moveToOtherWindow()) {
-					// restart
-					continue;
-				}
-				*/
+				 * if (!moveToOtherWindow()) { // restart continue; }
+				 */
 
 			} catch (Exception e) {
 				log("Didn't work");
@@ -187,13 +174,11 @@ public class Pamela {
 				windowStatus();
 				// succece opening to photos page
 
-				String locationTest5 = new String(driver.findElement(By.xpath("//span")).getText());
-				if (!locationTest5.contains("Customize your submission")) {
+				if (!verifyLocation("//span", "Customize your submission")) {
 					log("Error: You are on wrong window");
 					windowStatus();
 					continue;
 				}
-				// add the choose the photo here
 
 				log("L: Succ on openning window to choose photo and fill talent notes.");
 				driver.findElement(By.id("TALENTNOTE")).clear();
@@ -206,9 +191,7 @@ public class Pamela {
 				// verify that the confirmation window opened
 				windowStatus();
 				windowStatus2();
-				String locationTest6 = new String(
-						driver.findElement(By.xpath("//span")).getText());
-				if (!locationTest6.contains("Submission Successful")) {
+				if (!verifyLocation("//span", "Submission Successful")) {
 					log("Did NOT recieve final submittion successful");
 					windowStatus();
 					continue;
@@ -489,21 +472,20 @@ public class Pamela {
 		return true;
 	}
 
-	
-	private void windowStatus(){
+	private void windowStatus() {
 		String currentWindowHandler = driver.getWindowHandle();
 		String sonWindow = getSonWindowHandler();
 		String pointing;
-		if(getParentWindowHandler().equals(currentWindowHandler))
-		{
+		if (getParentWindowHandler().equals(currentWindowHandler)) {
 			pointing = new String("PARENT");
-		}else{
+		} else {
 			pointing = new String("SON");
 		}
 		driver.getWindowHandle();
-		log("Parent: "+ getParentWindowHandler() + " Son: " + sonWindow + " Current: "+ pointing );
+		log("Parent: " + getParentWindowHandler() + " Son: " + sonWindow + " Current: " + pointing);
 		return;
 	}
+
 	private void windowStatus2() {
 		handles = driver.getWindowHandles(); // get all window handles
 		// String allHandles = new String(Arrays.toString(handles));
@@ -568,4 +550,12 @@ public class Pamela {
 		return ("");
 	}
 
+	private boolean verifyLocation(String xpathTab, String verifyText) {
+		String locationTest1 = new String(driver.findElement(By.xpath(xpathTab)).getText());
+		if ((locationTest1.contains(verifyText))) {
+			return true;
+		}
+		log("Error: verify text " + verifyText + " failed.");
+		return false;
+	}
 }
