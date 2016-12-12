@@ -186,7 +186,7 @@ public class Pamela {
 				// succece opening to photos page
 
 				String locationTest5 = new String(driver.findElement(By.xpath("//span")).getText());
-				if (!locationTest5.contains("Main")) {
+				if (!locationTest5.contains("Customize your submission")) {
 					log("Error: You are on wrong window");
 					windowStatus();
 					continue;
@@ -200,8 +200,10 @@ public class Pamela {
 					TimeUnit.SECONDS.sleep(4);
 				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
 				// verify that the confirmation window opened
+				windowStatus();
+				windowStatus2();
 				String locationTest6 = new String(
-						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
+						driver.findElement(By.xpath("//span")).getText());
 				if (!locationTest6.contains("Submission Successful")) {
 					log("Did NOT recieve final submittion successful");
 					windowStatus();
@@ -485,9 +487,10 @@ public class Pamela {
 
 	
 	private void windowStatus(){
+		String currentWindowHandler = driver.getWindowHandle();
 		String sonWindow = getSonWindowHandler();
 		String pointing;
-		if(getParentWindowHandler().equalsIgnoreCase(getParentWindowHandler()))
+		if(getParentWindowHandler().equals(currentWindowHandler))
 		{
 			pointing = new String("PARENT");
 		}else{
