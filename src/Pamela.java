@@ -134,13 +134,13 @@ public class Pamela {
 				continue;
 			}
 			try {
-				log("J: Trying an option for the submit link");
+				log("J: Making sure there is no GREEN STAR");
 
 				deepBreath();
 				 try {
 				      assertTrue(isElementPresent(By.xpath("//table[6]/tbody/tr/td/img")));
 				      //the green button is there SO :
-				      log("This top offer has been submitted.");
+				      log("This project saved as  " + offer.getOfferId() + " has been submitted before.");
 						offer = null;
 						if (!killSubWindowAndMoveToParentWindow()) {
 							log("Memory leak error: failed killing child window");
@@ -632,6 +632,7 @@ public class Pamela {
 	}
 
 	public void nap() throws InterruptedException {
+		log("Zzz");
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(60);
 		}
