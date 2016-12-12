@@ -156,7 +156,7 @@ public class Pamela {
 				log("L: Succ on openning window to choose photo and fill talent notes.");
 				driver.findElement(By.id("TALENTNOTE")).clear();
 				// driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
-				breath();
+				deepBreath();
 				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
 				deepBreath();
 				// verify that the confirmation window opened
