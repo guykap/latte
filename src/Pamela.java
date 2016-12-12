@@ -28,8 +28,7 @@ public class Pamela {
 	int trielNumB = -1;
 	int trielNum = -1;
 	
-	int[] passedOnOptionArray = new int[] { 0, 0, 0 };
-	int[] 
+	int[] passedOnOptionArray = new int[] { 0, 0};
 	boolean useSleep = true;
 	int leftNumOfLoginWhileLoopsChances = 0;
 	int leftNumOfSubmittionWhileLoopsChances = 0;
@@ -46,7 +45,7 @@ public class Pamela {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		parentWindowHandler = driver.getWindowHandle();
 		pamelaLog = new String("");
-
+		groupMembers = new ArrayList<Set<Door>>();
 	}
 
 	@Test
@@ -70,15 +69,20 @@ public class Pamela {
 			if (!verifyLocation("//div[@id='maininfo']/h2", "Welcome")) {
 				continue;
 			}
-			;
+			
 			log("C: Location->Home Page");
 
 			if (useSleep)
 				TimeUnit.SECONDS.sleep(3);
 
 			// WORK ONLY ON BACKGROUND WORK $$$ NOW
-
+			
+			
 			try {
+				if (!assertiveClicking(0, new String[]{"//a[@id='_ctl0_cphBody_lnkExtrasRoles']","//a[contains(text(),'new Extras roles')]","//li[@id='_ctl0_cphBody_liDirectCastExtras']/a","//a[contains(@href, '../DirectCast/Roles.aspx?rt=xc1')]","//div[2]/div/div/div/ul/li[3]/a"})){
+					break;
+				}
+				/*
 				switch (++trielNumB) {
 				case 0:
 					driver.findElement(By.xpath("//a[@id='_ctl0_cphBody_lnkExtrasRoles']")).click();
@@ -97,6 +101,7 @@ public class Pamela {
 					break;
 
 				}
+				*/
 				log("D: trielNumB worked on " + trielNumB--);
 
 				if (verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2", "Casting Billboard")) {
@@ -152,8 +157,8 @@ public class Pamela {
 			}
 			try {
 				log("J: Trying an option for the submit link");
-				 
-				if (!assertiveClicking(0, {"//a[contains(text(),'submit')]","//table[6]/tbody/tr/td/a",)){
+				  
+				if (!assertiveClicking(2, new String[]{"//a[contains(text(),'submit')]","//table[6]/tbody/tr/td/a"})){
 					break;
 				} 
 				/*
@@ -568,7 +573,7 @@ public class Pamela {
 	}
 
 	private boolean assertiveClicking(int cellInArray, String[] optionStrings) {
-		{
+		{//works only with xPath links - sorry!
 			if (optionStrings.length < 1) {
 				log("No option strings");
 				return false;
