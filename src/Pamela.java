@@ -137,8 +137,24 @@ public class Pamela {
 				log("J: Trying an option for the submit link");
 
 				deepBreath();
-				if (verifyLocation("//table[6]/tbody/tr/td/a", "remove")) {
-					log("This offer top offer has been submitted.");
+				 try {
+				      assertTrue(isElementPresent(By.xpath("//table[6]/tbody/tr/td/img")));
+				      //the green button is there SO :
+				      log("This top offer has been submitted.");
+						offer = null;
+						if (!killSubWindowAndMoveToParentWindow()) {
+							log("Memory leak error: failed killing child window");
+							break;
+						}
+						nap();
+						continue;
+				    } catch (Error e) {
+				      verificationErrors.append(e.toString());
+				      //no green button
+				    }
+				 /*
+				if (verifyLocation("//table[5]/tbody/tr/td/a", "remove")) {
+					log("This top offer has been submitted.");
 					offer = null;
 					if (!killSubWindowAndMoveToParentWindow()) {
 						log("Memory leak error: failed killing child window");
@@ -147,7 +163,7 @@ public class Pamela {
 					nap();
 					break;
 				}
-
+*/
 				deepBreath();
 				if (!assertiveClicking(1,
 						new String[] { "//a[contains(text(),'submit')]", "//table[6]/tbody/tr/td/a" })) {
@@ -160,7 +176,7 @@ public class Pamela {
 				log("K: Second triel worked on " + passedOnOptionArray[1]);
 				windowStatus();
 				// succece opening to photos page
-
+				deepBreath();
 				if (!verifyLocation("//span", "Customize your submission")) {
 					log("Error: You are on wrong window");
 					windowStatus();
