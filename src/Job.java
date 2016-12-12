@@ -65,6 +65,14 @@ public class Job {
 		// this age temp for this test version
 	}
 
+	public String getOfferId() {
+		return offerRole;
+	};
+
+	public void setOfferId(String newData) {
+		offerRole = newData;
+	};
+	
 	public String getOfferRole() {
 		return offerRole;
 	};

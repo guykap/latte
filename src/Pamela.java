@@ -111,21 +111,11 @@ public class Pamela {
 				handleBackgroundWorkOffer(true);
 				// offer.readNotice();
 				offer.makeDecision();
-
-				//look for green star on the left
-				deepBreath();				
-				if(verifyLocation("/table[6]/tbody/tr/td/a","remove")){
-					//this offer top offer has been submitted. 
-					offer = null;
-					nap();
-				}
-				
-				
 				if ((!offer.getDecisionSubmit()) || (offer.getHasBeenSubmitted())) {
 					// DO NOT SUBMIT THIS OFFER
 					continue;
 				}
-				log("I: Begin submittion for top offer");
+				log("I: Begin submittion for top offer id " + offer.getOfferId());
 				deepBreath();
 				driver.findElement(By.xpath("//tr[3]/td/a")).click();
 				deepBreath();
@@ -145,6 +135,20 @@ public class Pamela {
 			}
 			try {
 				log("J: Trying an option for the submit link");
+				
+				deepBreath();				
+				if(verifyLocation("/table[6]/tbody/tr/td/a","remove")){
+					log("This offer top offer has been submitted."); 
+					offer = null;
+					if (!killSubWindowAndMoveToParentWindow()) {
+						log("Memory leak error: failed killing child window");
+						break;
+					}
+					nap();
+					break;
+				}
+				
+				
 				deepBreath();
 				if (!assertiveClicking(1,
 						new String[] { "//a[contains(text(),'submit')]", "//table[6]/tbody/tr/td/a" })) {
@@ -600,7 +604,7 @@ public class Pamela {
 		{
 			breath();
 		}
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 3; i++) {
 			breath();
 		}
 	}
