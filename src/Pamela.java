@@ -127,9 +127,9 @@ public class Pamela {
 
 			} catch (Exception e) {
 				log("Didn't work");
-				
+
 				// move back to parent and go back to G point
-				killSubWindowAndMoveToParentWindow();				
+				killSubWindowAndMoveToParentWindow();
 				continue;
 			}
 			try {
@@ -158,7 +158,7 @@ public class Pamela {
 				// driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
 				breath();
 				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
-				breath();
+				deepBreath();
 				// verify that the confirmation window opened
 				windowStatus();
 				windowStatus2();
@@ -175,7 +175,7 @@ public class Pamela {
 				offer.setLog(pamelaLog);
 				log("M: Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
 						+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
-						+ offer.getNotice() + "LOG: " + offer.getLog());
+						+ offer.getNotice());
 
 				return;
 			} catch (Exception e) {
@@ -576,5 +576,16 @@ public class Pamela {
 			// no sleep!
 		}
 
+	}
+
+	public void deepBreath() throws InterruptedException {
+		//the first breaths are small ones. After the second while loop - we take deep breaths.
+		if(leftNumOfSubmittionWhileLoopsChances<2)
+		{
+			breath();
+		}
+		for (int i = 0; i < 5; i++) {
+			breath();
+		}
 	}
 }
