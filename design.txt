@@ -19,7 +19,11 @@ Should not restart every failure.
 A difference if a pop up window doesn't open or the role has been submitted for - I whould map out all the options.
 
 add shootdate to decision making in the event i;m' already booked on a certain date.
-
+-behave like a human - so login would be in UNEVEN time spaces, pretend to sleep at night
+-do not have any constancy in online action
+-change the way behave in site - like go to the other options of links 
+-alternate the time sleep between action Randomized
+-alternate messages on the talent notes.
 TODO
 -------------
 TODO -SQL DB on cloud.

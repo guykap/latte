@@ -24,12 +24,9 @@ public class Pamela {
 	static Iterator<Job> jobIterator = Jobs.iterator();
 	private Job offer;
 	private String pamelaLog;
-	int trielNumC = -1;
-	int trielNumB = -1;
-	int trielNum = -1;
-	int[] passedOnOptionArray = new int[]{ -1, -1};
-	int[] currentOnOptionArray = new int[]{ 0, 0};
-	boolean useSleep = true;
+	int[] passedOnOptionArray = new int[] { -1, -1 };
+	int[] currentOnOptionArray = new int[] { 0, 0 };
+	boolean useSleep;
 	int leftNumOfLoginWhileLoopsChances = 0;
 	int leftNumOfSubmittionWhileLoopsChances = 0;
 	String parentWindowHandler;
@@ -45,7 +42,8 @@ public class Pamela {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		parentWindowHandler = driver.getWindowHandle();
 		pamelaLog = new String("");
-		 
+		useSleep = true;
+
 	}
 
 	@Test
@@ -54,55 +52,34 @@ public class Pamela {
 		while ((leftNumOfLoginWhileLoopsChances++) < 10) {
 			log("B: Start Login num " + leftNumOfLoginWhileLoopsChances);
 			driver.get(baseUrl + "/");
-			if (useSleep)
-				TimeUnit.SECONDS.sleep(3);
+			breath();
 			driver.findElement(By.id("login")).click();
 			driver.findElement(By.id("login")).clear();
 			driver.findElement(By.id("login")).sendKeys("guykapulnik");
 			driver.findElement(By.id("password")).clear();
 			driver.findElement(By.id("password")).sendKeys("cGuy1234567");
 			driver.findElement(By.xpath("//input[@id='submit']")).click();
-			if (useSleep)
-				TimeUnit.SECONDS.sleep(3);
+			breath();
 			driver.findElement(By.id("_ctl0_cphBody_rptProfiles__ctl1_lnkViewProfile2")).click();
 			// check for welcome window:
 			if (!verifyLocation("//div[@id='maininfo']/h2", "Welcome")) {
 				continue;
 			}
-			
-			log("C: Location->Home Page");
 
-			if (useSleep)
-				TimeUnit.SECONDS.sleep(3);
+			log("C: Location->Home Page");
+			breath();
 
 			// WORK ONLY ON BACKGROUND WORK $$$ NOW
-			
-			
-			try {
-				if (!assertiveClicking(0, new String[]{"//a[@id='_ctl0_cphBody_lnkExtrasRoles']","//a[contains(text(),'new Extras roles')]","//li[@id='_ctl0_cphBody_liDirectCastExtras']/a","//a[contains(@href, '../DirectCast/Roles.aspx?rt=xc1')]","//div[2]/div/div/div/ul/li[3]/a"})){
-					break;
-				}
-				/*
-				switch (++trielNumB) {
-				case 0:
-					driver.findElement(By.xpath("//a[@id='_ctl0_cphBody_lnkExtrasRoles']")).click();
-					break;
-				case 1:
-					driver.findElement(By.xpath("//a[contains(text(),'new Extras roles')]")).click();
-					break;
-				case 2:
-					driver.findElement(By.xpath("//li[@id='_ctl0_cphBody_liDirectCastExtras']/a")).click();
-					break;
-				case 3:
-					driver.findElement(By.xpath("//a[contains(@href, '../DirectCast/Roles.aspx?rt=xc1')]")).click();
-					break;
-				case 4:
-					driver.findElement(By.xpath("//div[2]/div/div/div/ul/li[3]/a")).click();
-					break;
 
+			try {
+				if (!assertiveClicking(0, new String[] { "//a[@id='_ctl0_cphBody_lnkExtrasRoles']",
+						"//a[contains(text(),'new Extras roles')]", "//li[@id='_ctl0_cphBody_liDirectCastExtras']/a",
+						"//a[contains(@href, '../DirectCast/Roles.aspx?rt=xc1')]",
+						"//div[2]/div/div/div/ul/li[3]/a" })) {
+					break;
 				}
-				*/
-				log("D: First triel worked on " + passedOnOptionArray[0] );
+
+				log("D: First triel worked on " + passedOnOptionArray[0]);
 
 				if (verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2", "Casting Billboard")) {
 					log("E: Location->Casting Billboard");
@@ -138,11 +115,9 @@ public class Pamela {
 					continue;
 				}
 				log("I: Begin submittion for top offer");
-				if (useSleep)
-					TimeUnit.SECONDS.sleep(2);
+				breath();
 				driver.findElement(By.xpath("//tr[3]/td/a")).click();
-				if (useSleep)
-					TimeUnit.SECONDS.sleep(2);
+				breath();
 				windowStatus();
 				driver.switchTo().window(getSonWindowHandler());
 				windowStatus();
@@ -157,33 +132,16 @@ public class Pamela {
 			}
 			try {
 				log("J: Trying an option for the submit link");
-				  
-				if (!assertiveClicking(1, new String[]{"//a[contains(text(),'submit')]","//table[6]/tbody/tr/td/a"})){
-					break;
-				} 
-				/*
-				switch (++trielNumC) {
-				case 0:
-					driver.findElement(By.xpath("//a[contains(text(),'submit')]")).click();
-					if (useSleep)
-						TimeUnit.SECONDS.sleep(3);
-					break;
-				case 1:
-					driver.findElement(By.linkText("submit")).click();
-					break;
-				case 2:
-					driver.findElement(By.xpath("//table[6]/tbody/tr/td/a")).click();
-					break;
-				case 3:
-					driver.findElement(By.cssSelector("css=a")).click();
 
+				if (!assertiveClicking(1,
+						new String[] { "//a[contains(text(),'submit')]", "//table[6]/tbody/tr/td/a" })) {
 					break;
-				case 4:
-					log("Last submit click option did not work.");
-					return;
 				}
-				*/
-				log("K: trielNumC worked on " + passedOnOptionArray[1]);
+				/*
+				 * case 1: driver.findElement(By.linkText("submit")).click();
+				 * case 3:driver.findElement(By.cssSelector("css=a")).click();
+				 */
+				log("K: Second triel worked on " + passedOnOptionArray[1]);
 				windowStatus();
 				// succece opening to photos page
 
@@ -196,11 +154,9 @@ public class Pamela {
 				log("L: Succ on openning window to choose photo and fill talent notes.");
 				driver.findElement(By.id("TALENTNOTE")).clear();
 				// driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
-				if (useSleep)
-					TimeUnit.SECONDS.sleep(4);
+				breath();
 				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
-				if (useSleep)
-					TimeUnit.SECONDS.sleep(2);
+				breath();
 				// verify that the confirmation window opened
 				windowStatus();
 				windowStatus2();
@@ -214,13 +170,14 @@ public class Pamela {
 					break;
 				}
 				offer.setHasBeenSubmitted(true);
+				offer.setLog(pamelaLog);
 				log("M: Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
 						+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
-						+ offer.getNotice());
-				offer.setLog(pamelaLog);
+						+ offer.getNotice() + "LOG: " + offer.getLog());
+
 				return;
 			} catch (Exception e) {
-				log("Clicking submit failed on trielNumC " + trielNumC);
+				log("Clicking submit failed on triel");
 			}
 		}
 		log("Z: Stopping");
@@ -573,7 +530,7 @@ public class Pamela {
 	}
 
 	private boolean assertiveClicking(int numOfTriel, String[] optionStrings) {
-		{//works only with xPath links - sorry!
+		{// works only with xPath links - sorry!
 			if (optionStrings.length < 1) {
 				log("No option strings");
 				return false;
@@ -587,15 +544,34 @@ public class Pamela {
 			}
 
 			try {
-				driver.findElement(By.xpath(optionStrings[passedOnOptionArray[numOfTriel]])).click();
-				passedOnOptionArray[numOfTriel] = currentOnOptionArray[numOfTriel]; 
+				if (passedOnOptionArray[numOfTriel] == (-1)) {
+					// trying an option
+
+					driver.findElement(By.xpath(optionStrings[currentOnOptionArray[numOfTriel]])).click();
+					passedOnOptionArray[numOfTriel] = currentOnOptionArray[numOfTriel];
+				} else {
+					// used the option that passed
+					driver.findElement(By.xpath(optionStrings[passedOnOptionArray[numOfTriel]])).click();
+				}
 				return true;
 			} catch (Exception e) {
 				log("Option " + optionStrings[numOfTriel] + " didn't work.");
-				currentOnOptionArray[numOfTriel]  = currentOnOptionArray[numOfTriel] +1;
-				log("Lets try option num " + currentOnOptionArray[numOfTriel] );
+				currentOnOptionArray[numOfTriel] = currentOnOptionArray[numOfTriel] + 1;
+				log("Lets try option num " + currentOnOptionArray[numOfTriel]);
 				return false;
 			}
+		}
+
+	}
+
+	public void breath() throws InterruptedException {
+		// sleeps for the configured time + impro
+		int sleepTime;
+		sleepTime = randInt(2, 5);
+		if (useSleep) {
+			TimeUnit.SECONDS.sleep(sleepTime);
+		} else {
+			// no sleep!
 		}
 
 	}
