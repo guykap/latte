@@ -115,7 +115,7 @@ public class Pamela {
 					// DO NOT SUBMIT THIS OFFER
 					continue;
 				}
-				log("I: Begin submittion for top offer id " + offer.getOfferId());
+				log("I: Begin submittion for top offer id " + offer.getOfferId() + " : " + offer.getOfferRole());
 				deepBreath();
 				driver.findElement(By.xpath("//tr[3]/td/a")).click();
 				deepBreath();
@@ -135,10 +135,10 @@ public class Pamela {
 			}
 			try {
 				log("J: Trying an option for the submit link");
-				
-				deepBreath();				
-				if(verifyLocation("/table[6]/tbody/tr/td/a","remove")){
-					log("This offer top offer has been submitted."); 
+
+				deepBreath();
+				if (verifyLocation("//table[6]/tbody/tr/td/a", "remove")) {
+					log("This offer top offer has been submitted.");
 					offer = null;
 					if (!killSubWindowAndMoveToParentWindow()) {
 						log("Memory leak error: failed killing child window");
@@ -147,8 +147,7 @@ public class Pamela {
 					nap();
 					break;
 				}
-				
-				
+
 				deepBreath();
 				if (!assertiveClicking(1,
 						new String[] { "//a[contains(text(),'submit')]", "//table[6]/tbody/tr/td/a" })) {
@@ -195,7 +194,7 @@ public class Pamela {
 
 				log("***CONTINUE SUBMITTING OTHER OFFERS");
 				nap();
-				
+
 			} catch (Exception e) {
 				log("Clicking submit failed on triel");
 			}
@@ -541,12 +540,19 @@ public class Pamela {
 	}
 
 	private boolean verifyLocation(String xpathTab, String verifyText) {
-		//returns true only if the location of the xpath contains the verifyText
-		String locationTest1 = new String(driver.findElement(By.xpath(xpathTab)).getText());
-		if ((locationTest1.contains(verifyText))) {
-			return true;
+		// returns true only if the location of the xpath contains the
+		// verifyText
+		try {
+			String locationTest1 = new String(driver.findElement(By.xpath(xpathTab)).getText());
+
+			if ((locationTest1.contains(verifyText))) {
+				return true;
+			}
+		} catch (Exception e) {
+			log("Verify text " + verifyText + " Does NOT appear");
+			return false;
 		}
-		log("Error: verify text " + verifyText + " failed.");
+
 		return false;
 	}
 
@@ -599,19 +605,18 @@ public class Pamela {
 	}
 
 	public void deepBreath() throws InterruptedException {
-		//the first breaths are small ones. After the second while loop - we take deep breaths.
-		if(leftNumOfSubmittionWhileLoopsChances<2)
-		{
+		// the first breaths are small ones. After the second while loop - we
+		// take deep breaths.
+		if (leftNumOfSubmittionWhileLoopsChances < 2) {
 			breath();
 		}
 		for (int i = 0; i < 3; i++) {
 			breath();
 		}
 	}
-	
-	public void nap() throws InterruptedException{
-		if (useSleep) 
-		{	
+
+	public void nap() throws InterruptedException {
+		if (useSleep) {
 			TimeUnit.SECONDS.sleep(60);
 		}
 	}

@@ -66,11 +66,11 @@ public class Job {
 	}
 
 	public String getOfferId() {
-		return offerRole;
+		return offerId;
 	};
 
 	public void setOfferId(String newData) {
-		offerRole = newData;
+		offerId = newData;
 	};
 	
 	public String getOfferRole() {
