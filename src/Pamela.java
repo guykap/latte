@@ -1,7 +1,6 @@
 
 //import java.util.regex.Pattern;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -15,7 +14,7 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
-import java.util.concurrent.TimeUnit;
+
 
 public class Pamela {
 
@@ -37,9 +36,10 @@ public class Pamela {
 	Iterator<String> windowHandlesIterator;
 	Set<String> handles;
 
-	public static void main(String[] args) throws Exception {                    
-	       JUnitCore.main(
-	         "com.stackoverflow.MyTestSuite");            
+	public static void main(String[] args) {
+	     
+	    JUnitCore jCore = new JUnitCore();
+	    jCore.run(Pamela.class);
 	}
 	
 	@Before
@@ -430,7 +430,7 @@ public class Pamela {
 		}
 	}
 
-	private void log(String newLog) {
+	 private void log(String newLog) {
 		if (newLog.length() < 1) {
 			return;
 		}
