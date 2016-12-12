@@ -127,8 +127,13 @@ driver.findElement(By.linkText("submit")).click();
 css=a
 //table[6]/tbody/tr/td/a
 
-				
 
+RECOGNIZE final confirmation PAGE
+-----------------
+table    /tbody/tr/td/table/tbody/tr/td/span       here the text is     Submission Successful . . .				
+
+//span
+css=span
 
 FINAL Close button
 ----------------------

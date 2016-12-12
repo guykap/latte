@@ -195,7 +195,7 @@ public class Pamela {
 				if (useSleep)
 					TimeUnit.SECONDS.sleep(4);
 				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
-				//verify that the confirmation window opened
+				// verify that the confirmation window opened
 				String locationTest6 = new String(
 						driver.findElement(By.xpath("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2")).getText());
 				if (!locationTest6.contains("Submission Successful")) {
@@ -492,6 +492,54 @@ public class Pamela {
 		allHandles += new String("] ");
 		String currentWindowHandler = driver.getWindowHandle();
 		log(allHandles + " on: " + currentWindowHandler);
+	}
+
+	private String getParentWindowHolder() {
+		if (parentWindowHandler.length() > 1) {
+			return parentWindowHandler;
+		}
+		log("Error finding Parent holder");
+		return ("");
 
 	}
+
+	private String getSonWindowHolder() {
+		String currentWindowHandler = driver.getWindowHandle();
+		handles = driver.getWindowHandles(); // get all window handles
+		windowHandlesIterator = handles.iterator();
+
+		switch (handles.size()) {
+		case 1:
+			log("Error: There is no SON window");
+			return ("");
+		case 2: {
+			if (!currentWindowHandler.equals(getParentWindowHolder())) {
+				return currentWindowHandler;
+			} else {
+				// finding out what the other window handler is
+				if (windowHandlesIterator.hasNext()) {
+					newWindowHandler = windowHandlesIterator.next();
+					if (!newWindowHandler.equals(getParentWindowHolder())) {
+						return newWindowHandler;
+					} else {
+						//
+						if (windowHandlesIterator.hasNext()) {
+							newWindowHandler = windowHandlesIterator.next();
+							if (!newWindowHandler.equals(currentWindowHandler)) {
+								return newWindowHandler;
+							}
+						}
+					}
+				}
+			}
+		}
+		case 3:
+			log("Error there are 3 windows!");
+			return ("");
+		}
+
+		log("Error finding SON");
+		return ("");
+	}
+
 }
