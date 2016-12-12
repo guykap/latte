@@ -27,8 +27,8 @@ public class Pamela {
 	int trielNumC = -1;
 	int trielNumB = -1;
 	int trielNum = -1;
-	
-	int[] passedOnOptionArray = new int[] { 0, 0};
+	int[] passedOnOptionArray = new int[]{ -1, -1};
+	int[] currentOnOptionArray = new int[]{ 0, 0};
 	boolean useSleep = true;
 	int leftNumOfLoginWhileLoopsChances = 0;
 	int leftNumOfSubmittionWhileLoopsChances = 0;
@@ -45,7 +45,7 @@ public class Pamela {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		parentWindowHandler = driver.getWindowHandle();
 		pamelaLog = new String("");
-		groupMembers = new ArrayList<Set<Door>>();
+		 
 	}
 
 	@Test
@@ -102,7 +102,7 @@ public class Pamela {
 
 				}
 				*/
-				log("D: trielNumB worked on " + trielNumB--);
+				log("D: First triel worked on " + passedOnOptionArray[0] );
 
 				if (verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2", "Casting Billboard")) {
 					log("E: Location->Casting Billboard");
@@ -158,7 +158,7 @@ public class Pamela {
 			try {
 				log("J: Trying an option for the submit link");
 				  
-				if (!assertiveClicking(2, new String[]{"//a[contains(text(),'submit')]","//table[6]/tbody/tr/td/a"})){
+				if (!assertiveClicking(1, new String[]{"//a[contains(text(),'submit')]","//table[6]/tbody/tr/td/a"})){
 					break;
 				} 
 				/*
@@ -183,7 +183,7 @@ public class Pamela {
 					return;
 				}
 				*/
-				log("K: trielNumC worked on " + trielNumC);
+				log("K: trielNumC worked on " + passedOnOptionArray[1]);
 				windowStatus();
 				// succece opening to photos page
 
@@ -572,14 +572,14 @@ public class Pamela {
 		return false;
 	}
 
-	private boolean assertiveClicking(int cellInArray, String[] optionStrings) {
+	private boolean assertiveClicking(int numOfTriel, String[] optionStrings) {
 		{//works only with xPath links - sorry!
 			if (optionStrings.length < 1) {
 				log("No option strings");
 				return false;
 			}
 
-			if (passedOnOptionArray[cellInArray] > optionStrings.length) {
+			if (currentOnOptionArray[numOfTriel] > optionStrings.length) {
 				log("Fatal Error: Tried all the options! We might be on the wrong page");
 				windowStatus();
 				windowStatus2();
@@ -587,10 +587,13 @@ public class Pamela {
 			}
 
 			try {
-				driver.findElement(By.xpath(optionStrings[passedOnOptionArray[cellInArray]])).click();
+				driver.findElement(By.xpath(optionStrings[passedOnOptionArray[numOfTriel]])).click();
+				passedOnOptionArray[numOfTriel] = currentOnOptionArray[numOfTriel]; 
 				return true;
 			} catch (Exception e) {
-				log("option " + optionStrings[cellInArray] + " didn't work. Lets try option num " + cellInArray);
+				log("Option " + optionStrings[numOfTriel] + " didn't work.");
+				currentOnOptionArray[numOfTriel]  = currentOnOptionArray[numOfTriel] +1;
+				log("Lets try option num " + currentOnOptionArray[numOfTriel] );
 				return false;
 			}
 		}
