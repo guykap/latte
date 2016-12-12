@@ -138,3 +138,21 @@ css=span
 FINAL Close button
 ----------------------
 driver.findElement(By.cssSelector("td.dotbottom > img")).click();
+
+
+GREEN STAR ON LEFT OF TOP OFFER -LOCATION
+------------------
+css=#CH_211211 > img
+//span[@id='CH_211211']/img
+//span/img
+
+
+the REMOVE word on the left of the top offer:
+---------------------------------------------
+link=remove
+css=a
+//a[contains(text(),'remove')]
+//a[contains(@href, "Javascript:unsubmitTalent('fkadgoekodciekhjoppmmccemnlbolananpapjeialfgeehfmgfhiijelelpbekjcnlbkghjcc','UNION OK W/EXTERIORS THAT CAN PROVIDE NON-BLACK WINTER COAT - AVAIL WED 12/14TH')")]
+//a
+
+/table[6]/tbody/tr/td/a

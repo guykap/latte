@@ -18,6 +18,7 @@ public class Job {
 
 	// PRIVATE:
 	String offerId;
+	boolean offerHasBeenSubmitted;
 	String notice;
 	String noticeLowerCase;
 	String currentOffer;
@@ -51,7 +52,7 @@ public class Job {
 	int grade;
 	String message;
 	boolean decisionSubmit;
-	boolean offerHasBeenSubmitted;
+	
 
 	public Job() {
 		// String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";

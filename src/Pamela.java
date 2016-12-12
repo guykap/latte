@@ -100,25 +100,35 @@ public class Pamela {
 			// end login while loop
 			break;
 		}
-		while (leftNumOfSubmittionWhileLoopsChances++ < 3) {
+		while (leftNumOfSubmittionWhileLoopsChances++ < 10) {
 			log("G: Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
 			// Choose from drop down list 'all roles':
 			try {
 				offer = new Job();
 				offer.setIsBackgroundWork(true);
 				new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
+				deepBreath();
 				handleBackgroundWorkOffer(true);
 				// offer.readNotice();
 				offer.makeDecision();
 
+				//look for green star on the left
+				deepBreath();				
+				if(verifyLocation("/table[6]/tbody/tr/td/a","remove")){
+					//this offer top offer has been submitted. 
+					offer = null;
+					nap();
+				}
+				
+				
 				if ((!offer.getDecisionSubmit()) || (offer.getHasBeenSubmitted())) {
 					// DO NOT SUBMIT THIS OFFER
 					continue;
 				}
 				log("I: Begin submittion for top offer");
-				breath();
+				deepBreath();
 				driver.findElement(By.xpath("//tr[3]/td/a")).click();
-				breath();
+				deepBreath();
 				windowStatus();
 				driver.switchTo().window(getSonWindowHandler());
 				windowStatus();
@@ -135,7 +145,7 @@ public class Pamela {
 			}
 			try {
 				log("J: Trying an option for the submit link");
-
+				deepBreath();
 				if (!assertiveClicking(1,
 						new String[] { "//a[contains(text(),'submit')]", "//table[6]/tbody/tr/td/a" })) {
 					break;
@@ -155,6 +165,7 @@ public class Pamela {
 				}
 
 				log("L: Succ on openning window to choose photo and fill talent notes.");
+				deepBreath();
 				driver.findElement(By.id("TALENTNOTE")).clear();
 				// driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
 				deepBreath();
@@ -178,7 +189,9 @@ public class Pamela {
 						+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
 						+ offer.getNotice());
 
-				return;
+				log("***CONTINUE SUBMITTING OTHER OFFERS");
+				nap();
+				
 			} catch (Exception e) {
 				log("Clicking submit failed on triel");
 			}
@@ -524,6 +537,7 @@ public class Pamela {
 	}
 
 	private boolean verifyLocation(String xpathTab, String verifyText) {
+		//returns true only if the location of the xpath contains the verifyText
 		String locationTest1 = new String(driver.findElement(By.xpath(xpathTab)).getText());
 		if ((locationTest1.contains(verifyText))) {
 			return true;
@@ -570,9 +584,10 @@ public class Pamela {
 	public void breath() throws InterruptedException {
 		// sleeps for the configured time + impro
 		int sleepTime;
-		sleepTime = randInt(2, 5);
+		sleepTime = randInt(2, 4);
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(sleepTime);
+			log(".");
 		} else {
 			// no sleep!
 		}
@@ -587,6 +602,13 @@ public class Pamela {
 		}
 		for (int i = 0; i < 5; i++) {
 			breath();
+		}
+	}
+	
+	public void nap() throws InterruptedException{
+		if (useSleep) 
+		{	
+			TimeUnit.SECONDS.sleep(60);
 		}
 	}
 }
