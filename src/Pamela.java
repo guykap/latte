@@ -594,7 +594,7 @@ public class Pamela {
 	public void breath() throws InterruptedException {
 		// sleeps for the configured time + impro
 		int sleepTime;
-		sleepTime = randInt(2, 4);
+		sleepTime = randInt(4, 5);
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(sleepTime);
 			log(".");
