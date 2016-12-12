@@ -16,6 +16,8 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.concurrent.TimeUnit;
 
 public class Pamela {
+	//bad day
+	
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
