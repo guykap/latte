@@ -79,7 +79,6 @@ public class Pamela {
 			// WORK ONLY ON BACKGROUND WORK $$$ NOW
 
 			try {
-
 				switch (++trielNumB) {
 				case 0:
 					driver.findElement(By.xpath("//a[@id='_ctl0_cphBody_lnkExtrasRoles']")).click();
@@ -145,10 +144,15 @@ public class Pamela {
 				if (useSleep)
 					TimeUnit.SECONDS.sleep(2);
 				driver.findElement(By.xpath("//tr[3]/td/a")).click();
+				windowStatus();
+				driver.switchTo().window(getSonWindowHandler());
+				windowStatus();
+				/*
 				if (!moveToOtherWindow()) {
 					// restart
 					continue;
 				}
+				*/
 
 			} catch (Exception e) {
 				log("Didn't work");
@@ -479,7 +483,21 @@ public class Pamela {
 		return true;
 	}
 
-	private void windowStatus() {
+	
+	private void windowStatus(){
+		String sonWindow = getSonWindowHandler();
+		String pointing;
+		if(getParentWindowHandler().equalsIgnoreCase(getParentWindowHandler()))
+		{
+			pointing = new String("PARENT");
+		}else{
+			pointing = new String("SON");
+		}
+		driver.getWindowHandle();
+		log("Parent: "+ getParentWindowHandler() + " Son: " + sonWindow + " Current: "+ pointing );
+		return;
+	}
+	private void windowStatus2() {
 		handles = driver.getWindowHandles(); // get all window handles
 		// String allHandles = new String(Arrays.toString(handles));
 
@@ -494,7 +512,7 @@ public class Pamela {
 		log(allHandles + " on: " + currentWindowHandler);
 	}
 
-	private String getParentWindowHolder() {
+	private String getParentWindowHandler() {
 		if (parentWindowHandler.length() > 1) {
 			return parentWindowHandler;
 		}
@@ -503,23 +521,23 @@ public class Pamela {
 
 	}
 
-	private String getSonWindowHolder() {
+	private String getSonWindowHandler() {
 		String currentWindowHandler = driver.getWindowHandle();
 		handles = driver.getWindowHandles(); // get all window handles
 		windowHandlesIterator = handles.iterator();
 
 		switch (handles.size()) {
 		case 1:
-			log("Error: There is no SON window");
+			windowStatus2();
 			return ("");
 		case 2: {
-			if (!currentWindowHandler.equals(getParentWindowHolder())) {
+			if (!currentWindowHandler.equals(getParentWindowHandler())) {
 				return currentWindowHandler;
 			} else {
 				// finding out what the other window handler is
 				if (windowHandlesIterator.hasNext()) {
 					newWindowHandler = windowHandlesIterator.next();
-					if (!newWindowHandler.equals(getParentWindowHolder())) {
+					if (!newWindowHandler.equals(getParentWindowHandler())) {
 						return newWindowHandler;
 					} else {
 						//
@@ -535,6 +553,7 @@ public class Pamela {
 		}
 		case 3:
 			log("Error there are 3 windows!");
+			windowStatus2();
 			return ("");
 		}
 
