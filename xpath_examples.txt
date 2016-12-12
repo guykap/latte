@@ -156,3 +156,8 @@ css=a
 //a
 
 /table[6]/tbody/tr/td/a
+
+
+GREED STAR ON PAGE 2
+--------------------
+//table[6]/tbody/tr/td/img
