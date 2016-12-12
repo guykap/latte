@@ -127,7 +127,9 @@ public class Pamela {
 
 			} catch (Exception e) {
 				log("Didn't work");
-				// restart
+				
+				// move back to parent and go back to G point
+				killSubWindowAndMoveToParentWindow();				
 				continue;
 			}
 			try {
