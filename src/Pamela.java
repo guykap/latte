@@ -14,7 +14,10 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
-
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class Pamela {
 
@@ -35,13 +38,14 @@ public class Pamela {
 	String newWindowHandler;
 	Iterator<String> windowHandlesIterator;
 	Set<String> handles;
+	private static final String OUTPUT_FILE = "C:\\Users\\me\\work\\bork\\outputFolder\\logHandler_";
 
 	public static void main(String[] args) {
-	     
-	    JUnitCore jCore = new JUnitCore();
-	    jCore.run(Pamela.class);
+
+		JUnitCore jCore = new JUnitCore();
+		jCore.run(Pamela.class);
 	}
-	
+
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.gecko.driver", "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
@@ -51,7 +55,7 @@ public class Pamela {
 		parentWindowHandler = driver.getWindowHandle();
 		pamelaLog = new String("");
 		useSleep = true;
-
+		
 	}
 
 	@Test
@@ -144,33 +148,28 @@ public class Pamela {
 				log("J: Making sure there is no GREEN STAR");
 
 				deepBreath();
-				 try {
-				      assertTrue(isElementPresent(By.xpath("//table[6]/tbody/tr/td/img")));
-				      //the green button is there SO :
-				      log("This project saved as  " + offer.getOfferId() + " has been submitted before.");
-						offer = null;
-						if (!killSubWindowAndMoveToParentWindow()) {
-							log("Memory leak error: failed killing child window");
-							break;
-						}
-						nap();
-						continue;
-				    } catch (Error e) {
-				      verificationErrors.append(e.toString());
-				      //no green button
-				    }
-				 /*
-				if (verifyLocation("//table[5]/tbody/tr/td/a", "remove")) {
-					log("This top offer has been submitted.");
+				try {
+					assertTrue(isElementPresent(By.xpath("//table[6]/tbody/tr/td/img")));
+					// the green button is there SO :
+					log("This project saved as  " + offer.getOfferId() + " has been submitted before.");
 					offer = null;
 					if (!killSubWindowAndMoveToParentWindow()) {
 						log("Memory leak error: failed killing child window");
 						break;
 					}
 					nap();
-					break;
+					continue;
+				} catch (Error e) {
+					verificationErrors.append(e.toString());
+					// no green button
 				}
-*/
+				/*
+				 * if (verifyLocation("//table[5]/tbody/tr/td/a", "remove")) {
+				 * log("This top offer has been submitted."); offer = null; if
+				 * (!killSubWindowAndMoveToParentWindow()) {
+				 * log("Memory leak error: failed killing child window"); break;
+				 * } nap(); break; }
+				 */
 				deepBreath();
 				if (!assertiveClicking(1,
 						new String[] { "//a[contains(text(),'submit')]", "//table[6]/tbody/tr/td/a" })) {
@@ -430,12 +429,24 @@ public class Pamela {
 		}
 	}
 
-	 private void log(String newLog) {
+	private void log(String newLog) {
 		if (newLog.length() < 1) {
 			return;
 		}
+		//adds to the long log String
 		pamelaLog += (new String(newLog)).concat("\n");
+		//adds to the system.out
 		System.out.println(newLog);
+		//adds to file 
+		try {
+			String logFileName = (new String(OUTPUT_FILE)).concat(parentWindowHandler.concat(".txt"));
+			BufferedWriter outWriter = new BufferedWriter(
+					new OutputStreamWriter(new FileOutputStream(logFileName), "utf-8"), 1024);
+			outWriter.write(newLog);
+			outWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private boolean moveToOtherWindow() {
@@ -639,7 +650,7 @@ public class Pamela {
 	}
 
 	public void nap() throws InterruptedException {
-		log("Zzz "+leftNumOfLoginWhileLoopsChances);
+		log("Zzz " + leftNumOfLoginWhileLoopsChances);
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(60);
 		}
