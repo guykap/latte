@@ -401,7 +401,7 @@ public class Job {
 			this.addToMessage("I've never worked on the production.");
 		}
 
-		if ((noticeLowerCase.contains("sizes")) || (noticeLowerCase.contains("note all sizes"))
+		if ((noticeLowerCase.contains("note your sizes")) || (noticeLowerCase.contains("note all sizes"))
 				|| (noticeLowerCase.contains("note neck"))) {
 			this.setMessage("height: 6'2\n weight:200\njacket:42\nneckXsleeve:16.5x35\nwaistXinseam:34x33\nshoe:11");
 		}

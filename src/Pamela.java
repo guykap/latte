@@ -51,7 +51,8 @@ public class Pamela {
 	public static void main(String[] args) {
 
 		try {
-			fh = new FileAppender(new SimpleLayout(), (new String(OUTPUT_FILE)));
+			String appendixFileName = new String((new Long(System.currentTimeMillis())).toString());
+			fh = new FileAppender(new SimpleLayout(), (new String(OUTPUT_FILE).concat(appendixFileName)));
 			
 			while (networkWorking()) {
 				JUnitCore jCore = new JUnitCore();
@@ -203,7 +204,7 @@ public class Pamela {
 				log('l');
 				deepBreath();
 				driver.findElement(By.id("TALENTNOTE")).clear();
-				// driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
+				driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
 				deepBreath();
 				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
 				deepBreath();
