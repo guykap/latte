@@ -472,8 +472,7 @@ public class Pamela {
 					break;
 				case 'g':
 					System.out.println("G: Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
-					break;
-				 
+					break;			 
 				case 'i':
 					System.out.println("I: Begin submittion for top offer id " + offer.getOfferId() + " : " + offer.getOfferRole());
 					break;
@@ -494,11 +493,11 @@ public class Pamela {
 				case 'z':
 					System.out.println("Z: Stopping");
 					break;
-			 d
+			 
 					
 			}
 		}else{
-			
+			System.out.println(stage);
 		}
 	}
 

@@ -49,6 +49,8 @@ public class Job {
 	boolean isCar;
 	boolean isStandIn;
 	boolean reqSizes;
+	boolean needTuxedo;
+	boolean needPoliceUniform;
 	int grade;
 	String message;
 	boolean decisionSubmit;
@@ -231,6 +233,22 @@ public class Job {
 	public void setReqSizes(boolean newBit) {
 		reqSizes = newBit;
 	};
+	
+	public boolean getNeedTuxedo() {
+		return needTuxedo;
+	};
+
+	public void setNeedTuxedo(boolean newBit) {
+		needTuxedo = newBit;
+	};
+	
+	public boolean getNeedPoiceUniform() {
+		return needPoliceUniform;
+	};
+
+	public void setNeedPoliceUniform(boolean newBit) {
+		needPoliceUniform = newBit;
+	};
 
 	public int getGrade() {
 		return grade;
@@ -315,6 +333,20 @@ public class Job {
 		// AGE
 
 		calcAgeRange(offerListingAgesHint);
+		
+		//tuxedo
+		if ((noticeLowerCase.contains(" tuxido ")) 
+				|| (noticeLowerCase.contains("own a tux"))) {
+			setNeedTuxedo(true);
+		}
+		
+		if ((noticeLowerCase.contains(" cop uniform ")) 
+				|| (noticeLowerCase.contains("own NYPD uni"))) {
+			setNeedPoliceUniform(true);
+		}
+		
+		
+		
 
 	}
 
@@ -386,6 +418,12 @@ public class Job {
 			this.addToMessage("I own the wardrobe.");
 		}
 
+		// tuxedo
+		if ((noticeLowerCase.contains(" tuxido ")) 
+				|| (noticeLowerCase.contains("own a tux"))) {
+			this.addToMessage("I own the tuxedo.");
+		}
+		
 		this.improveMessage();
 	}
 
