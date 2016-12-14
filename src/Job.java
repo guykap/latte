@@ -54,7 +54,6 @@ public class Job {
 	int grade;
 	String message;
 	boolean decisionSubmit;
-	
 
 	public Job() {
 		// String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
@@ -74,7 +73,7 @@ public class Job {
 	public void setOfferId(String newData) {
 		offerId = newData;
 	};
-	
+
 	public String getOfferRole() {
 		return offerRole;
 	};
@@ -233,7 +232,7 @@ public class Job {
 	public void setReqSizes(boolean newBit) {
 		reqSizes = newBit;
 	};
-	
+
 	public boolean getNeedTuxedo() {
 		return needTuxedo;
 	};
@@ -241,7 +240,7 @@ public class Job {
 	public void setNeedTuxedo(boolean newBit) {
 		needTuxedo = newBit;
 	};
-	
+
 	public boolean getNeedPoiceUniform() {
 		return needPoliceUniform;
 	};
@@ -333,21 +332,15 @@ public class Job {
 		// AGE
 
 		calcAgeRange(offerListingAgesHint);
-		
-		//tuxedo
-		if ((noticeLowerCase.contains(" tuxido ")) 
-				|| (noticeLowerCase.contains("own a tux"))) {
+
+		// tuxedo
+		if ((noticeLowerCase.contains(" tuxido ")) || (noticeLowerCase.contains("own a tux"))) {
 			setNeedTuxedo(true);
 		}
-		
-		if ((noticeLowerCase.contains(" cop uniform ")) 
-				|| (noticeLowerCase.contains("own NYPD uni"))) {
+
+		if ((noticeLowerCase.contains(" cop uniform ")) || (noticeLowerCase.contains("own NYPD uni"))) {
 			setNeedPoliceUniform(true);
 		}
-		
-		
-		
-
 	}
 
 	public void calcAgeRange(String ageData) {
@@ -419,11 +412,10 @@ public class Job {
 		}
 
 		// tuxedo
-		if ((noticeLowerCase.contains(" tuxido ")) 
-				|| (noticeLowerCase.contains("own a tux"))) {
+		if ((noticeLowerCase.contains(" tuxido ")) || (noticeLowerCase.contains("own a tux"))) {
 			this.addToMessage("I own the tuxedo.");
 		}
-		
+
 		this.improveMessage();
 	}
 

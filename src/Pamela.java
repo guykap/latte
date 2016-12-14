@@ -46,7 +46,6 @@ public class Pamela {
 			try{
 		JUnitCore jCore = new JUnitCore();
 		jCore.run(Pamela.class);
-	//	log("5 min break");
 		TimeUnit.SECONDS.sleep(600);
 			}catch(Exception e){}
 		}
@@ -162,8 +161,11 @@ public class Pamela {
 					if (!killSubWindowAndMoveToParentWindow()) {
 						log("Memory leak error: failed killing child window");
 						break;
-					}
+					}			
+					//refresh page  to allow new offers to be displayed
 					nap();
+					driver.navigate().refresh();
+					
 					continue;
 				} catch (Error e) {
 					verificationErrors.append(e.toString());
@@ -208,11 +210,7 @@ public class Pamela {
 				offer.setHasBeenSubmitted(true);
 				offer.setLog(pamelaLog);
 				log('m');
-
-				log("***CONTINUE SUBMITTING OTHER OFFERS");
 				
-				break;
-
 			} catch (Exception e) {
 				log("Clicking submit failed on triel");
 			}
@@ -363,7 +361,7 @@ public class Pamela {
 			offer.setOfferPostedDate(currentOfferPostedDate);
 			offer.setOfferListing(currentOfferListing);
 			Jobs.add(offer);
-			log("H: Succ adding offer to Jobs list");
+			log('h');
 
 			return;
 
@@ -472,7 +470,10 @@ public class Pamela {
 					break;
 				case 'g':
 					System.out.println("G: Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
-					break;			 
+					break;	
+				case 'h':
+					System.out.println("H: Succ adding offer to Jobs list");
+					break;	
 				case 'i':
 					System.out.println("I: Begin submittion for top offer id " + offer.getOfferId() + " : " + offer.getOfferRole());
 					break;
@@ -489,6 +490,9 @@ public class Pamela {
 					System.out.println("M: Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
 							+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
 							+ offer.getNotice());
+						break;				
+				case 'y':
+					System.out.println("Parent: " + getParentWindowHandler() + " Son: " + getSonWindowHandler());						
 					break;
 				case 'z':
 					System.out.println("Z: Stopping");
@@ -552,12 +556,14 @@ public class Pamela {
 		String sonWindow = getSonWindowHandler();
 		String pointing;
 		if (getParentWindowHandler().equals(currentWindowHandler)) {
-			pointing = new String("PARENT");
+			log('y');
+			log("Now on PARENT"); 
 		} else {
-			pointing = new String("SON");
+			log('y');
+			log("Now on SON"); 
 		}
 		driver.getWindowHandle();
-		log("Parent: " + getParentWindowHandler() + " Son: " + sonWindow + " Current: " + pointing);
+		log('y');
 		return;
 	}
 
@@ -683,11 +689,12 @@ public class Pamela {
 		sleepTime = randInt(4, 5);
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(sleepTime);
-			log(".");
-		} else {
-			// no sleep!
+			if(logStateFull)
+				{
+					log(".");
+			
+				}
 		}
-
 	}
 
 	public void deepBreath() throws InterruptedException {
