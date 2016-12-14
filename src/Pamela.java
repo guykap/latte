@@ -52,7 +52,7 @@ public class Pamela {
 
 		try {
 			String appendixFileName = new String((new Long(System.currentTimeMillis())).toString());
-			fh = new FileAppender(new SimpleLayout(), (new String(OUTPUT_FILE).concat(appendixFileName)));
+			fh = new FileAppender(new SimpleLayout(), (new String(OUTPUT_FILE).concat(appendixFileName).concat(".txt")));
 			
 			while (networkWorking()) {
 				JUnitCore jCore = new JUnitCore();
@@ -128,7 +128,7 @@ public class Pamela {
 			// end login while loop
 			break;
 		}
-		while (leftNumOfSubmittionWhileLoopsChances++ < 3) {
+		while (leftNumOfSubmittionWhileLoopsChances++ < 10) {
 			log('g');
 			// Choose from drop down list 'all roles':
 			try {

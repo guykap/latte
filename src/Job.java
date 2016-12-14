@@ -12,7 +12,7 @@ import org.openqa.selenium.By;
 
 public class Job {
 
-	static String filename = "C:\\temp\\code\\castingNetworks\\test_file1.txt";
+	static String filename = "C:\\temp\\code\\castingNetworks\\test_file1";
 	static int dailyMinPay = 30;
 	static int avgCharacterAge = 30;
 
