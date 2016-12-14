@@ -45,29 +45,18 @@ public class Pamela {
 	Set<String> handles;
 	private static final String OUTPUT_FILE = "C:\\Users\\me\\work\\bork\\outputFolder\\logHandler_";
 	private boolean logStateFull;
-			
+	public static Appender fh = null;
+	public static Logger logger = Logger.getLogger("MyLog");
+
 	public static void main(String[] args) {
-		Logger logger = Logger.getLogger("MyLog");
-        Appender fh = null;
-        try {
-            fh = new FileAppender(new SimpleLayout(), "MyLogFile.log");
-            logger.addAppender(fh);
-            fh.setLayout(new SimpleLayout());
-            logger.info("My first log");
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        logger.info("Hi How r u?");
-        
-		
-		while(true){
-			try{
-		JUnitCore jCore = new JUnitCore();
-		jCore.run(Pamela.class);
-		TimeUnit.SECONDS.sleep(600);
-			}catch(Exception e){}
+
+		try {
+			while (networkWorking()) {
+				JUnitCore jCore = new JUnitCore();
+				jCore.run(Pamela.class);
+				TimeUnit.SECONDS.sleep(600);
+			}
+		} catch (Exception e) {
 		}
 	}
 
@@ -181,23 +170,23 @@ public class Pamela {
 					if (!killSubWindowAndMoveToParentWindow()) {
 						log("Memory leak error: failed killing child window");
 						break;
-					}			
-					//refresh page  to allow new offers to be displayed
+					}
+					// refresh page to allow new offers to be displayed
 					nap();
 					driver.navigate().refresh();
-					
+
 					continue;
 				} catch (Error e) {
 					verificationErrors.append(e.toString());
 					// no green button
 				}
-				
+
 				deepBreath();
 				if (!assertiveClicking(1,
 						new String[] { "//a[contains(text(),'submit')]", "//table[6]/tbody/tr/td/a" })) {
 					break;
 				}
-				
+
 				log('k');
 				windowStatus();
 				// succece opening to photos page
@@ -230,7 +219,7 @@ public class Pamela {
 				offer.setHasBeenSubmitted(true);
 				offer.setLog(pamelaLog);
 				log('m');
-				
+
 			} catch (Exception e) {
 				log("Clicking submit failed on triel");
 			}
@@ -443,84 +432,99 @@ public class Pamela {
 		}
 	}
 
-	private void log(String newLog) {
+	static private void full_log(String newLog) {
 		if (newLog.length() < 1) {
 			return;
 		}
-		//adds to the long log String
-		pamelaLog += (new String(newLog)).concat("\n");
-		//adds to the system.out
+		// adds to the long log String
+		// pamelaLog += (new String(newLog)).concat("\n");
+
+		// adds to the system.out
 		System.out.println(newLog);
-		//adds to file 
-	/*	try {
-			String logFileName = (new String(OUTPUT_FILE)).concat(parentWindowHandler.concat(".txt"));
-			BufferedWriter outWriter = new BufferedWriter(
-					new OutputStreamWriter(new FileOutputStream(logFileName), "utf-8"), 1024);
-			//outWriter.write(newLog);
-			outWriter.append(newLog);
-			outWriter.close();
+		// adds to file
+		/*
+		 * try { String logFileName = (new
+		 * String(OUTPUT_FILE)).concat(parentWindowHandler.concat(".txt"));
+		 * BufferedWriter outWriter = new BufferedWriter( new
+		 * OutputStreamWriter(new FileOutputStream(logFileName), "utf-8"),
+		 * 1024); //outWriter.write(newLog); outWriter.append(newLog);
+		 * outWriter.close(); } catch (IOException e) { e.printStackTrace(); }
+		 */
+		try {
+			fh = new FileAppender(new SimpleLayout(), (new String(OUTPUT_FILE)));
+			logger.addAppender(fh);
+			fh.setLayout(new SimpleLayout());
+			logger.info(newLog);
+		} catch (SecurityException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}*/
+		}
+	}
+
+	private void log(String newLog){
+		full_log(newLog);
+		
 	}
 	
-	private void log(char stage){
-		//each char is assigned a stage in the process - so the log will write the whole string out
-	//state - Full log - outputs the whole string
-	//state - min log - outputs only the letter representing the stage
-		if(logStateFull){
-			switch(stage){
-				case 'a':
-					System.out.println("A: Window handle Parent " + parentWindowHandler);
-					break;
-				case 'b':
-					System.out.println("B: Start Login num " + leftNumOfLoginWhileLoopsChances);
-					break;
-				case 'c':
-					System.out.println("C: Location->Home Page");
-					break;
-				case 'd':
-					System.out.println("D: First triel worked on " + passedOnOptionArray[0]);
-					break;
-				case 'e':
-					System.out.println("E: Location->Casting Billboard");
-					break;
-				case 'f':
-					System.out.println("F: Succ opening Casing Billboards and Extras link" );
-					break;
-				case 'g':
-					System.out.println("G: Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
-					break;	
-				case 'h':
-					System.out.println("H: Succ adding offer to Jobs list");
-					break;	
-				case 'i':
-					System.out.println("I: Begin submittion for top offer id " + offer.getOfferId() + " : " + offer.getOfferRole());
-					break;
-				case 'j':
-					System.out.println("J: Making sure there is no GREEN STAR");
-					break;
-				case 'k':
-					System.out.println("K: Second triel worked on " + passedOnOptionArray[1]);
-					break;
-				case 'l':
-					System.out.println("L: Succ on openning window to choose photo and fill talent notes.");
-					break;	
-				case 'm':
-					System.out.println("M: Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
-							+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
-							+ offer.getNotice());
-						break;				
-				case 'y':
-					System.out.println("Parent: " + getParentWindowHandler() + " Son: " + getSonWindowHandler());						
-					break;
-				case 'z':
-					System.out.println("Z: Stopping");
-					break;
-			 
-					
+	private void log(char stage) {
+		// each char is assigned a stage in the process - so the log will write
+		// the whole string out
+		// state - Full log - outputs the whole string
+		// state - min log - outputs only the letter representing the stage
+		if (logStateFull) {
+			switch (stage) {
+			case 'a':
+				System.out.println("A: Window handle Parent " + parentWindowHandler);
+				break;
+			case 'b':
+				System.out.println("B: Start Login num " + leftNumOfLoginWhileLoopsChances);
+				break;
+			case 'c':
+				System.out.println("C: Location->Home Page");
+				break;
+			case 'd':
+				System.out.println("D: First triel worked on " + passedOnOptionArray[0]);
+				break;
+			case 'e':
+				System.out.println("E: Location->Casting Billboard");
+				break;
+			case 'f':
+				System.out.println("F: Succ opening Casing Billboards and Extras link");
+				break;
+			case 'g':
+				System.out.println("G: Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
+				break;
+			case 'h':
+				System.out.println("H: Succ adding offer to Jobs list");
+				break;
+			case 'i':
+				System.out.println(
+						"I: Begin submittion for top offer id " + offer.getOfferId() + " : " + offer.getOfferRole());
+				break;
+			case 'j':
+				System.out.println("J: Making sure there is no GREEN STAR");
+				break;
+			case 'k':
+				System.out.println("K: Second triel worked on " + passedOnOptionArray[1]);
+				break;
+			case 'l':
+				System.out.println("L: Succ on openning window to choose photo and fill talent notes.");
+				break;
+			case 'm':
+				System.out.println("M: Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag()
+						+ " Male:" + offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar
+						+ " __ " + offer.getNotice());
+				break;
+			case 'y':
+				System.out.println("Parent: " + getParentWindowHandler() + " Son: " + getSonWindowHandler());
+				break;
+			case 'z':
+				System.out.println("Z: Stopping");
+				break;
+
 			}
-		}else{
+		} else {
 			System.out.println(stage);
 		}
 	}
@@ -577,10 +581,10 @@ public class Pamela {
 		String pointing;
 		if (getParentWindowHandler().equals(currentWindowHandler)) {
 			log('y');
-			log("Now on PARENT"); 
+			log("Now on PARENT");
 		} else {
 			log('y');
-			log("Now on SON"); 
+			log("Now on SON");
 		}
 		driver.getWindowHandle();
 		log('y');
@@ -709,11 +713,10 @@ public class Pamela {
 		sleepTime = randInt(4, 5);
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(sleepTime);
-			if(logStateFull)
-				{
-					log(".");
-			
-				}
+			if (logStateFull) {
+				log(".");
+
+			}
 		}
 	}
 
@@ -733,5 +736,11 @@ public class Pamela {
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(60);
 		}
+	}
+
+	static boolean networkWorking() {
+		// returns true if there is a network connection
+
+		return true;
 	}
 }
