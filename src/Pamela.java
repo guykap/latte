@@ -193,7 +193,12 @@ public class Pamela {
 
 				deepBreath();
 				try {
+					if(seekBackgroundWork){
 					assertTrue(isElementPresent(By.xpath("//table[6]/tbody/tr/td/img")));
+					}else{
+						//seeking Principle
+					assertTrue(isElementPresent(By.xpath("//table[5]/tbody/tr/td/img")));	
+					}
 					// the green button is there SO :
 					log("This project saved as  " + offer.getOfferId() + " has been submitted before.");
 					offer = null;
@@ -705,6 +710,7 @@ public class Pamela {
 				if (passedOnOptionArray[numOfTriel] == (-1)) {
 					// trying an option
 
+					//must chekc there is no green star
 					driver.findElement(By.xpath(optionStrings[currentOnOptionArray[numOfTriel]])).click();
 					passedOnOptionArray[numOfTriel] = currentOnOptionArray[numOfTriel];
 				} else {

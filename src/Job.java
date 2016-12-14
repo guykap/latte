@@ -37,6 +37,7 @@ public class Job {
 	String offerListingEthnicity = "";
 	String offerListingNotes = "";
 	String offerListingAgesHint = "";
+	String offerSubmittionDateTime = "";
 	String log; // this logs all the process of this specific offer from login
 
 	boolean isSag;
@@ -142,6 +143,17 @@ public class Job {
 		return offerListing;
 	};
 
+	public void setOfferSubmittionDateTime(String newData) {
+		offerSubmittionDateTime = newData;
+	};
+
+	public String getOfferSubmittionDateTime() {
+		return offerSubmittionDateTime;
+	};
+
+	
+	
+	
 	public void setOfferListing(String newData) {
 		offerListing = newData;
 		String delims = "[/,\n]";
