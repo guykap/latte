@@ -39,7 +39,8 @@ public class Pamela {
 	Iterator<String> windowHandlesIterator;
 	Set<String> handles;
 	private static final String OUTPUT_FILE = "C:\\Users\\me\\work\\bork\\outputFolder\\logHandler_";
-
+	private boolean logStateFull;
+			
 	public static void main(String[] args) {
 		while(true){
 			try{
@@ -60,14 +61,14 @@ public class Pamela {
 		parentWindowHandler = driver.getWindowHandle();
 		pamelaLog = new String("New Pamela");
 		useSleep = true;
-		
+		logStateFull = true;
 	}
 
 	@Test
 	public void testPamela() throws Exception {
-		log("A: Window handle Parent " + parentWindowHandler);
+		log('a');
 		while ((leftNumOfLoginWhileLoopsChances++) < 3) {
-			log("B: Start Login num " + leftNumOfLoginWhileLoopsChances);
+			log('b');
 			driver.get(baseUrl + "/");
 			breath();
 			driver.findElement(By.id("login")).click();
@@ -83,7 +84,7 @@ public class Pamela {
 				continue;
 			}
 
-			log("C: Location->Home Page");
+			log('c');
 			breath();
 
 			// WORK ONLY ON BACKGROUND WORK $$$ NOW
@@ -96,10 +97,10 @@ public class Pamela {
 					break;
 				}
 
-				log("D: First triel worked on " + passedOnOptionArray[0]);
+				log('d');
 
 				if (verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2", "Casting Billboard")) {
-					log("E: Location->Casting Billboard");
+					log('e');
 				}
 
 				if (!verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3", "Extras")) {
@@ -112,12 +113,12 @@ public class Pamela {
 				continue;
 			}
 
-			log("F: Succ opening Casing Billboards and Extras link");
+			log('f');
 			// end login while loop
 			break;
 		}
 		while (leftNumOfSubmittionWhileLoopsChances++ < 3) {
-			log("G: Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
+			log('g');
 			// Choose from drop down list 'all roles':
 			try {
 				offer = new Job();
@@ -131,7 +132,7 @@ public class Pamela {
 					// DO NOT SUBMIT THIS OFFER
 					continue;
 				}
-				log("I: Begin submittion for top offer id " + offer.getOfferId() + " : " + offer.getOfferRole());
+				log('i');
 				deepBreath();
 				driver.findElement(By.xpath("//tr[3]/td/a")).click();
 				deepBreath();
@@ -150,7 +151,7 @@ public class Pamela {
 				continue;
 			}
 			try {
-				log("J: Making sure there is no GREEN STAR");
+				log('j');
 
 				deepBreath();
 				try {
@@ -175,7 +176,7 @@ public class Pamela {
 					break;
 				}
 				
-				log("K: Second triel worked on " + passedOnOptionArray[1]);
+				log('k');
 				windowStatus();
 				// succece opening to photos page
 				deepBreath();
@@ -185,7 +186,7 @@ public class Pamela {
 					continue;
 				}
 
-				log("L: Succ on openning window to choose photo and fill talent notes.");
+				log('l');
 				deepBreath();
 				driver.findElement(By.id("TALENTNOTE")).clear();
 				// driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
@@ -206,9 +207,7 @@ public class Pamela {
 				}
 				offer.setHasBeenSubmitted(true);
 				offer.setLog(pamelaLog);
-				log("M: Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
-						+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
-						+ offer.getNotice());
+				log('m');
 
 				log("***CONTINUE SUBMITTING OTHER OFFERS");
 				
@@ -218,7 +217,7 @@ public class Pamela {
 				log("Clicking submit failed on triel");
 			}
 		}
-		log("Z: Stopping");
+		log('z');
 		return;
 	}
 
@@ -445,6 +444,62 @@ public class Pamela {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}*/
+	}
+	
+	private void log(char stage){
+		//each char is assigned a stage in the process - so the log will write the whole string out
+	//state - Full log - outputs the whole string
+	//state - min log - outputs only the letter representing the stage
+		if(logStateFull){
+			switch(stage){
+				case 'a':
+					System.out.println("A: Window handle Parent " + parentWindowHandler);
+					break;
+				case 'b':
+					System.out.println("B: Start Login num " + leftNumOfLoginWhileLoopsChances);
+					break;
+				case 'c':
+					System.out.println("C: Location->Home Page");
+					break;
+				case 'd':
+					System.out.println("D: First triel worked on " + passedOnOptionArray[0]);
+					break;
+				case 'e':
+					System.out.println("E: Location->Casting Billboard");
+					break;
+				case 'f':
+					System.out.println("F: Succ opening Casing Billboards and Extras link" );
+					break;
+				case 'g':
+					System.out.println("G: Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
+					break;
+				 
+				case 'i':
+					System.out.println("I: Begin submittion for top offer id " + offer.getOfferId() + " : " + offer.getOfferRole());
+					break;
+				case 'j':
+					System.out.println("J: Making sure there is no GREEN STAR");
+					break;
+				case 'k':
+					System.out.println("K: Second triel worked on " + passedOnOptionArray[1]);
+					break;
+				case 'l':
+					System.out.println("L: Succ on openning window to choose photo and fill talent notes.");
+					break;	
+				case 'm':
+					System.out.println("M: Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag() + " Male:"
+							+ offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar + " __ "
+							+ offer.getNotice());
+					break;
+				case 'z':
+					System.out.println("Z: Stopping");
+					break;
+			 d
+					
+			}
+		}else{
+			
+		}
 	}
 
 	private boolean moveToOtherWindow() {
