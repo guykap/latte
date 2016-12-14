@@ -301,7 +301,8 @@ public class Job {
 		// this reads the notice and sets all the Job params accordingly.
 
 		// SAG
-		String noticeLowerCase = new String((this.notice).toLowerCase());
+		String noticeLowerCase = new String ((this.notice).toLowerCase());
+		noticeLowerCase += new String ((this.offerListingNotes).toLowerCase());
 		if ((noticeLowerCase.contains("\tsag")) || (noticeLowerCase.contains(" sag"))
 				|| (noticeLowerCase.startsWith("sag")) || (noticeLowerCase.contains("\tunion"))
 				|| (noticeLowerCase.contains(" union")) || (noticeLowerCase.startsWith("union"))) {
@@ -309,7 +310,7 @@ public class Job {
 		}
 
 		// MALE
-		if ((noticeLowerCase.contains(" male")) || (noticeLowerCase.startsWith("male"))
+		if ((isMale)||(noticeLowerCase.contains(" male")) || (noticeLowerCase.startsWith("male"))
 				|| (noticeLowerCase.contains(" men")) || (noticeLowerCase.contains(" man "))
 				|| (noticeLowerCase.contains("actor ")) || (noticeLowerCase.startsWith("men"))
 				|| (offerListingSex.toLowerCase().contains(" male"))) {
@@ -318,8 +319,8 @@ public class Job {
 
 		// There is a male name here for the character
 
-		// this is a paying job
-		if (offerPaying.toLowerCase().contains("yes")) {
+		// this is a paying job and is NOT a student project
+		if ((offerPaying.toLowerCase().contains("yes"))&&(!getOfferTypeProject().contains("student"))) {
 			isPayingEnough = true;
 
 			// check the daily rate and make sure it is above dailyMinPay

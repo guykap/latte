@@ -134,8 +134,6 @@ public class Pamela {
 						break;
 					}
 
-					log("LIKE D _ ONLY FOR PRINCIPLE");
-
 					if (verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2", "Casting Billboard")) {
 						log('e');
 					}
@@ -237,7 +235,8 @@ public class Pamela {
 				deepBreath();
 				driver.findElement(By.id("TALENTNOTE")).clear();
 				driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
-				deepBreath();
+				log("filled talent notes with : "+ offer.getMessage());
+						deepBreath();
 				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
 				deepBreath();
 				// verify that the confirmation window opened
@@ -395,16 +394,16 @@ public class Pamela {
 			}
 			// enter into JOB class
 
-			offer.setOfferRole(currentOffer);
-			offer.setOfferRole(currentOfferRole);
-			offer.setOfferProjectName(currentOfferProjectName);
-			offer.setOfferShootDate(currentOfferShootDate);
-			offer.setOfferTypeProject(currentOfferTypeProject);
-			offer.setOffertRate(currentOffertRate);
-			offer.setOfferPaying(currentOfferPaying);
-			offer.setOfferUnionStatus(currentOfferUnionStatus);
-			offer.setOfferPostedDate(currentOfferPostedDate);
-			offer.setOfferListing(currentOfferListing);
+			offer.setOfferRole(currentOffer.toLowerCase());
+			offer.setOfferRole(currentOfferRole.toLowerCase());
+			offer.setOfferProjectName(currentOfferProjectName.toLowerCase());
+			offer.setOfferShootDate(currentOfferShootDate.toLowerCase());
+			offer.setOfferTypeProject(currentOfferTypeProject.toLowerCase());
+			offer.setOffertRate(currentOffertRate.toLowerCase());
+			offer.setOfferPaying(currentOfferPaying.toLowerCase());
+			offer.setOfferUnionStatus(currentOfferUnionStatus.toLowerCase());
+			offer.setOfferPostedDate(currentOfferPostedDate.toLowerCase());
+			offer.setOfferListing(currentOfferListing.toLowerCase());
 			Jobs.add(offer);
 			log('h');
 
@@ -504,7 +503,11 @@ public class Pamela {
 				Pamela.full_log("C: Location->Home Page");
 				break;
 			case 'd':
-				Pamela.full_log("D: First triel worked on " + passedOnOptionArray[0]);
+				if(seekBackgroundWork){
+				Pamela.full_log("D: First BG triel worked on " + passedOnOptionArray[0]);
+				}else{
+					Pamela.full_log("D: First PRINCIPLE triel worked on " + passedOnOptionArray[0]);	
+				}
 				break;
 			case 'e':
 				Pamela.full_log("E: Location->Casting Billboard");
@@ -513,7 +516,12 @@ public class Pamela {
 				Pamela.full_log("F: Succ opening Casing Billboards and Extras link");
 				break;
 			case 'g':
-				Pamela.full_log("G: Backgroud = "+ seekBackgroundWork + " Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
+				if(seekBackgroundWork){
+				Pamela.full_log("G: BACKGROUND work Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
+				}else{
+					Pamela.full_log("G: PRINCIPLE work Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);	
+				}
+				
 				break;
 			case 'h':
 				Pamela.full_log("H: Succ adding offer to Jobs list");
@@ -536,6 +544,7 @@ public class Pamela {
 						+ " Male:" + offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar
 						+ " __ " + offer.getNotice());
 				break;
+			 
 			case 'y':
 				Pamela.full_log("Parent: " + getParentWindowHandler() + " Son: " + getSonWindowHandler());
 				break;
@@ -735,7 +744,7 @@ public class Pamela {
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(sleepTime);
 			if (logStateFull) {
-				log(".");
+			//	log(".");
 
 			}
 		}
