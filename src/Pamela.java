@@ -18,6 +18,11 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.IOException;
+import org.apache.log4j.Appender;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Logger;
+import org.apache.log4j.SimpleLayout;
 
 public class Pamela {
 
@@ -42,6 +47,21 @@ public class Pamela {
 	private boolean logStateFull;
 			
 	public static void main(String[] args) {
+		Logger logger = Logger.getLogger("MyLog");
+        Appender fh = null;
+        try {
+            fh = new FileAppender(new SimpleLayout(), "MyLogFile.log");
+            logger.addAppender(fh);
+            fh.setLayout(new SimpleLayout());
+            logger.info("My first log");
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        logger.info("Hi How r u?");
+        
+		
 		while(true){
 			try{
 		JUnitCore jCore = new JUnitCore();
