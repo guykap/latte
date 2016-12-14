@@ -61,8 +61,9 @@ public class Pamela {
 				jCore.run(Pamela.class);
 				TimeUnit.SECONDS.sleep(300);
 				// seek Principle / BG work next round
-				// seekBackgroundWork ^= true;
 				full_log("ALTERNATE PRINCIPLE <-> BACKGROUND");
+				// seekBackgroundWork ^= true;
+				
 			}
 		} catch (Exception e) {
 		}
@@ -77,7 +78,7 @@ public class Pamela {
 		parentWindowHandler = driver.getWindowHandle();
 		pamelaLog = new String("New Pamela");
 		useSleep = true;
-		logStateFull = false;
+		logStateFull = true;
 	}
 
 	@Test
@@ -507,7 +508,7 @@ public class Pamela {
 				Pamela.full_log("F: Succ opening Casing Billboards and Extras link");
 				break;
 			case 'g':
-				Pamela.full_log("G: Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
+				Pamela.full_log("G: Backgroud = "+ seekBackgroundWork + " Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
 				break;
 			case 'h':
 				Pamela.full_log("H: Succ adding offer to Jobs list");
