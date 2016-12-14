@@ -43,7 +43,7 @@ public class Pamela {
 	String newWindowHandler;
 	Iterator<String> windowHandlesIterator;
 	Set<String> handles;
-	private static final String OUTPUT_FILE = "C:\\Users\\me\\work\\bork\\outputFolder\\logHandler_";
+	private static final String OUTPUT_FILE = "C:\\Users\\me\\work\\bork\\outputFolder\\logHandler_4.txt";
 	private boolean logStateFull;
 	public static Appender fh = null;
 	public static Logger logger = Logger.getLogger("MyLog");
@@ -51,6 +51,8 @@ public class Pamela {
 	public static void main(String[] args) {
 
 		try {
+			fh = new FileAppender(new SimpleLayout(), (new String(OUTPUT_FILE)));
+			
 			while (networkWorking()) {
 				JUnitCore jCore = new JUnitCore();
 				jCore.run(Pamela.class);
@@ -69,7 +71,7 @@ public class Pamela {
 		parentWindowHandler = driver.getWindowHandle();
 		pamelaLog = new String("New Pamela");
 		useSleep = true;
-		logStateFull = true;
+		logStateFull = false;
 	}
 
 	@Test
@@ -173,6 +175,7 @@ public class Pamela {
 					}
 					// refresh page to allow new offers to be displayed
 					nap();
+					log("REFRESH PAGE");
 					driver.navigate().refresh();
 
 					continue;
@@ -436,30 +439,14 @@ public class Pamela {
 		if (newLog.length() < 1) {
 			return;
 		}
-		// adds to the long log String
-		// pamelaLog += (new String(newLog)).concat("\n");
-
-		// adds to the system.out
 		System.out.println(newLog);
-		// adds to file
-		/*
-		 * try { String logFileName = (new
-		 * String(OUTPUT_FILE)).concat(parentWindowHandler.concat(".txt"));
-		 * BufferedWriter outWriter = new BufferedWriter( new
-		 * OutputStreamWriter(new FileOutputStream(logFileName), "utf-8"),
-		 * 1024); //outWriter.write(newLog); outWriter.append(newLog);
-		 * outWriter.close(); } catch (IOException e) { e.printStackTrace(); }
-		 */
 		try {
-			fh = new FileAppender(new SimpleLayout(), (new String(OUTPUT_FILE)));
 			logger.addAppender(fh);
 			fh.setLayout(new SimpleLayout());
 			logger.info(newLog);
 		} catch (SecurityException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} 
 	}
 
 	private void log(String newLog){
@@ -475,57 +462,57 @@ public class Pamela {
 		if (logStateFull) {
 			switch (stage) {
 			case 'a':
-				System.out.println("A: Window handle Parent " + parentWindowHandler);
+				Pamela.full_log("A: Window handle Parent " + parentWindowHandler);
 				break;
 			case 'b':
-				System.out.println("B: Start Login num " + leftNumOfLoginWhileLoopsChances);
+				Pamela.full_log("B: Start Login num " + leftNumOfLoginWhileLoopsChances);
 				break;
 			case 'c':
-				System.out.println("C: Location->Home Page");
+				Pamela.full_log("C: Location->Home Page");
 				break;
 			case 'd':
-				System.out.println("D: First triel worked on " + passedOnOptionArray[0]);
+				Pamela.full_log("D: First triel worked on " + passedOnOptionArray[0]);
 				break;
 			case 'e':
-				System.out.println("E: Location->Casting Billboard");
+				Pamela.full_log("E: Location->Casting Billboard");
 				break;
 			case 'f':
-				System.out.println("F: Succ opening Casing Billboards and Extras link");
+				Pamela.full_log("F: Succ opening Casing Billboards and Extras link");
 				break;
 			case 'g':
-				System.out.println("G: Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
+				Pamela.full_log("G: Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
 				break;
 			case 'h':
-				System.out.println("H: Succ adding offer to Jobs list");
+				Pamela.full_log("H: Succ adding offer to Jobs list");
 				break;
 			case 'i':
-				System.out.println(
+				Pamela.full_log(
 						"I: Begin submittion for top offer id " + offer.getOfferId() + " : " + offer.getOfferRole());
 				break;
 			case 'j':
-				System.out.println("J: Making sure there is no GREEN STAR");
+				Pamela.full_log("J: Making sure there is no GREEN STAR");
 				break;
 			case 'k':
-				System.out.println("K: Second triel worked on " + passedOnOptionArray[1]);
+				Pamela.full_log("K: Second triel worked on " + passedOnOptionArray[1]);
 				break;
 			case 'l':
-				System.out.println("L: Succ on openning window to choose photo and fill talent notes.");
+				Pamela.full_log("L: Succ on openning window to choose photo and fill talent notes.");
 				break;
 			case 'm':
-				System.out.println("M: Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag()
+				Pamela.full_log("M: Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag()
 						+ " Male:" + offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar
 						+ " __ " + offer.getNotice());
 				break;
 			case 'y':
-				System.out.println("Parent: " + getParentWindowHandler() + " Son: " + getSonWindowHandler());
+				Pamela.full_log("Parent: " + getParentWindowHandler() + " Son: " + getSonWindowHandler());
 				break;
 			case 'z':
-				System.out.println("Z: Stopping");
+				Pamela.full_log("Z: Stopping");
 				break;
 
 			}
 		} else {
-			System.out.println(stage);
+				Pamela.full_log(Character.toString(stage));
 		}
 	}
 
