@@ -41,9 +41,14 @@ public class Pamela {
 	private static final String OUTPUT_FILE = "C:\\Users\\me\\work\\bork\\outputFolder\\logHandler_";
 
 	public static void main(String[] args) {
-
+		while(true){
+			try{
 		JUnitCore jCore = new JUnitCore();
 		jCore.run(Pamela.class);
+	//	log("5 min break");
+		TimeUnit.SECONDS.sleep(600);
+			}catch(Exception e){}
+		}
 	}
 
 	@Before
@@ -53,7 +58,7 @@ public class Pamela {
 		baseUrl = "http://home.castingnetworks.com";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		parentWindowHandler = driver.getWindowHandle();
-		pamelaLog = new String("");
+		pamelaLog = new String("New Pamela");
 		useSleep = true;
 		
 	}
@@ -61,7 +66,7 @@ public class Pamela {
 	@Test
 	public void testPamela() throws Exception {
 		log("A: Window handle Parent " + parentWindowHandler);
-		while ((leftNumOfLoginWhileLoopsChances++) < 10) {
+		while ((leftNumOfLoginWhileLoopsChances++) < 3) {
 			log("B: Start Login num " + leftNumOfLoginWhileLoopsChances);
 			driver.get(baseUrl + "/");
 			breath();
@@ -111,7 +116,7 @@ public class Pamela {
 			// end login while loop
 			break;
 		}
-		while (leftNumOfSubmittionWhileLoopsChances++ < 10) {
+		while (leftNumOfSubmittionWhileLoopsChances++ < 3) {
 			log("G: Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
 			// Choose from drop down list 'all roles':
 			try {
@@ -163,22 +168,13 @@ public class Pamela {
 					verificationErrors.append(e.toString());
 					// no green button
 				}
-				/*
-				 * if (verifyLocation("//table[5]/tbody/tr/td/a", "remove")) {
-				 * log("This top offer has been submitted."); offer = null; if
-				 * (!killSubWindowAndMoveToParentWindow()) {
-				 * log("Memory leak error: failed killing child window"); break;
-				 * } nap(); break; }
-				 */
+				
 				deepBreath();
 				if (!assertiveClicking(1,
 						new String[] { "//a[contains(text(),'submit')]", "//table[6]/tbody/tr/td/a" })) {
 					break;
 				}
-				/*
-				 * case 1: driver.findElement(By.linkText("submit")).click();
-				 * case 3:driver.findElement(By.cssSelector("css=a")).click();
-				 */
+				
 				log("K: Second triel worked on " + passedOnOptionArray[1]);
 				windowStatus();
 				// succece opening to photos page
@@ -215,7 +211,8 @@ public class Pamela {
 						+ offer.getNotice());
 
 				log("***CONTINUE SUBMITTING OTHER OFFERS");
-				nap();
+				
+				break;
 
 			} catch (Exception e) {
 				log("Clicking submit failed on triel");
@@ -438,15 +435,16 @@ public class Pamela {
 		//adds to the system.out
 		System.out.println(newLog);
 		//adds to file 
-		try {
+	/*	try {
 			String logFileName = (new String(OUTPUT_FILE)).concat(parentWindowHandler.concat(".txt"));
 			BufferedWriter outWriter = new BufferedWriter(
 					new OutputStreamWriter(new FileOutputStream(logFileName), "utf-8"), 1024);
-			outWriter.write(newLog);
+			//outWriter.write(newLog);
+			outWriter.append(newLog);
 			outWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	private boolean moveToOtherWindow() {
@@ -650,7 +648,7 @@ public class Pamela {
 	}
 
 	public void nap() throws InterruptedException {
-		log("Zzz " + leftNumOfLoginWhileLoopsChances);
+		log("Zzz " + leftNumOfSubmittionWhileLoopsChances);
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(60);
 		}
