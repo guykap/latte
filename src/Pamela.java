@@ -55,14 +55,14 @@ public class Pamela {
 			String appendixFileName = new String((new Long(System.currentTimeMillis())).toString());
 			fh = new FileAppender(new SimpleLayout(),
 					(new String(OUTPUT_FILE).concat(appendixFileName).concat(".txt")));
-			seekBackgroundWork = true;
+			seekBackgroundWork = false;
 			while (networkWorking()) {
 				JUnitCore jCore = new JUnitCore();
 				jCore.run(Pamela.class);
 				TimeUnit.SECONDS.sleep(300);
-				//seek Principle / BG work next round
-				 seekBackgroundWork ^= true;
-				 full_log("ALTERNATE PRINCIPLE <-> BACKGROUND");
+				// seek Principle / BG work next round
+				// seekBackgroundWork ^= true;
+				full_log("ALTERNATE PRINCIPLE <-> BACKGROUND");
 			}
 		} catch (Exception e) {
 		}
@@ -124,7 +124,7 @@ public class Pamela {
 					if (!verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3", "Extras")) {
 						continue;
 					}
-				} else {//PRINCIPLE ROLES
+				} else {// PRINCIPLE ROLES
 					if (!assertiveClicking(0,
 							new String[] { "//a[@id='_ctl0_cphBody_lnkPrincipalsRoles']",
 									"//a[contains(text(),'new Principals roles')]",
@@ -159,7 +159,7 @@ public class Pamela {
 			// Choose from drop down list 'all roles':
 			try {
 				offer = new Job();
-				offer.setIsBackgroundWork(seekBackgroundWork);
+				// offer.setIsBackgroundWork(seekBackgroundWork);
 				new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
 				deepBreath();
 				handleBackgroundWorkOffer(seekBackgroundWork);
@@ -344,13 +344,13 @@ public class Pamela {
 				}
 				;
 				try {
-					currentOfferShootDate = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
+					currentOfferShootDate = "";
 				} catch (Exception e) {
 					currentOfferShootDate = new String("");
 				}
 				;
 				try {
-					currentOfferTypeProject = new String("");
+					currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[3]/a")).getText());
 				} catch (Exception e) {
 					currentOfferTypeProject = new String("");
 				}
