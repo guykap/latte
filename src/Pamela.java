@@ -75,7 +75,9 @@ public class Pamela {
 		logStateFull = false;
 	}
 
-	@Test
+ 
+	
+	@Test 
 	public void testPamela() throws Exception {
 		log('a');
 		while ((leftNumOfLoginWhileLoopsChances++) < 3) {
