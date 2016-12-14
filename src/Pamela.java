@@ -47,17 +47,22 @@ public class Pamela {
 	private boolean logStateFull;
 	public static Appender fh = null;
 	public static Logger logger = Logger.getLogger("MyLog");
+	static public boolean seekBackgroundWork;
 
 	public static void main(String[] args) {
 
 		try {
 			String appendixFileName = new String((new Long(System.currentTimeMillis())).toString());
-			fh = new FileAppender(new SimpleLayout(), (new String(OUTPUT_FILE).concat(appendixFileName).concat(".txt")));
-			
+			fh = new FileAppender(new SimpleLayout(),
+					(new String(OUTPUT_FILE).concat(appendixFileName).concat(".txt")));
+			seekBackgroundWork = true;
 			while (networkWorking()) {
 				JUnitCore jCore = new JUnitCore();
 				jCore.run(Pamela.class);
-				TimeUnit.SECONDS.sleep(600);
+				TimeUnit.SECONDS.sleep(300);
+				//seek Principle / BG work next round
+				 seekBackgroundWork ^= true;
+				 full_log("ALTERNATE PRINCIPLE <-> BACKGROUND");
 			}
 		} catch (Exception e) {
 		}
@@ -75,9 +80,7 @@ public class Pamela {
 		logStateFull = false;
 	}
 
- 
-	
-	@Test 
+	@Test
 	public void testPamela() throws Exception {
 		log('a');
 		while ((leftNumOfLoginWhileLoopsChances++) < 3) {
@@ -100,26 +103,47 @@ public class Pamela {
 			log('c');
 			breath();
 
-			// WORK ONLY ON BACKGROUND WORK $$$ NOW
-
 			try {
-				if (!assertiveClicking(0, new String[] { "//a[@id='_ctl0_cphBody_lnkExtrasRoles']",
-						"//a[contains(text(),'new Extras roles')]", "//li[@id='_ctl0_cphBody_liDirectCastExtras']/a",
-						"//a[contains(@href, '../DirectCast/Roles.aspx?rt=xc1')]",
-						"//div[2]/div/div/div/ul/li[3]/a" })) {
-					break;
+				if (seekBackgroundWork) {
+
+					if (!assertiveClicking(0,
+							new String[] { "//a[@id='_ctl0_cphBody_lnkExtrasRoles']",
+									"//a[contains(text(),'new Extras roles')]",
+									"//li[@id='_ctl0_cphBody_liDirectCastExtras']/a",
+									"//a[contains(@href, '../DirectCast/Roles.aspx?rt=xc1')]",
+									"//div[2]/div/div/div/ul/li[3]/a" })) {
+						break;
+					}
+
+					log('d');
+
+					if (verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2", "Casting Billboard")) {
+						log('e');
+					}
+
+					if (!verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3", "Extras")) {
+						continue;
+					}
+				} else {//PRINCIPLE ROLES
+					if (!assertiveClicking(0,
+							new String[] { "//a[@id='_ctl0_cphBody_lnkPrincipalsRoles']",
+									"//a[contains(text(),'new Principals roles')]",
+									"//li[@id='_ctl0_cphBody_liDirectCastPrincipals']/a",
+									"//div[2]/div/div/div/ul/li[2]/a" })) {
+						break;
+					}
+
+					log("LIKE D _ ONLY FOR PRINCIPLE");
+
+					if (verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2", "Casting Billboard")) {
+						log('e');
+					}
+
+					if (verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3", "Extras")) {
+						continue;
+					}
+
 				}
-
-				log('d');
-
-				if (verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h2", "Casting Billboard")) {
-					log('e');
-				}
-
-				if (!verifyLocation("//div[@id='DirectCastMainDiv']/table/tbody/tr/td/h3", "Extras")) {
-					continue;
-				}
-
 			} catch (Exception e) {
 				log("Didn't work");
 				// go back to login page
@@ -135,10 +159,10 @@ public class Pamela {
 			// Choose from drop down list 'all roles':
 			try {
 				offer = new Job();
-				offer.setIsBackgroundWork(true);
+				offer.setIsBackgroundWork(seekBackgroundWork);
 				new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
 				deepBreath();
-				handleBackgroundWorkOffer(true);
+				handleBackgroundWorkOffer(seekBackgroundWork);
 				// offer.readNotice();
 				offer.makeDecision();
 				if ((!offer.getDecisionSubmit()) || (offer.getHasBeenSubmitted())) {
@@ -449,14 +473,14 @@ public class Pamela {
 			logger.info(newLog);
 		} catch (SecurityException e) {
 			e.printStackTrace();
-		} 
+		}
 	}
 
-	private void log(String newLog){
+	private void log(String newLog) {
 		full_log(newLog);
-		
+
 	}
-	
+
 	private void log(char stage) {
 		// each char is assigned a stage in the process - so the log will write
 		// the whole string out
@@ -515,7 +539,7 @@ public class Pamela {
 
 			}
 		} else {
-				Pamela.full_log(Character.toString(stage));
+			Pamela.full_log(Character.toString(stage));
 		}
 	}
 
