@@ -167,7 +167,7 @@ public class Pamela {
 				new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
 				deepBreath();
 				handleBackgroundWorkOffer(seekBackgroundWork);
-				// offer.readNotice();
+				offer.readNotice();
 				offer.makeDecision();
 				if ((!offer.getDecisionSubmit()) || (offer.getHasBeenSubmitted())) {
 					// DO NOT SUBMIT THIS OFFER
@@ -400,7 +400,7 @@ public class Pamela {
 			// enter into JOB class
 
 			offer.setOfferRole(currentOffer.toLowerCase());
-			offer.setOfferRole(currentOfferRole.toLowerCase());
+			
 			offer.setOfferProjectName(currentOfferProjectName.toLowerCase());
 			offer.setOfferShootDate(currentOfferShootDate.toLowerCase());
 			offer.setOfferTypeProject(currentOfferTypeProject.toLowerCase());
