@@ -297,6 +297,46 @@ public class Job {
 		offerHasBeenSubmitted = newBit;
 	};
 
+	public void aaReadTopOffer(){
+		 String currentOffer;
+			
+		
+			String currentOfferPostedDate;
+			String currentOfferPostedHour;
+			String currentOfferProjectName;
+			String currentOfferTypeProject;
+			String currentOfferCastingDirector;
+			String currentOfferStartDate;
+			String currentOfferUnionStatus;
+			String currentOfferListing;
+			/******/
+			String currentOfferRole;
+			String currentOfferShootDate;
+			String currentOffertRate;
+			String currentOfferPaying;
+			
+try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[2]")).getText());} catch (Exception e) {
+			currentOfferPostedDate = new String("");}
+		
+try{currentOfferPostedHour = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferPostedHour = new String("");}
+
+try{currentOfferProjectName = new String(driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[3]/a")).getText());} catch (Exception e) {
+	currentOfferProjectName = new String("");}
+try{currentOfferTypeProject = new String(driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[4]")).getText());} catch (Exception e) {
+	currentOfferTypeProject = new String("");}
+try{currentOfferCastingDirector = new String(driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[5]")).getText());} catch (Exception e) {
+	currentOfferCastingDirector = new String("");}
+try{currentOfferStartDate = new String(driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[6]")).getText());} catch (Exception e) {
+	currentOfferStartDate = new String("");}
+try{currentOfferUnionStatus = new String(driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[7]")).getText());} catch (Exception e) {
+	currentOfferUnionStatus = new String("");}
+try{currentOfferListing = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferListing = new String("");}
+
+			
+	 }	
+	
 	public void readNotice() {
 		// this reads the notice and sets all the Job params accordingly.
 
