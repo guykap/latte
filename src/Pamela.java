@@ -66,15 +66,12 @@ public class Pamela {
 				// seek Principle / BG work next round
 				full_log("ALTERNATE PRINCIPLE <-> BACKGROUND");
 				// seekBackgroundWork ^= true;
-				
+
 			}
 		} catch (Exception e) {
 		}
 	}
 
-	 
-
-	
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.gecko.driver", "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
@@ -83,11 +80,82 @@ public class Pamela {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		parentWindowHandler = driver.getWindowHandle();
 		pamelaLog = new String("New Pamela");
-		
+
 	}
 
 	@Test
+	public void aaRachel() throws Exception {
+		try {
+			driver.get("http://www.actorsaccess.com/");
+			driver.findElement(By.id("username_mobile")).clear();
+			driver.findElement(By.id("username_mobile")).sendKeys("guykapulnik");
+			driver.findElement(By.id("password_mobile")).clear();
+			driver.findElement(By.id("password_mobile")).sendKeys("aGuy1234567");
+			driver.findElement(By.id("login-btn_mobile")).click();
+			driver.get(" http://www.actorsaccess.com/projects/?view=breakdowns&region=2");
+		} catch (Exception e) {
+		}
+	
+
+	// read top offer:
+		 aaReadTopOffer();		
+	/*
+	 * driver.findElement(By.linkText("breakdowns")).click();
+	 * driver.findElement(By.linkText("new york")).click();
+	 */
+	// driver.findElement(By.linkText("PRETTY")).click();
+
+	
+	
+	
+	}
+	
+	 public void aaReadTopOffer(){
+		 String currentOffer;
+			
+		
+			String currentOfferPostedDate;
+			String currentOfferPostedHour;
+			String currentOfferProjectName;
+			String currentOfferTypeProject;
+			String currentOfferCastingDirector;
+			String currentOfferStartDate;
+			String currentOfferUnionStatus;
+			String currentOfferListing;
+			/******/
+			String currentOfferRole;
+			String currentOfferShootDate;
+			String currentOffertRate;
+			String currentOfferPaying;
+			
+try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+			currentOfferPostedDate = new String("");}
+		
+try{currentOfferPostedHour = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferPostedHour = new String("");}
+
+try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferPostedDate = new String("");}
+try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferPostedDate = new String("");}
+try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferPostedDate = new String("");}
+try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferPostedDate = new String("");}
+try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferPostedDate = new String("");}
+try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferPostedDate = new String("");}
+
+			
+	 }	
+	
+	
+	@Test
 	public void testPamela() throws Exception {
+
+		// REAL PAMELA
+
 		log('a');
 		while ((leftNumOfLoginWhileLoopsChances++) < 3) {
 			log('b');
@@ -196,11 +264,11 @@ public class Pamela {
 
 				deepBreath();
 				try {
-					if(seekBackgroundWork){
-					assertTrue(isElementPresent(By.xpath("//table[6]/tbody/tr/td/img")));
-					}else{
-						//seeking Principle
-					assertTrue(isElementPresent(By.xpath("//table[5]/tbody/tr/td/img")));	
+					if (seekBackgroundWork) {
+						assertTrue(isElementPresent(By.xpath("//table[6]/tbody/tr/td/img")));
+					} else {
+						// seeking Principle
+						assertTrue(isElementPresent(By.xpath("//table[5]/tbody/tr/td/img")));
 					}
 					// the green button is there SO :
 					log("This project saved as  " + offer.getOfferId() + " has been submitted before.");
@@ -240,8 +308,8 @@ public class Pamela {
 				deepBreath();
 				driver.findElement(By.id("TALENTNOTE")).clear();
 				driver.findElement(By.id("TALENTNOTE")).sendKeys(offer.getMessage());
-				log("filled talent notes with : "+ offer.getMessage());
-						deepBreath();
+				log("filled talent notes with : " + offer.getMessage());
+				deepBreath();
 				driver.findElement(By.cssSelector("div > table > tbody > tr > td > a > img")).click();
 				deepBreath();
 				// verify that the confirmation window opened
@@ -400,7 +468,7 @@ public class Pamela {
 			// enter into JOB class
 
 			offer.setOfferRole(currentOffer.toLowerCase());
-			
+
 			offer.setOfferProjectName(currentOfferProjectName.toLowerCase());
 			offer.setOfferShootDate(currentOfferShootDate.toLowerCase());
 			offer.setOfferTypeProject(currentOfferTypeProject.toLowerCase());
@@ -508,10 +576,10 @@ public class Pamela {
 				Pamela.full_log("C: Location->Home Page");
 				break;
 			case 'd':
-				if(seekBackgroundWork){
-				Pamela.full_log("D: First BG triel worked on " + passedOnOptionArray[0]);
-				}else{
-					Pamela.full_log("D: First PRINCIPLE triel worked on " + passedOnOptionArray[0]);	
+				if (seekBackgroundWork) {
+					Pamela.full_log("D: First BG triel worked on " + passedOnOptionArray[0]);
+				} else {
+					Pamela.full_log("D: First PRINCIPLE triel worked on " + passedOnOptionArray[0]);
 				}
 				break;
 			case 'e':
@@ -521,12 +589,14 @@ public class Pamela {
 				Pamela.full_log("F: Succ opening Casing Billboards and Extras link");
 				break;
 			case 'g':
-				if(seekBackgroundWork){
-				Pamela.full_log("G: BACKGROUND work Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);
-				}else{
-					Pamela.full_log("G: PRINCIPLE work Start submittion while loop num " + leftNumOfSubmittionWhileLoopsChances);	
+				if (seekBackgroundWork) {
+					Pamela.full_log("G: BACKGROUND work Start submittion while loop num "
+							+ leftNumOfSubmittionWhileLoopsChances);
+				} else {
+					Pamela.full_log("G: PRINCIPLE work Start submittion while loop num "
+							+ leftNumOfSubmittionWhileLoopsChances);
 				}
-				
+
 				break;
 			case 'h':
 				Pamela.full_log("H: Succ adding offer to Jobs list");
@@ -547,9 +617,9 @@ public class Pamela {
 			case 'm':
 				Pamela.full_log("M: Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag()
 						+ " Male:" + offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar
-						+ " __ " + offer.getNotice() + "Talent Notes :"+ offer.getMessage());
+						+ " __ " + offer.getNotice() + "Talent Notes :" + offer.getMessage());
 				break;
-			 
+
 			case 'y':
 				Pamela.full_log("Parent: " + getParentWindowHandler() + " Son: " + getSonWindowHandler());
 				break;
@@ -724,7 +794,7 @@ public class Pamela {
 				if (passedOnOptionArray[numOfTriel] == (-1)) {
 					// trying an option
 
-					//must chekc there is no green star
+					// must chekc there is no green star
 					driver.findElement(By.xpath(optionStrings[currentOnOptionArray[numOfTriel]])).click();
 					passedOnOptionArray[numOfTriel] = currentOnOptionArray[numOfTriel];
 				} else {
@@ -749,7 +819,7 @@ public class Pamela {
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(sleepTime);
 			if (logStateFull) {
-			//	log(".");
+				// log(".");
 
 			}
 		}
