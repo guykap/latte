@@ -98,7 +98,8 @@ public class Pamela {
 	
 
 	// read top offer:
-		 aaReadTopOffer();		
+		 aaReadTopOffer();	
+		 aaDecideToSubmit();
 	/*
 	 * driver.findElement(By.linkText("breakdowns")).click();
 	 * driver.findElement(By.linkText("new york")).click();
@@ -110,6 +111,10 @@ public class Pamela {
 	
 	}
 	
+	
+	 public void aaDecideToSubmit(){
+		 return true;
+	 }
 	 public void aaReadTopOffer(){
 		 String currentOffer;
 			
@@ -128,24 +133,24 @@ public class Pamela {
 			String currentOffertRate;
 			String currentOfferPaying;
 			
-try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tbody/tr[2]/td[1]")).getText());} catch (Exception e) {
 			currentOfferPostedDate = new String("");}
 		
 try{currentOfferPostedHour = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
 	currentOfferPostedHour = new String("");}
 
-try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
-	currentOfferPostedDate = new String("");}
-try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
-	currentOfferPostedDate = new String("");}
-try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
-	currentOfferPostedDate = new String("");}
-try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
-	currentOfferPostedDate = new String("");}
-try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
-	currentOfferPostedDate = new String("");}
-try{currentOfferPostedDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
-	currentOfferPostedDate = new String("");}
+try{currentOfferProjectName = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferProjectName = new String("");}
+try{currentOfferTypeProject = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferTypeProject = new String("");}
+try{currentOfferCastingDirector = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferCastingDirector = new String("");}
+try{currentOfferStartDate = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferStartDate = new String("");}
+try{currentOfferUnionStatus = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferUnionStatus = new String("");}
+try{currentOfferListing = new String(driver.findElement(By.xpath("//tr[3]/td[2]/a")).getText());} catch (Exception e) {
+	currentOfferListing = new String("");}
 
 			
 	 }	
