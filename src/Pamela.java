@@ -113,7 +113,7 @@ public class Pamela {
 	
 	
 	 public void aaDecideToSubmit(){
-		 return true;
+		
 	 }
 	 public void aaReadTopOffer(){
 		 String currentOffer;
