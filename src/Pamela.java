@@ -86,42 +86,45 @@ public class Pamela {
 	@Test
 	public void aaRachel() throws Exception {
 		try {
+			log("ACTORS ACCESS");
 			log('a');
-			driver.get("http://www.actorsaccess.com/");
-			driver.findElement(By.id("username_mobile")).clear();
-			driver.findElement(By.id("username_mobile")).sendKeys("guykapulnik");
-			driver.findElement(By.id("password_mobile")).clear();
-			driver.findElement(By.id("password_mobile")).sendKeys("aGuy1234567");
-			driver.findElement(By.id("login-btn_mobile")).click();
-			deepBreath();
-			driver.get(" http://www.actorsaccess.com/projects/?view=breakdowns&region=2");
+
+			while ((leftNumOfLoginWhileLoopsChances++) < 3) {
+				log('b');
+
+				driver.get("http://www.actorsaccess.com/");
+				driver.findElement(By.id("username_mobile")).clear();
+				driver.findElement(By.id("username_mobile")).sendKeys("guykapulnik");
+				driver.findElement(By.id("password_mobile")).clear();
+				driver.findElement(By.id("password_mobile")).sendKeys("aGuy1234567");
+				driver.findElement(By.id("login-btn_mobile")).click();
+				log('c');
+				deepBreath();
+				driver.get(" http://www.actorsaccess.com/projects/?view=breakdowns&region=2");
+				log("NEW YORK - region");
+			}
 		} catch (Exception e) {
 		}
-	
 
-	// read top offer:
-		 offer = new Job();
-		 handleAAWorkOffer(); 	
-		 lookForSubmissionCheckOnLeft();
-		 aaDecideToSubmit();
-	/*
-	 * driver.findElement(By.linkText("breakdowns")).click();
-	 * driver.findElement(By.linkText("new york")).click();
-	 */
-	// driver.findElement(By.linkText("PRETTY")).click();
+		// read top offer:
+		offer = new Job();
+		handleAAWorkOffer();
+		Jobs.add(offer);
+		log('h');
+		// lookForSubmissionCheckOnLeft();
+		aaDecideToSubmit();
+		/*
+		 * driver.findElement(By.linkText("breakdowns")).click();
+		 * driver.findElement(By.linkText("new york")).click();
+		 */
+		// driver.findElement(By.linkText("PRETTY")).click();
 
-	
-	
-	
 	}
-	
-	
-	 public void aaDecideToSubmit(){
-		
-	 }
-	
-	 
-	
+
+	public void aaDecideToSubmit() {
+
+	}
+
 	@Test
 	public void testPamela() throws Exception {
 
@@ -207,6 +210,8 @@ public class Pamela {
 				deepBreath();
 				handleBackgroundWorkOffer(seekBackgroundWork);
 				offer.readNotice();
+				Jobs.add(offer);
+				log('h');
 				offer.makeDecision();
 				if ((!offer.getDecisionSubmit()) || (offer.getHasBeenSubmitted())) {
 					// DO NOT SUBMIT THIS OFFER
@@ -307,46 +312,66 @@ public class Pamela {
 		return;
 	}
 
-	private void handleAAWorkOffer(){
+	private void handleAAWorkOffer() {
 
-			 String currentOffer;
-				
-			
-				String currentOfferPostedTime;
-				String currentOfferPostedHour;
-				String currentOfferProjectName;
-				String currentOfferTypeProject;
-				String currentOfferCastingDirector;
-				String currentOfferStartDate;
-				String currentOfferUnionStatus;
-				String currentOfferListing;
-				/******/
-				String currentOfferRole;
-				String currentOfferShootDate;
-				String currentOffertRate;
-				String currentOfferPaying;
-				
-	try{offer.setOfferPostedTime(new String(driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[2]")).getText()));} catch (Exception e) {
-			offer.setOfferPostedTime(new String(""));}
-	
-	try{offer.setOfferProjectName(new String(driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[3]/a")).getText()));} catch (Exception e) {
-		offer.setOfferProjectName(new String(""));}
-	
-	try{offer.setOfferTypeProject(new String(driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[4]")).getText()));} catch (Exception e) {
-		offer.setOfferTypeProject(new String(""));}
-	
-	try{offer.setOfferCastingDirector(new String(driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[5]")).getText()));} catch (Exception e) {
-		offer.setOfferCastingDirector(new String(""));}
-	try{offer.setOfferShootDate(new String(driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[6]")).getText()));} catch (Exception e) {		
-		offer.setOfferShootDate(new String(""));}
-	try{offer.setOfferUnionStatus(new String(driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[7]")).getText()));} catch (Exception e) {
-		offer.setOfferUnionStatus(new String(""));}
-	 
-				
-		 
-		
+		String currentOffer;
+
+		String currentOfferPostedTime;
+		String currentOfferPostedHour;
+		String currentOfferProjectName;
+		String currentOfferTypeProject;
+		String currentOfferCastingDirector;
+		String currentOfferStartDate;
+		String currentOfferUnionStatus;
+		String currentOfferListing;
+		/******/
+		String currentOfferRole;
+		String currentOfferShootDate;
+		String currentOffertRate;
+		String currentOfferPaying;
+
+		try {
+			offer.setOfferPostedTime(new String(
+					driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[2]")).getText()));
+		} catch (Exception e) {
+			offer.setOfferPostedTime(new String(""));
+		}
+
+		try {
+			offer.setOfferProjectName(new String(driver
+					.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[3]/a")).getText()));
+		} catch (Exception e) {
+			offer.setOfferProjectName(new String(""));
+		}
+
+		try {
+			offer.setOfferTypeProject(new String(
+					driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[4]")).getText()));
+		} catch (Exception e) {
+			offer.setOfferTypeProject(new String(""));
+		}
+
+		try {
+			offer.setOfferCastingDirector(new String(
+					driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[5]")).getText()));
+		} catch (Exception e) {
+			offer.setOfferCastingDirector(new String(""));
+		}
+		try {
+			offer.setOfferShootDate(new String(
+					driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[6]")).getText()));
+		} catch (Exception e) {
+			offer.setOfferShootDate(new String(""));
+		}
+		try {
+			offer.setOfferUnionStatus(new String(
+					driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[7]")).getText()));
+		} catch (Exception e) {
+			offer.setOfferUnionStatus(new String(""));
+		}
+
 	}
-	
+
 	private void handleBackgroundWorkOffer(boolean isBackgroundWork) {
 
 		offer.setIsBackgroundWork(isBackgroundWork);
@@ -486,10 +511,9 @@ public class Pamela {
 			offer.setOffertRate(currentOffertRate.toLowerCase());
 			offer.setOfferPaying(currentOfferPaying.toLowerCase());
 			offer.setOfferUnionStatus(currentOfferUnionStatus.toLowerCase());
-			offer.setOfferPostedDate(currentOfferPostedDate.toLowerCase());
+			offer.setOfferPostedTime(currentOfferPostedDate.toLowerCase());
 			offer.setOfferListing(currentOfferListing.toLowerCase());
-			Jobs.add(offer);
-			log('h');
+			
 
 			return;
 
@@ -830,7 +854,7 @@ public class Pamela {
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(sleepTime);
 			if (logStateFull) {
-				 log(".");
+				log(".");
 
 			}
 		}
