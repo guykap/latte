@@ -83,7 +83,7 @@ public class Pamela {
 
 	}
 
-	@Test
+	 
 	public void aaRachel() throws Exception {
 		try {
 			driver.get("http://www.actorsaccess.com/");
