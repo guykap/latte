@@ -29,8 +29,9 @@ public class Job {
 	String offerTypeProject;
 	String offerRate;
 	String offerPaying;
+	String offerCastingDirector;
 	String offerUnionStatus;
-	String offerPostedDate;
+	String offerPostedTime;
 	String offerListing;
 	String offerListingFirst;
 	String offerListingSex = "";
@@ -122,7 +123,15 @@ public class Job {
 	public void setOfferPaying(String newData) {
 		offerPaying = newData;
 	};
+	
+	public String getOfferCastingDirector() {
+		return offerCastingDirector;
+	};
 
+	public void setOfferCastingDirector(String newData) {
+		offerCastingDirector = newData;
+	};
+	
 	public String getOfferUnionStatus() {
 		return offerUnionStatus;
 	};
@@ -131,12 +140,12 @@ public class Job {
 		offerUnionStatus = newData;
 	};
 
-	public String getOfferPostedDate() {
-		return offerPostedDate;
+	public String getOfferPostedTime() {
+		return offerPostedTime;
 	};
 
-	public void setOfferPostedDate(String newData) {
-		offerPostedDate = newData;
+	public void setOfferPostedTime(String newData) {
+		offerPostedTime = newData;
 	};
 
 	public String getOfferListing() {
