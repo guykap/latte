@@ -416,7 +416,7 @@ public class Job {
 
 		if ((noticeLowerCase.contains("note your sizes")) || (noticeLowerCase.contains("note all sizes"))
 				|| (noticeLowerCase.contains("note neck"))) {
-			this.setMessage("height: 6'2\n weight:200\njacket:42\nneckXsleeve:16.5x35\nwaistXinseam:34x33\nshoe:11");
+			this.addToMessage("height: 6'2\n weight:200\njacket:42\nneckXsleeve:16.5x35\nwaistXinseam:34x33\nshoe:11 ");
 		}
 
 		if ((noticeLowerCase.contains(" Please note if you can provide"))

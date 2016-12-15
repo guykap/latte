@@ -27,7 +27,8 @@ import org.apache.log4j.SimpleLayout;
 public class Pamela {
 
 	private WebDriver driver;
-	private String baseUrl;
+	private String cnBaseUrl;
+	private String aaBaseUrl;
 	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
 	static private List<Job> Jobs = new ArrayList<Job>();
@@ -36,15 +37,15 @@ public class Pamela {
 	private String pamelaLog;
 	int[] passedOnOptionArray = new int[] { -1, -1 };
 	int[] currentOnOptionArray = new int[] { 0, 0 };
-	boolean useSleep;
+	static boolean useSleep;
 	int leftNumOfLoginWhileLoopsChances = 0;
 	int leftNumOfSubmittionWhileLoopsChances = 0;
 	String parentWindowHandler;
 	String newWindowHandler;
 	Iterator<String> windowHandlesIterator;
 	Set<String> handles;
-	private static final String OUTPUT_FILE = "C:\\Users\\me\\work\\bork\\outputFolder\\logHandler_4.txt";
-	private boolean logStateFull;
+	private static final String OUTPUT_FILE = "C:\\Users\\me\\work\\bork\\outputFolder\\logHandler_";
+	static private boolean logStateFull;
 	public static Appender fh = null;
 	public static Logger logger = Logger.getLogger("MyLog");
 	static public boolean seekBackgroundWork;
@@ -53,6 +54,8 @@ public class Pamela {
 
 		try {
 			String appendixFileName = new String((new Long(System.currentTimeMillis())).toString());
+			useSleep = true;
+			logStateFull = true;
 			fh = new FileAppender(new SimpleLayout(),
 					(new String(OUTPUT_FILE).concat(appendixFileName).concat(".txt")));
 			seekBackgroundWork = false;
@@ -69,16 +72,18 @@ public class Pamela {
 		}
 	}
 
+	 
+
+	
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.gecko.driver", "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
 		driver = new FirefoxDriver();
-		baseUrl = "http://home.castingnetworks.com";
+		cnBaseUrl = "http://home.castingnetworks.com";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		parentWindowHandler = driver.getWindowHandle();
 		pamelaLog = new String("New Pamela");
-		useSleep = true;
-		logStateFull = true;
+		
 	}
 
 	@Test
@@ -86,7 +91,7 @@ public class Pamela {
 		log('a');
 		while ((leftNumOfLoginWhileLoopsChances++) < 3) {
 			log('b');
-			driver.get(baseUrl + "/");
+			driver.get(cnBaseUrl + "/");
 			breath();
 			driver.findElement(By.id("login")).click();
 			driver.findElement(By.id("login")).clear();
@@ -542,7 +547,7 @@ public class Pamela {
 			case 'm':
 				Pamela.full_log("M: Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag()
 						+ " Male:" + offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar
-						+ " __ " + offer.getNotice());
+						+ " __ " + offer.getNotice() + "Talent Notes :"+ offer.getMessage());
 				break;
 			 
 			case 'y':
