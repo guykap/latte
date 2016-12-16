@@ -24,6 +24,14 @@ add shootdate to decision making in the event i;m' already booked on a certain d
 -change the way behave in site - like go to the other options of links 
 -alternate the time sleep between action Randomized
 -alternate messages on the talent notes.
+
+-Build a site that has a blog.
+-Thsi Blog will be the GUI. The Pamela output will save to local file and also post every minute to the blog.
+I will be able to read from any browser the latest updates.
+-Also there will be a combo box  / text input  where i will assign the setup flags to change the logging, decision making 
+simple changes like : "SUBMIT TO ALL" / "SUBMIT ONLY TO MALE" / " ONLY TO SPECIFIC"/"ONLY UNION "
+
+
 TODO
 -------------
 TODO -SQL DB on cloud.

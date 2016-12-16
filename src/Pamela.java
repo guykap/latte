@@ -56,21 +56,18 @@ public class Pamela {
 			String appendixFileName = (new String((new Long(System.currentTimeMillis())).toString())).concat(".txt");
 			useSleep = true;
 			logStateFull = true;
-			fh = new FileAppender(new SimpleLayout(),
-					(new String(OUTPUT_FILE).concat(appendixFileName)));
+			fh = new FileAppender(new SimpleLayout(), (new String(OUTPUT_FILE).concat(appendixFileName)));
 			seekBackgroundWork = true;
 			while (networkWorking()) {
 				JUnitCore jCore = new JUnitCore();
 				jCore.run(Pamela.class);
-				TimeUnit.SECONDS.sleep(300);
-				// seek Principle / BG work next round
-				full_log("ALTERNATE PRINCIPLE <-> BACKGROUND");
-			 seekBackgroundWork ^= true;
-			 if (seekBackgroundWork){
-				 full_log("ALTERNATE  to BACKGROUND work");
-			 }else{
-				 full_log("ALTERNATE  to PRINCIPLE work");
-			 }
+				TimeUnit.SECONDS.sleep(60);
+				seekBackgroundWork ^= true;
+				if (seekBackgroundWork) {
+					full_log("ALTERNATE  to BACKGROUND work");
+				} else {
+					full_log("ALTERNATE  to PRINCIPLE work");
+				}
 
 			}
 		} catch (Exception e) {
@@ -88,7 +85,7 @@ public class Pamela {
 
 	}
 
-	 
+	@Test
 	public void aaRachel() throws Exception {
 		try {
 			log("ACTORS ACCESS");
@@ -110,20 +107,39 @@ public class Pamela {
 			}
 		} catch (Exception e) {
 		}
-
+		while (leftNumOfSubmittionWhileLoopsChances++ < 10) {
+			log('g');
+		try{
 		// read top offer:
 		offer = new Job();
 		handleAAWorkOffer();
 		Jobs.add(offer);
 		log('h');
 		// lookForSubmissionCheckOnLeft();
-		aaDecideToSubmit();
-		/*
-		 * driver.findElement(By.linkText("breakdowns")).click();
-		 * driver.findElement(By.linkText("new york")).click();
-		 */
-		// driver.findElement(By.linkText("PRETTY")).click();
+		assertTrue(isElementPresent(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td/img")));
+		// the green button is there SO :
+		log("This project saved as  " + offer.getOfferId() + " has been submitted before.");
+		offer = null;
+		 
+		// refresh page to allow new offers to be displayed
+		nap();
+		log("Refresh page");
+		driver.navigate().refresh();
 
+		continue;
+		
+	 
+		// driver.findElement(By.linkText("PRETTY")).click();
+	
+		//driver.findElement(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[3]/a")).click();
+		
+		
+		}catch(Exception e){
+			log("Didn't work");
+			// go back 
+			return;
+		}
+}
 	}
 
 	public void aaDecideToSubmit() {
@@ -218,9 +234,9 @@ public class Pamela {
 				handleBackgroundWorkOffer(seekBackgroundWork);
 				Jobs.add(offer);
 				log('h');
-				offer.readNotice();			
+				offer.readNotice();
 				offer.makeDecision();
-				log("Decision: "+offer.getDecisionSubmit());
+				log("Decision: " + offer.getDecisionSubmit());
 				if ((!offer.getDecisionSubmit()) || (offer.getHasBeenSubmitted())) {
 					// DO NOT SUBMIT THIS OFFER
 					continue;
@@ -377,6 +393,8 @@ public class Pamela {
 		} catch (Exception e) {
 			offer.setOfferUnionStatus(new String(""));
 		}
+
+		// findout if there is a star on the left
 
 	}
 
@@ -667,12 +685,9 @@ public class Pamela {
 			case 'z':
 				Pamela.full_log("Z: Stopping");
 				log("*******SUBMITTED:");
-				log(offer.getOfferProjectName()
-						 + " | "+offer.getOfferSubmittionDateTime()
-						 + " | "+offer.getOffertRate()
-						 + " | "+offer.getOfferTypeProject()
-						 + " | "+offer.getHasBeenSubmitted()
-						 + " | "+offer.getOfferListing() );
+				log(offer.getOfferProjectName() + " | " + offer.getOfferSubmittionDateTime() + " | "
+						+ offer.getOffertRate() + " | " + offer.getOfferTypeProject() + " | "
+						+ offer.getHasBeenSubmitted() + " | " + offer.getOfferListing());
 				break;
 
 			}
@@ -867,7 +882,7 @@ public class Pamela {
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(sleepTime);
 			if (logStateFull) {
-			//	log(".");
+				// log(".");
 
 			}
 		}
