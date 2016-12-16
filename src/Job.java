@@ -431,10 +431,13 @@ public class Job {
 		}
 
 		if ((noticeLowerCase.contains(" Please note if you can provide"))
+				|| (noticeLowerCase.contains("must own"))
 				|| (noticeLowerCase.contains("own the wardrobe"))) {
 			this.addToMessage("I own the wardrobe.");
 		}
 
+		
+		 
 		// tuxedo
 		if ((noticeLowerCase.contains(" tuxido ")) || (noticeLowerCase.contains("own a tux"))) {
 			this.addToMessage("I own the tuxedo.");

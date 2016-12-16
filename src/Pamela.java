@@ -53,11 +53,11 @@ public class Pamela {
 	public static void main(String[] args) {
 
 		try {
-			String appendixFileName = new String((new Long(System.currentTimeMillis())).toString());
+			String appendixFileName = (new String((new Long(System.currentTimeMillis())).toString())).concat(".txt");
 			useSleep = true;
 			logStateFull = true;
 			fh = new FileAppender(new SimpleLayout(),
-					(new String(OUTPUT_FILE).concat(appendixFileName).concat(".txt")));
+					(new String(OUTPUT_FILE).concat(appendixFileName)));
 			seekBackgroundWork = true;
 			while (networkWorking()) {
 				JUnitCore jCore = new JUnitCore();
@@ -65,7 +65,7 @@ public class Pamela {
 				TimeUnit.SECONDS.sleep(300);
 				// seek Principle / BG work next round
 				full_log("ALTERNATE PRINCIPLE <-> BACKGROUND");
-				// seekBackgroundWork ^= true;
+			 seekBackgroundWork ^= true;
 
 			}
 		} catch (Exception e) {
@@ -204,6 +204,8 @@ public class Pamela {
 			log('g');
 			// Choose from drop down list 'all roles':
 			try {
+				log("Refresh page");
+				driver.navigate().refresh();
 				offer = new Job();
 				// offer.setIsBackgroundWork(seekBackgroundWork);
 				new Select(driver.findElement(By.name("viewfilter"))).selectByVisibleText("All Roles");
