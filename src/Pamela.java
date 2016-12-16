@@ -58,7 +58,7 @@ public class Pamela {
 			logStateFull = true;
 			fh = new FileAppender(new SimpleLayout(),
 					(new String(OUTPUT_FILE).concat(appendixFileName).concat(".txt")));
-			seekBackgroundWork = false;
+			seekBackgroundWork = true;
 			while (networkWorking()) {
 				JUnitCore jCore = new JUnitCore();
 				jCore.run(Pamela.class);
@@ -83,7 +83,7 @@ public class Pamela {
 
 	}
 
-	@Test
+	 
 	public void aaRachel() throws Exception {
 		try {
 			log("ACTORS ACCESS");
@@ -658,6 +658,13 @@ public class Pamela {
 				break;
 			case 'z':
 				Pamela.full_log("Z: Stopping");
+				log("*******SUBMITTED:");
+				log(offer.getOfferProjectName()
+						 + " | "+offer.getOfferSubmittionDateTime()
+						 + " | "+offer.getOffertRate()
+						 + " | "+offer.getOfferTypeProject()
+						 + " | "+offer.getHasBeenSubmitted()
+						 + " | "+offer.getOfferListing() );
 				break;
 
 			}
@@ -852,7 +859,7 @@ public class Pamela {
 		if (useSleep) {
 			TimeUnit.SECONDS.sleep(sleepTime);
 			if (logStateFull) {
-				log(".");
+			//	log(".");
 
 			}
 		}
