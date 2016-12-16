@@ -66,6 +66,11 @@ public class Pamela {
 				// seek Principle / BG work next round
 				full_log("ALTERNATE PRINCIPLE <-> BACKGROUND");
 			 seekBackgroundWork ^= true;
+			 if (seekBackgroundWork){
+				 full_log("ALTERNATE  to BACKGROUND work");
+			 }else{
+				 full_log("ALTERNATE  to PRINCIPLE work");
+			 }
 
 			}
 		} catch (Exception e) {
@@ -215,6 +220,7 @@ public class Pamela {
 				log('h');
 				offer.readNotice();			
 				offer.makeDecision();
+				log("Decision: "+offer.getDecisionSubmit());
 				if ((!offer.getDecisionSubmit()) || (offer.getHasBeenSubmitted())) {
 					// DO NOT SUBMIT THIS OFFER
 					continue;
