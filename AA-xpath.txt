@@ -1,0 +1,58 @@
+AA XPATH LINKS
+------------
+document.login.username
+//input[@id='username']
+//div[@id='mainContent']/table/tbody/tr/td/div/table/tbody/tr/td[2]/table/tbody/tr[2]/td/input
+//input
+document.login.elements[0]
+
+
+Pass
+--------
+//input[@id='password']
+
+
+LINK ON TOP OFFER:
+---------------------
+css=td.bd_title > a
+//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[3]/a
+//a[contains(@href, '/projects/?view=breakdowns&breakdown=532021&region=2')]
+//td[3]/a
+
+
+TOP OFFER:
+-----------
+SUBMITTED:  - has CHECK IMAGE AT 
+//tbody/tr[2]/td[1] 
+
+
+DATE:
+//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[2]
+
+TITLE:
+//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[3]/a
+
+TYPE:
+ 
+//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[4]
+
+CASTING DIR:
+//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[5]
+
+START DATE:
+//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[6]
+
+UNION:
+//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td[7]
+
+
+STAR ON LEFT:
+-----------------
+tbody/tr.element/td.submitted/img
+css=td.submitted > img[alt="Submitted On Project"]
+xpath=(//img[@alt='Submitted On Project'])[2]
+//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td/img
+
+VERIFY REGION NEW YORK
+---------
+//p[@id='breadcrumb']

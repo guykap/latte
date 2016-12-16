@@ -30,6 +30,7 @@ add shootdate to decision making in the event i;m' already booked on a certain d
 I will be able to read from any browser the latest updates.
 -Also there will be a combo box  / text input  where i will assign the setup flags to change the logging, decision making 
 simple changes like : "SUBMIT TO ALL" / "SUBMIT ONLY TO MALE" / " ONLY TO SPECIFIC"/"ONLY UNION "
+-use parser (maybe p ) to parse the logs and create a simple to look at chart of what whs asbmitted and how many errors were there.
 
 
 TODO
