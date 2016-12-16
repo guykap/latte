@@ -133,12 +133,12 @@ public class Pamela {
 				assertTrue(isElementPresent(By.xpath("//div[@id='mainContent']/div[5]/table/tbody/tr[2]/td/img")));
 				// the green button is there SO :
 				log("This project saved as  " + offer.getOfferId() + " has been submitted before.");
-				offer = null;
+				//offer = null;
 
 				// refresh page to allow new offers to be displayed
 				nap();
 				log("Refresh page");
-				driver.navigate().refresh();
+				//try{	driver.navigate().refresh();}catch(Exception e){log("refresh failed");}
 				log("testing 1,2,3 will it die here?");
 				continue;
 

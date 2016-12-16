@@ -1,0 +1,23 @@
+Instance ID:
+-------------
+i-06fdffb5777ab8516
+
+PUBLIC DNS
+ec2-35-164-176-194.us-west-2.compute.amazonaws.com
+
+35.164.176.194
+
+
+ssh -i "Rachel.pem" ec2-user@ec2-35-164-176-194.us-west-2.compute.amazonaws.com
+
+public ip:
+35.164.146.175
+
+PRIVATE IP :
+172.31.13.11
+
+
+Elasic IP
+35.164.146.175
+
+===== 
