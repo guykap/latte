@@ -44,7 +44,10 @@ public class Pamela {
 	String newWindowHandler;
 	Iterator<String> windowHandlesIterator;
 	Set<String> handles;
-	private static final String OUTPUT_FILE = "C:\\Users\\me\\work\\bork\\outputFolder\\logHandler_";
+	private static final String DEFAULT_OUTPUT_FILE_WINDOWS = "C:\\Users\\me\\work\\bork\\outputFolder\\logHandler_";
+	private static final String DEFAULT_OUTPUT_FILE_LINUX = "";
+	
+	
 	static private boolean logStateFull;
 	public static Appender fh = null;
 	public static Logger logger = Logger.getLogger("MyLog");
@@ -53,10 +56,17 @@ public class Pamela {
 	public static void main(String[] args) {
 
 		try {
+			String fileOut;
+			if (args.length>0){
+				fileOut = new String (args[0]);
+			}else{
+				fileOut = new String (DEFAULT_OUTPUT_FILE_LINUX);
+			}
 			String appendixFileName = (new String((new Long(System.currentTimeMillis())).toString())).concat(".txt");
 			useSleep = true;
 			logStateFull = true;
-			fh = new FileAppender(new SimpleLayout(), (new String(OUTPUT_FILE).concat(appendixFileName)));
+			//fh = new FileAppender(new SimpleLayout(), (new String(OUTPUT_FILE).concat(appendixFileName)));
+			fh = new FileAppender(new SimpleLayout(), (new String(fileOut).concat(appendixFileName)));
 			seekBackgroundWork = true;
 			while (networkWorking()) {
 				JUnitCore jCore = new JUnitCore();
@@ -233,7 +243,7 @@ public class Pamela {
 			// end login while loop
 			break;
 		}
-		while (leftNumOfSubmittionWhileLoopsChances++ < 10) {
+		while (leftNumOfSubmittionWhileLoopsChances++ < 3) {
 			log('g');
 			// Choose from drop down list 'all roles':
 			try {
@@ -246,7 +256,7 @@ public class Pamela {
 				handleBackgroundWorkOffer(seekBackgroundWork);
 				Jobs.add(offer);
 				log('h');
-				offer.readNotice();
+			//	offer.readNotice();
 				offer.makeDecision();
 				log("Decision: " + offer.getDecisionSubmit());
 				if ((!offer.getDecisionSubmit()) || (offer.getHasBeenSubmitted())) {
@@ -686,22 +696,17 @@ public class Pamela {
 				Pamela.full_log("L: Succ on openning window to choose photo and fill talent notes.");
 				break;
 			case 'm':
-				Pamela.full_log("M: Succ Submitted: " + offer.getHasBeenSubmitted() + " SAG:" + offer.getIsSag()
-						+ " Male:" + offer.getIsMale() + " Eth:" + offer.getIsEthnicity() + "Car: " + offer.isCar
-						+ " __ " + offer.getNotice() + "Talent Notes :" + offer.getMessage());
+				log("*******SUBMITTED:");
+				Pamela.full_log("M: Succ Submitted: " +offer.getOfferProjectName() + " | " + offer.getOfferSubmittionDateTime() + " | "
+						+ offer.getOffertRate() + " | " + offer.getOfferTypeProject() + " | "
+						+ offer.getHasBeenSubmitted() + " | " + offer.getOfferListing() + "Talent Notes :" + offer.getMessage());		 
 				break;
-
 			case 'y':
 				Pamela.full_log("Parent: " + getParentWindowHandler() + " Son: " + getSonWindowHandler());
 				break;
 			case 'z':
-				Pamela.full_log("Z: Stopping");
-				log("*******SUBMITTED:");
-				log(offer.getOfferProjectName() + " | " + offer.getOfferSubmittionDateTime() + " | "
-						+ offer.getOffertRate() + " | " + offer.getOfferTypeProject() + " | "
-						+ offer.getHasBeenSubmitted() + " | " + offer.getOfferListing());
+				Pamela.full_log("Z: Stopping");	
 				break;
-
 			}
 		} else {
 			Pamela.full_log(Character.toString(stage));

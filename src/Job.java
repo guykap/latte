@@ -410,6 +410,7 @@ public class Job {
 
 	public void makeDecision() {
 		// if ((isSag)&&(isAge)&&(isMale)&&(!isCar)&&(isPayingEnough)){
+		this.setDecisionSubmit(true);
 		if ((isMale)&&(!isCar)&&(isPayingEnough)){
 		this.setDecisionSubmit(true);}
 		// }

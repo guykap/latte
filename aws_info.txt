@@ -20,4 +20,27 @@ PRIVATE IP :
 Elasic IP
 35.164.146.175
 
-===== 
+===== victiria - free tier 32 bit
+Elasic IP
+35.166.116.2
+35.166.116.2
+
+AC000419
+ACT :  0004193971
+
+Inet 
+Shadeija
+Yaneth
+mICHELE
+
+ec2-54-175-93-171.compute-1.amazonaws.com
+
+
+
+
+JULIA
+------
+Elasic IP
+ec2-34-194-244-249.compute-1.amazonaws.com
+34.194.244.249
+ 
