@@ -47,12 +47,16 @@ public class Pamela {
 	private static final String DEFAULT_OUTPUT_FILE_WINDOWS = "C:\\Users\\me\\work\\bork\\outputFolder\\logHandler_";
 	private static final String DEFAULT_OUTPUT_FILE_LINUX = "";
 	
+	private static final String DEFAULT_GECKO_DRIVER_LIBRARY = "C:\\Users\\me\\work\\fifth\\selenium\\libs\\";
+	
+	
 	
 	static private boolean logStateFull;
 	public static Appender fh = null;
 	public static Logger logger = Logger.getLogger("MyLog");
 	static public boolean seekBackgroundWork;
 
+	static String gecko_driver;
 	public static void main(String[] args) {
 
 		try {
@@ -61,6 +65,12 @@ public class Pamela {
 				fileOut = new String (args[0]);
 			}else{
 				fileOut = new String (DEFAULT_OUTPUT_FILE_LINUX);
+			}
+			
+			if(args.length>1){
+				gecko_driver = (new String(args[1])).concat("\\\\");
+			}else{
+				gecko_driver = new String(DEFAULT_GECKO_DRIVER_LIBRARY);
 			}
 			String appendixFileName = (new String((new Long(System.currentTimeMillis())).toString())).concat(".txt");
 			useSleep = true;
@@ -86,7 +96,10 @@ public class Pamela {
 
 	@Before
 	public void setUp() throws Exception {
-		System.setProperty("webdriver.gecko.driver", "C:\\Users\\me\\work\\fifth\\selenium\\libs\\geckodriver.exe");
+		 
+		gecko_driver +=  "geckodriver.exe";
+		
+		System.setProperty("webdriver.gecko.driver", gecko_driver);
 		driver = new FirefoxDriver();
 		cnBaseUrl = "http://home.castingnetworks.com";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
