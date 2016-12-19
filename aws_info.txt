@@ -44,3 +44,11 @@ Elasic IP
 ec2-34-194-244-249.compute-1.amazonaws.com
 34.194.244.249
  
+
+WIN - Julia1
+ec2-54-175-93-171.compute-1.amazonaws.com
+administrator
+IG-i9qHn!YIMQP;h8DSEwr4QRt8$*=mB
+
+i-02fb651de6e305a6c
+ec2-52-23-251-121.compute-1.amazonaws.com

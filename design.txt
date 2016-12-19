@@ -31,9 +31,10 @@ I will be able to read from any browser the latest updates.
 -Also there will be a combo box  / text input  where i will assign the setup flags to change the logging, decision making 
 simple changes like : "SUBMIT TO ALL" / "SUBMIT ONLY TO MALE" / " ONLY TO SPECIFIC"/"ONLY UNION "
 -use parser (maybe p ) to parse the logs and create a simple to look at chart of what whs asbmitted and how many errors were there.
-
-
-TODO
+-add a function get_Time() - that returns the current time in NY.maybe via a json web api
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp
+-right now only looking at top offer. We should look at the top 10 offers
+-list of banned productions.TODO
 -------------
 TODO -SQL DB on cloud.
 -Clean Code - functions , clear working 
